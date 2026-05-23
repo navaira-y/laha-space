@@ -346,3 +346,50 @@ ul{list-style:none;}
   .admin-main{margin-left:0;}
   .container{padding:0 20px;}
 }
+
+/* ─── Fixes ──────────────────────────────────────────────────── */
+
+/* 7th vetting step centered in middle column */
+.vetting__step:last-child {
+  grid-column: 2;
+  background: linear-gradient(135deg, rgba(47,135,125,0.04), rgba(212,165,116,0.06));
+}
+
+/* Remove scroll hint */
+.hero__scroll { display: none; }
+
+/* Sand button */
+.btn--sand {
+  background: var(--sand);
+  color: #fff;
+  border-color: var(--sand);
+}
+.btn--sand:hover {
+  background: #c49060;
+  border-color: #c49060;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(212,165,116,0.35);
+}
+
+/* Nav apply button sand */
+.nav__links .btn--sand {
+  font-size: 14px;
+}
+
+/* Hero visual float animation */
+.hero__visual-core {
+  animation: float 4s ease-in-out infinite;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.hero__badge--1 {
+  animation: float 4s ease-in-out infinite;
+  animation-delay: 0.5s;
+}
+.hero__badge--2 {
+  animation: float 4s ease-in-out infinite;
+  animation-delay: 1s;
+}
