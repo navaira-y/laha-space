@@ -395,5 +395,14 @@ ul{list-style:none;}
 }
 
 /* vetting spacer */
-.vetting__spacer{background:var(--white);opacity:0.4;}
-.vetting__step--final{background:linear-gradient(135deg,rgba(47,135,125,0.05),rgba(212,165,116,0.07));}
+.vetting__spacer{background:var(--white);}
+.vetting__step--final{background:var(--white);}
+
+/* tasbih image in hero */
+.hero__tasbih-img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  border-radius: 50%;
+  filter: drop-shadow(0 4px 12px rgba(47,135,125,0.15));
+}
