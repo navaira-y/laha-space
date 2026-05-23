@@ -1,67 +1,139 @@
 <%- include('partials/public-head', { title: 'Find a Teacher' }) %>
 
 <section class="hero">
+  <div class="hero__orb hero__orb--1"></div>
+  <div class="hero__orb hero__orb--2"></div>
+  <div class="hero__orb hero__orb--3"></div>
+
   <div class="container hero__inner">
-    <div class="hero__tag">A space for her</div>
-    <h1 class="hero__title">Learn Quran from a<br/>teacher you can trust</h1>
-    <p class="hero__desc">Every teacher on Laha Space has been personally vetted by our team. You focus on learning — we handle the trust.</p>
-    <a href="#teachers" class="btn btn--primary btn--lg">Browse Teachers</a>
+    <div class="hero__content">
+      <div class="hero__eyebrow reveal-up">
+        <span class="hero__eyebrow-line"></span>
+        A space for her
+        <span class="hero__eyebrow-line"></span>
+      </div>
+      <h1 class="hero__title reveal-up" style="animation-delay:.1s">
+        Learn Quran from a teacher
+        <span class="hero__title-em">you can trust</span>
+      </h1>
+      <p class="hero__desc reveal-up" style="animation-delay:.2s">
+        Every teacher on Laha Space has been personally vetted by our team.<br class="hero__br"/> You focus on learning. We handle the trust.
+      </p>
+      <div class="hero__actions reveal-up" style="animation-delay:.3s">
+        <a href="#teachers" class="btn btn--primary btn--lg">Browse Teachers</a>
+        <a href="/apply" class="btn btn--ghost btn--lg">Teach with us</a>
+      </div>
+    </div>
+
+    <div class="hero__visual reveal-up" style="animation-delay:.2s">
+      <div class="hero__ring hero__ring--outer"></div>
+      <div class="hero__ring hero__ring--mid"></div>
+      <div class="hero__ring hero__ring--inner"></div>
+      <div class="hero__visual-core">
+        <span class="hero__arabic">لها</span>
+        <span class="hero__arabic-sub">For Her</span>
+      </div>
+      <div class="hero__badge hero__badge--1">
+        <span class="hero__badge-num">7</span>
+        <span class="hero__badge-label">Vetting Stages</span>
+      </div>
+      <div class="hero__badge hero__badge--2">
+        <span class="hero__badge-icon">✓</span>
+        <span class="hero__badge-label">Vetted Teachers</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero__scroll">
+    <div class="hero__scroll-bar"></div>
+    <span>Scroll to explore</span>
   </div>
 </section>
 
-<section class="vetting">
+<section class="trust-strip">
   <div class="container">
-    <div class="vetting__header">
-      <div class="section-tag">How we choose our teachers</div>
+    <div class="trust-strip__inner">
+      <div class="trust-strip__item reveal-up">
+        <div class="trust-strip__icon">◆</div>
+        <div>
+          <strong>Personally vetted</strong>
+          <p>Every teacher reviewed by our team</p>
+        </div>
+      </div>
+      <div class="trust-strip__sep"></div>
+      <div class="trust-strip__item reveal-up" style="animation-delay:.1s">
+        <div class="trust-strip__icon">◆</div>
+        <div>
+          <strong>Seven stage process</strong>
+          <p>No shortcuts, no exceptions</p>
+        </div>
+      </div>
+      <div class="trust-strip__sep"></div>
+      <div class="trust-strip__item reveal-up" style="animation-delay:.2s">
+        <div class="trust-strip__icon">◆</div>
+        <div>
+          <strong>Qualified teachers</strong>
+          <p>Ijazah holders and certified educators</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="vetting" id="vetting">
+  <div class="container">
+    <div class="vetting__header reveal-up">
+      <div class="section-eyebrow">How we choose our teachers</div>
       <h2 class="section-title">Seven stages. No shortcuts.</h2>
       <p class="section-desc">Every teacher you see here has passed through our full vetting process. Here is exactly what that means.</p>
     </div>
+
     <div class="vetting__steps">
-      <div class="vetting__step">
-        <div class="vetting__num">01</div>
-        <div class="vetting__content">
+      <div class="vetting__step reveal-up">
+        <div class="vetting__step-num">01</div>
+        <div class="vetting__step-body">
           <h4>Application</h4>
-          <p>The teacher submits a detailed application including their qualifications, ijazah, and teaching experience.</p>
+          <p>The teacher submits a detailed application including their qualifications, ijazah and teaching experience.</p>
         </div>
       </div>
-      <div class="vetting__step">
-        <div class="vetting__num">02</div>
-        <div class="vetting__content">
+      <div class="vetting__step reveal-up" style="animation-delay:.05s">
+        <div class="vetting__step-num">02</div>
+        <div class="vetting__step-body">
           <h4>Initial Screening</h4>
           <p>Our team reviews all submitted documents and qualifications before moving forward.</p>
         </div>
       </div>
-      <div class="vetting__step">
-        <div class="vetting__num">03</div>
-        <div class="vetting__content">
+      <div class="vetting__step reveal-up" style="animation-delay:.1s">
+        <div class="vetting__step-num">03</div>
+        <div class="vetting__step-body">
           <h4>Interview</h4>
-          <p>A one-on-one interview to understand the teacher's background, approach, and values.</p>
+          <p>A one-on-one interview to understand the teacher's background, approach and values.</p>
         </div>
       </div>
-      <div class="vetting__step">
-        <div class="vetting__num">04</div>
-        <div class="vetting__content">
+      <div class="vetting__step reveal-up" style="animation-delay:.15s">
+        <div class="vetting__step-num">04</div>
+        <div class="vetting__step-body">
           <h4>Interview Review</h4>
           <p>The team carefully evaluates all interview notes before proceeding to the practical stage.</p>
         </div>
       </div>
-      <div class="vetting__step">
-        <div class="vetting__num">05</div>
-        <div class="vetting__content">
+      <div class="vetting__step reveal-up" style="animation-delay:.2s">
+        <div class="vetting__step-num">05</div>
+        <div class="vetting__step-body">
           <h4>Teaching Test</h4>
           <p>The teacher delivers a live teaching demonstration which is reviewed by our team.</p>
         </div>
       </div>
-      <div class="vetting__step">
-        <div class="vetting__num">06</div>
-        <div class="vetting__content">
+      <div class="vetting__step reveal-up" style="animation-delay:.25s">
+        <div class="vetting__step-num">06</div>
+        <div class="vetting__step-body">
           <h4>Training Program</h4>
           <p>Accepted teachers complete our onboarding and training program before being listed.</p>
         </div>
       </div>
-      <div class="vetting__step">
-        <div class="vetting__num">07</div>
-        <div class="vetting__content">
+      <div class="vetting__step vetting__step--final reveal-up" style="animation-delay:.3s">
+        <div class="vetting__step-num">07</div>
+        <div class="vetting__step-body">
           <h4>Fully Vetted</h4>
           <p>Only now does the teacher appear on the platform. Every teacher you see here is here for a reason.</p>
         </div>
@@ -72,31 +144,49 @@
 
 <section class="teachers-section" id="teachers">
   <div class="container">
-    <div class="teachers-section__header">
-      <div class="section-tag">Our teachers</div>
+    <div class="teachers-section__header reveal-up">
+      <div class="section-eyebrow">Our teachers</div>
       <h2 class="section-title">Meet the community</h2>
+      <p class="section-desc">Browse our vetted teachers and book a free discovery session with the one that feels right for you.</p>
     </div>
-    <div class="teacher-filters">
-      <button class="filter-btn filter-btn--active" data-category="all">All</button>
+
+    <div class="teacher-filters reveal-up">
+      <button class="filter-btn filter-btn--active" data-category="all">All teachers</button>
       <button class="filter-btn" data-category="tajweed">Tajweed</button>
       <button class="filter-btn" data-category="memorization">Memorization</button>
       <button class="filter-btn" data-category="beginner">Beginner</button>
     </div>
+
     <div class="teacher-grid" id="teacherGrid">
-      <div class="loading-state">Loading teachers...</div>
+      <div class="grid-loading">
+        <div class="grid-loading__dot"></div>
+        <div class="grid-loading__dot"></div>
+        <div class="grid-loading__dot"></div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- Teacher Detail Modal -->
+<section class="apply-cta reveal-up">
+  <div class="container">
+    <div class="apply-cta__inner">
+      <div class="apply-cta__content">
+        <div class="section-eyebrow" style="color:var(--sand)">Are you a teacher?</div>
+        <h2 class="apply-cta__title">Join our community of vetted teachers</h2>
+        <p>If you hold an ijazah or have verified qualifications and are passionate about teaching Quran to women, we would love to hear from you.</p>
+      </div>
+      <a href="/apply" class="btn btn--white btn--lg">Apply to teach</a>
+    </div>
+  </div>
+</section>
+
 <div class="modal-overlay" id="teacherModal" hidden>
   <div class="modal">
-    <button class="modal__close" id="modalClose" aria-label="Close">&times;</button>
+    <button class="modal__close" id="modalClose">&times;</button>
     <div class="modal__body" id="modalBody"></div>
   </div>
 </div>
 
-<!-- Booking Modal -->
 <div class="modal-overlay" id="bookingModal" hidden>
   <div class="modal modal--booking">
     <button class="modal__close" id="bookingModalClose">&times;</button>

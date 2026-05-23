@@ -385,3 +385,22 @@ function formatTime(t) {
 function formatDateFull(d) {
   return new Date(d + 'T00:00:00').toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 }
+
+/* ─── Scroll reveal ─────────────────────────────────────────── */
+function initScrollReveal() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el));
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initScrollReveal();
+  // Re-observe after teacher cards load
+  setTimeout(initScrollReveal, 1500);
+});
