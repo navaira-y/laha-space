@@ -66,7 +66,7 @@ const bookingLimiter = rateLimit({
 
 const reviewLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour
-  max: 5,
+  max: 15,
   standardHeaders: true,
   legacyHeaders: false,
   message: { error: 'Too many review submissions, please try again later.' }
