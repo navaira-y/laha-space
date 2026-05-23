@@ -2,19 +2,33 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs');
+const bcrypt = require('bcryptjs');
 const supabase = require('../database');
 const { requireAdmin } = require('../middleware/auth');
 
 const STAGES = ['','Application Received','Initial Screening','Interview Scheduled','Interview Completed','Teaching Test','Training Program','Fully Vetted'];
 
+// Allowed file types for admin photo uploads (teacher profile photos)
+const photoFilter = (req, file, cb) => {
+  const allowed = ['.jpg', '.jpeg', '.png', '.webp'];
+  const ext = path.extname(file.originalname).toLowerCase();
+  if (allowed.includes(ext)) return cb(null, true);
+  cb(new Error('Only JPG, PNG, or WEBP images are allowed.'));
+};
+
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, path.join(__dirname, '../uploads')),
+  destination: (req, file, cb) => {
+    const dir = path.join(__dirname, '../uploads/photos');
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    cb(null, dir);
+  },
   filename: (req, file, cb) => {
     const u = Date.now() + '-' + Math.round(Math.random()*1e9);
-    cb(null, u + path.extname(file.originalname));
+    cb(null, u + path.extname(file.originalname).toLowerCase());
   }
 });
-const upload = multer({ storage, limits: { fileSize: 5*1024*1024 } });
+const upload = multer({ storage, limits: { fileSize: 5*1024*1024 }, fileFilter: photoFilter });
 
 // Auth
 router.get('/login', (req, res) => {
@@ -22,17 +36,44 @@ router.get('/login', (req, res) => {
   res.render('admin/login', { error: null });
 });
 
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
   const { email, password } = req.body;
-  if (email !== process.env.ADMIN_EMAIL || password !== process.env.ADMIN_PASSWORD) {
+
+  // Check email first
+  if (email !== process.env.ADMIN_EMAIL) {
     return res.render('admin/login', { error: 'Invalid email or password.' });
   }
+
+  // Compare password - supports both plain text (legacy) and bcrypt hash
+  const storedPassword = process.env.ADMIN_PASSWORD || '';
+  let passwordMatch = false;
+
+  if (storedPassword.startsWith('$2')) {
+    // It's a bcrypt hash - compare properly
+    passwordMatch = await bcrypt.compare(password, storedPassword);
+  } else {
+    // Plain text - direct compare (legacy support, works as before)
+    passwordMatch = (password === storedPassword);
+  }
+
+  if (!passwordMatch) {
+    return res.render('admin/login', { error: 'Invalid email or password.' });
+  }
+
   req.session.adminId = 1;
   req.session.adminEmail = email;
   res.redirect('/admin');
 });
 
 router.get('/logout', (req, res) => { req.session.destroy(); res.redirect('/admin/login'); });
+
+// Protected document download - only admins can access uploaded documents
+router.get('/documents/:filename', requireAdmin, (req, res) => {
+  const filename = path.basename(req.params.filename); // prevent path traversal
+  const filePath = path.join(__dirname, '../uploads/documents', filename);
+  if (!fs.existsSync(filePath)) return res.status(404).send('File not found');
+  res.download(filePath);
+});
 
 // Dashboard
 router.get('/', requireAdmin, async (req, res) => {
@@ -117,7 +158,7 @@ router.post('/teachers', requireAdmin, upload.single('photo'), async (req, res) 
   const { name, email, bio, qualifications, experience, laha_endorsement } = req.body;
   const categories = [].concat(req.body.categories||[]);
   const languages = [].concat(req.body.languages||[]);
-  const photoPath = req.file ? '/uploads/' + req.file.filename : null;
+  const photoPath = req.file ? '/uploads/photos/' + req.file.filename : null;
   await supabase.from('teachers').insert({ name, email, photo_path: photoPath, bio, qualifications, experience, categories, languages, laha_endorsement, is_published: false });
   res.redirect('/admin/teachers');
 });
@@ -134,7 +175,7 @@ router.post('/teachers/:id', requireAdmin, upload.single('photo'), async (req, r
   const categories = [].concat(req.body.categories||[]);
   const languages = [].concat(req.body.languages||[]);
   const { data: t } = await supabase.from('teachers').select('photo_path').eq('id', req.params.id).single();
-  const photoPath = req.file ? '/uploads/' + req.file.filename : t.photo_path;
+  const photoPath = req.file ? '/uploads/photos/' + req.file.filename : t.photo_path;
   await supabase.from('teachers').update({ name, email, photo_path: photoPath, bio, qualifications, experience, categories, languages, laha_endorsement, updated_at: new Date() }).eq('id', req.params.id);
   res.redirect('/admin/teachers/' + req.params.id + '/edit');
 });

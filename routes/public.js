@@ -2,30 +2,73 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs');
 const supabase = require('../database');
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, path.join(__dirname, '../uploads')),
+// Allowed types for teacher application uploads
+const allowedPhotoTypes = ['.jpg', '.jpeg', '.png', '.webp'];
+const allowedDocTypes  = ['.pdf', '.jpg', '.jpeg', '.png'];
+
+const photoFilter = (req, file, cb) => {
+  const ext = path.extname(file.originalname).toLowerCase();
+  if (allowedPhotoTypes.includes(ext)) return cb(null, true);
+  cb(new Error('Photo must be JPG, PNG, or WEBP.'));
+};
+
+const docFilter = (req, file, cb) => {
+  const ext = path.extname(file.originalname).toLowerCase();
+  if (allowedDocTypes.includes(ext)) return cb(null, true);
+  cb(new Error('Documents must be PDF or image files (JPG, PNG).'));
+};
+
+const photoStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const dir = path.join(__dirname, '../uploads/photos');
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    cb(null, dir);
+  },
   filename: (req, file, cb) => {
     const unique = Date.now() + '-' + Math.round(Math.random() * 1e9);
-    cb(null, unique + path.extname(file.originalname));
+    cb(null, unique + path.extname(file.originalname).toLowerCase());
   }
 });
-const upload = multer({ storage, limits: { fileSize: 10 * 1024 * 1024 } });
+
+const docStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const dir = path.join(__dirname, '../uploads/documents');
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    cb(null, dir);
+  },
+  filename: (req, file, cb) => {
+    const unique = Date.now() + '-' + Math.round(Math.random() * 1e9);
+    cb(null, unique + path.extname(file.originalname).toLowerCase());
+  }
+});
+
+const uploadPhoto = multer({ storage: photoStorage, limits: { fileSize: 5 * 1024 * 1024 }, fileFilter: photoFilter });
+const uploadDocs  = multer({ storage: docStorage,  limits: { fileSize: 10 * 1024 * 1024 }, fileFilter: docFilter });
+
+// Handle mixed fields with separate storage/filter per field
+const uploadApplication = (req, res, next) => {
+  uploadPhoto.fields([{ name: 'photo', maxCount: 1 }])(req, res, (err) => {
+    if (err) return res.render('apply', { success: false, error: err.message });
+    uploadDocs.fields([{ name: 'documents', maxCount: 10 }])(req, res, (err2) => {
+      if (err2) return res.render('apply', { success: false, error: err2.message });
+      next();
+    });
+  });
+};
 
 router.get('/', (req, res) => res.render('index'));
 
 router.get('/apply', (req, res) => res.render('apply', { success: false, error: null }));
 
-router.post('/apply', upload.fields([
-  { name: 'photo', maxCount: 1 },
-  { name: 'documents', maxCount: 10 }
-]), async (req, res) => {
+router.post('/apply', uploadApplication, async (req, res) => {
   try {
     const { name, email, phone, country_city, qualifications, experience, availability_text, extra_info } = req.body;
     const categories = [].concat(req.body.categories || []);
-    const languages = [].concat(req.body.languages || []);
-    const photoPath = req.files?.photo?.[0] ? '/uploads/' + req.files.photo[0].filename : null;
+    const languages  = [].concat(req.body.languages  || []);
+    const photoPath  = req.files?.photo?.[0] ? '/uploads/photos/' + req.files.photo[0].filename : null;
 
     const { data: applicant, error } = await supabase.from('applicants').insert({
       name, email, phone, country_city,
@@ -41,7 +84,7 @@ router.post('/apply', upload.fields([
     if (req.files?.documents) {
       const docs = req.files.documents.map(f => ({
         applicant_id: applicant.id,
-        file_path: '/uploads/' + f.filename,
+        file_path: '/admin/documents/' + f.filename,
         original_name: f.originalname
       }));
       await supabase.from('applicant_documents').insert(docs);
