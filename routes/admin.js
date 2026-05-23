@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const bcrypt = require('bcryptjs');
 const multer = require('multer');
 const path = require('path');
 const supabase = require('../database');
@@ -23,13 +22,13 @@ router.get('/login', (req, res) => {
   res.render('admin/login', { error: null });
 });
 
-router.post('/login', async (req, res) => {
+router.post('/login', (req, res) => {
   const { email, password } = req.body;
-  const { data: admin } = await supabase.from('admins').select('*').eq('email', email).single();
-  if (!admin || !bcrypt.compareSync(password, admin.password_hash))
+  if (email !== process.env.ADMIN_EMAIL || password !== process.env.ADMIN_PASSWORD) {
     return res.render('admin/login', { error: 'Invalid email or password.' });
-  req.session.adminId = admin.id;
-  req.session.adminEmail = admin.email;
+  }
+  req.session.adminId = 1;
+  req.session.adminEmail = email;
   res.redirect('/admin');
 });
 
