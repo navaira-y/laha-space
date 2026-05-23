@@ -111,7 +111,7 @@ ul{list-style:none;}
 /* ─── Vetting ────────────────────────────────────────────────── */
 .vetting{padding:100px 0;background:var(--white);}
 .vetting__header{max-width:560px;margin-bottom:72px;}
-.vetting__steps{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1px;background:var(--gray);border:1px solid var(--gray);border-radius:16px;overflow:hidden;}
+.vetting__steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--gray);border:1px solid var(--gray);border-radius:16px;overflow:hidden;}
 .vetting__step{background:var(--white);padding:36px;display:flex;gap:24px;align-items:flex-start;transition:background var(--transition);}
 .vetting__step:hover{background:#f7fbfa;}
 .vetting__step--final{background:linear-gradient(135deg,rgba(47,135,125,0.04),rgba(212,165,116,0.04));}
@@ -393,3 +393,7 @@ ul{list-style:none;}
   animation: float 4s ease-in-out infinite;
   animation-delay: 1s;
 }
+
+/* vetting spacer */
+.vetting__spacer{background:var(--white);opacity:0.4;}
+.vetting__step--final{background:linear-gradient(135deg,rgba(47,135,125,0.05),rgba(212,165,116,0.07));}
