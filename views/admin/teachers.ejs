@@ -1,0 +1,59 @@
+<%- include('../partials/admin-head', { title: 'Teachers', activePage: 'teachers' }) %>
+
+<div class="admin-page">
+  <div class="admin-page__header">
+    <h1 class="admin-page__title">Teachers</h1>
+    <a href="/admin/teachers/new" class="btn btn--primary">+ New teacher</a>
+  </div>
+
+  <div class="admin-card">
+    <% if(teachers.length === 0) { %>
+    <p class="empty-state">No teacher profiles yet. Create a profile from a Stage 7 applicant or add one manually.</p>
+    <% } else { %>
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Categories</th>
+          <th>Languages</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% teachers.forEach(t => { %>
+        <tr>
+          <td>
+            <div class="teacher-row">
+              <% if(t.photo_path) { %><img src="<%= t.photo_path %>" class="teacher-row__photo" alt="" /><% } %>
+              <strong><%= t.name %></strong>
+            </div>
+          </td>
+          <td>
+            <% const cats = Array.isArray(t.categories) ? t.categories : (t.categories || []); %>
+            <% cats.forEach(c => { %><span class="tag tag--sm"><%= c %></span><% }) %>
+          </td>
+          <td>
+            <% const langs = Array.isArray(t.languages) ? t.languages : (t.languages || []); %>
+            <%= langs.join(', ') %>
+          </td>
+          <td>
+            <span class="status-badge <%= t.is_published ? 'status-badge--live' : 'status-badge--draft' %>">
+              <%= t.is_published ? 'Published' : 'Draft' %>
+            </span>
+          </td>
+          <td class="table-actions">
+            <a href="/admin/teachers/<%= t.id %>/edit" class="table-link">Edit</a>
+            <form action="/admin/teachers/<%= t.id %>/publish" method="POST" style="display:inline">
+              <button class="table-link table-link--btn"><%= t.is_published ? 'Unpublish' : 'Publish' %></button>
+            </form>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    <% } %>
+  </div>
+</div>
+
+<%- include('../partials/admin-foot') %>

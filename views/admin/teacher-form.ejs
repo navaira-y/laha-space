@@ -1,0 +1,157 @@
+<%- include('../partials/admin-head', { title: teacher ? 'Edit ' + teacher.name : 'New Teacher', activePage: 'teachers' }) %>
+
+<div class="admin-page">
+  <div class="admin-page__header">
+    <div>
+      <a href="/admin/teachers" class="back-link">← Teachers</a>
+      <h1 class="admin-page__title"><%= teacher ? 'Edit ' + teacher.name : 'New Teacher' %></h1>
+    </div>
+    <% if(teacher) { %>
+    <form action="/admin/teachers/<%= teacher.id %>/publish" method="POST">
+      <button class="btn <%= teacher.is_published ? 'btn--outline' : 'btn--primary' %>">
+        <%= teacher.is_published ? 'Unpublish' : 'Publish' %>
+      </button>
+    </form>
+    <% } %>
+  </div>
+
+  <div class="detail-grid">
+    <div class="detail-main">
+      <div class="admin-card">
+        <div class="admin-card__header"><h2 class="admin-card__title">Profile details</h2></div>
+        <form class="form" action="<%= teacher ? '/admin/teachers/' + teacher.id : '/admin/teachers' %>" method="POST" enctype="multipart/form-data">
+          <div class="form__row">
+            <div class="form__group">
+              <label class="form__label">Full name *</label>
+              <input class="form__input" type="text" name="name" value="<%= teacher ? teacher.name : '' %>" required />
+            </div>
+            <div class="form__group">
+              <label class="form__label">Email *</label>
+              <input class="form__input" type="email" name="email" value="<%= teacher ? teacher.email : '' %>" required />
+            </div>
+          </div>
+
+          <div class="form__group">
+            <label class="form__label">Photo</label>
+            <% if(teacher && teacher.photo_path) { %>
+            <img src="<%= teacher.photo_path %>" style="width:80px;height:80px;border-radius:50%;object-fit:cover;margin-bottom:8px;display:block" />
+            <% } %>
+            <input class="form__input form__input--file" type="file" name="photo" accept="image/*" />
+          </div>
+
+          <div class="form__group">
+            <label class="form__label">Bio</label>
+            <textarea class="form__input form__textarea" name="bio" rows="4"><%= teacher ? teacher.bio || '' : '' %></textarea>
+          </div>
+
+          <div class="form__group">
+            <label class="form__label">Qualifications</label>
+            <textarea class="form__input form__textarea" name="qualifications" rows="3"><%= teacher ? teacher.qualifications || '' : '' %></textarea>
+          </div>
+
+          <div class="form__group">
+            <label class="form__label">Experience</label>
+            <textarea class="form__input form__textarea" name="experience" rows="3"><%= teacher ? teacher.experience || '' : '' %></textarea>
+          </div>
+
+          <div class="form__group">
+            <label class="form__label">Laha endorsement <span class="form__hint">(shown on teacher profile — written by your team)</span></label>
+            <textarea class="form__input form__textarea" name="laha_endorsement" rows="3"><%= teacher ? teacher.laha_endorsement || '' : '' %></textarea>
+          </div>
+
+          <div class="form__group">
+            <label class="form__label">Categories</label>
+            <div class="checkbox-group">
+              <% const selCats = teacher ? (Array.isArray(teacher.categories) ? teacher.categories : (teacher.categories || [])) : []; %>
+              <label class="checkbox-label"><input type="checkbox" name="categories" value="tajweed" <%= selCats.includes('tajweed') ? 'checked' : '' %> /><span>Tajweed</span></label>
+              <label class="checkbox-label"><input type="checkbox" name="categories" value="memorization" <%= selCats.includes('memorization') ? 'checked' : '' %> /><span>Memorization</span></label>
+              <label class="checkbox-label"><input type="checkbox" name="categories" value="beginner" <%= selCats.includes('beginner') ? 'checked' : '' %> /><span>Beginner</span></label>
+            </div>
+          </div>
+
+          <div class="form__group">
+            <label class="form__label">Languages</label>
+            <div class="checkbox-group">
+              <% const selLangs = teacher ? (Array.isArray(teacher.languages) ? teacher.languages : (teacher.languages || [])) : []; %>
+              <label class="checkbox-label"><input type="checkbox" name="languages" value="Arabic" <%= selLangs.includes('Arabic') ? 'checked' : '' %> /><span>Arabic</span></label>
+              <label class="checkbox-label"><input type="checkbox" name="languages" value="English" <%= selLangs.includes('English') ? 'checked' : '' %> /><span>English</span></label>
+              <label class="checkbox-label"><input type="checkbox" name="languages" value="Urdu" <%= selLangs.includes('Urdu') ? 'checked' : '' %> /><span>Urdu</span></label>
+              <label class="checkbox-label"><input type="checkbox" name="languages" value="French" <%= selLangs.includes('French') ? 'checked' : '' %> /><span>French</span></label>
+              <label class="checkbox-label"><input type="checkbox" name="languages" value="Other" <%= selLangs.includes('Other') ? 'checked' : '' %> /><span>Other</span></label>
+            </div>
+          </div>
+
+          <button class="btn btn--primary">Save profile</button>
+        </form>
+      </div>
+
+      <% if(teacher) { %>
+      <div class="admin-card">
+        <div class="admin-card__header">
+          <h2 class="admin-card__title">Weekly availability</h2>
+          <p class="admin-card__sub">Set when this teacher is available. Students will see and book 1-hour slots within these windows.</p>
+        </div>
+        <form action="/admin/teachers/<%= teacher.id %>/availability" method="POST" class="form" id="availForm">
+          <div id="availRows">
+            <% const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']; %>
+            <% if(availability.length > 0) { %>
+              <% availability.forEach(a => { %>
+              <div class="avail-row">
+                <select class="form__input" name="days">
+                  <option value="">— Day —</option>
+                  <% days.forEach((d,i) => { %><option value="<%= i %>" <%= a.day_of_week == i ? 'selected' : '' %>><%= d %></option><% }) %>
+                </select>
+                <input class="form__input" type="time" name="start_times" value="<%= a.start_time %>" />
+                <span>to</span>
+                <input class="form__input" type="time" name="end_times" value="<%= a.end_time %>" />
+                <button type="button" class="btn btn--danger btn--sm remove-row">✕</button>
+              </div>
+              <% }) %>
+            <% } else { %>
+              <div class="avail-row">
+                <select class="form__input" name="days">
+                  <option value="">— Day —</option>
+                  <% days.forEach((d,i) => { %><option value="<%= i %>"><%= d %></option><% }) %>
+                </select>
+                <input class="form__input" type="time" name="start_times" />
+                <span>to</span>
+                <input class="form__input" type="time" name="end_times" />
+                <button type="button" class="btn btn--danger btn--sm remove-row">✕</button>
+              </div>
+            <% } %>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:12px">
+            <button type="button" class="btn btn--outline btn--sm" id="addRow">+ Add time window</button>
+            <button class="btn btn--primary btn--sm">Save availability</button>
+          </div>
+        </form>
+      </div>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+<script>
+const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+document.getElementById('addRow')?.addEventListener('click', () => {
+  const row = document.createElement('div');
+  row.className = 'avail-row';
+  row.innerHTML = `
+    <select class="form__input" name="days">
+      <option value="">— Day —</option>
+      ${days.map((d,i) => `<option value="${i}">${d}</option>`).join('')}
+    </select>
+    <input class="form__input" type="time" name="start_times" />
+    <span>to</span>
+    <input class="form__input" type="time" name="end_times" />
+    <button type="button" class="btn btn--danger btn--sm remove-row">✕</button>
+  `;
+  document.getElementById('availRows').appendChild(row);
+});
+
+document.getElementById('availRows')?.addEventListener('click', e => {
+  if (e.target.classList.contains('remove-row')) e.target.closest('.avail-row').remove();
+});
+</script>
+
+<%- include('../partials/admin-foot') %>

@@ -1,0 +1,58 @@
+<%- include('../partials/admin-head', { title: 'Reviews', activePage: 'reviews' }) %>
+
+<div class="admin-page">
+  <div class="admin-page__header">
+    <h1 class="admin-page__title">Reviews</h1>
+  </div>
+
+  <div class="admin-card">
+    <% if(reviews.length === 0) { %>
+    <p class="empty-state">No reviews yet.</p>
+    <% } else { %>
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Student</th>
+          <th>Teacher</th>
+          <th>Rating</th>
+          <th>Review</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% reviews.forEach(r => { %>
+        <tr>
+          <td><%= r.student_name %></td>
+          <td><%= r.teachers ? r.teachers.name : '—' %></td>
+          <td>
+            <div class="star-display">
+              <% for(let i=1;i<=5;i++) { %>
+              <span class="<%= i <= r.rating ? 'star star--filled' : 'star' %>">★</span>
+              <% } %>
+            </div>
+          </td>
+          <td><%= r.review_text %></td>
+          <td><%= new Date(r.created_at).toLocaleDateString('en-GB') %></td>
+          <td><span class="status-badge <%= r.is_approved ? 'status-badge--live' : 'status-badge--draft' %>"><%= r.is_approved ? 'Approved' : 'Pending' %></span></td>
+          <td>
+            <% if(!r.is_approved) { %>
+            <form action="/admin/reviews/<%= r.id %>/approve" method="POST" style="display:inline">
+              <button class="btn btn--primary btn--sm">Approve</button>
+            </form>
+            <% } else { %>
+            <form action="/admin/reviews/<%= r.id %>/hide" method="POST" style="display:inline">
+              <button class="btn btn--outline btn--sm">Hide</button>
+            </form>
+            <% } %>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    <% } %>
+  </div>
+</div>
+
+<%- include('../partials/admin-foot') %>

@@ -1,0 +1,102 @@
+<%- include('../partials/admin-head', { title: applicant.name, activePage: 'applicants' }) %>
+
+<div class="admin-page">
+  <div class="admin-page__header">
+    <div>
+      <a href="/admin/applicants" class="back-link">← Applicants</a>
+      <h1 class="admin-page__title"><%= applicant.name %></h1>
+      <p class="admin-page__sub"><%= applicant.email %> · <%= applicant.phone %> · <%= applicant.country_city %></p>
+    </div>
+    <% if(applicant.stage === 7 && applicant.status === 'active') { %>
+    <form action="/admin/applicants/<%= applicant.id %>/create-profile" method="POST">
+      <button class="btn btn--primary">Create Teacher Profile</button>
+    </form>
+    <% } %>
+  </div>
+
+  <div class="detail-grid">
+    <div class="detail-main">
+      <div class="admin-card">
+        <div class="admin-card__header"><h2 class="admin-card__title">Details</h2></div>
+        <dl class="detail-list">
+          <dt>Qualifications</dt>
+          <dd><%= applicant.qualifications || '—' %></dd>
+          <dt>Experience</dt>
+          <dd><%= applicant.experience || '—' %></dd>
+          <dt>Categories</dt>
+          <dd>
+            <% const cats = Array.isArray(applicant.categories) ? applicant.categories : (applicant.categories || []); %>
+            <% cats.forEach(c => { %><span class="tag"><%= c %></span><% }) %>
+          </dd>
+          <dt>Languages</dt>
+          <dd>
+            <% const langs = Array.isArray(applicant.languages) ? applicant.languages : (applicant.languages || []); %>
+            <% langs.forEach(l => { %><span class="tag"><%= l %></span><% }) %>
+          </dd>
+          <dt>Availability</dt>
+          <dd><%= applicant.availability_text || '—' %></dd>
+          <dt>Additional info</dt>
+          <dd><%= applicant.extra_info || '—' %></dd>
+        </dl>
+      </div>
+
+      <% if(docs.length > 0) { %>
+      <div class="admin-card">
+        <div class="admin-card__header"><h2 class="admin-card__title">Documents</h2></div>
+        <ul class="doc-list">
+          <% docs.forEach(d => { %>
+          <li><a href="<%= d.file_path %>" target="_blank" class="table-link">📄 <%= d.original_name %></a></li>
+          <% }) %>
+        </ul>
+      </div>
+      <% } %>
+
+      <div class="admin-card">
+        <div class="admin-card__header"><h2 class="admin-card__title">Notes</h2></div>
+        <form action="/admin/applicants/<%= applicant.id %>/note" method="POST" class="note-form">
+          <textarea class="form__input form__textarea" name="note" rows="3" placeholder="Add a note about this applicant..."></textarea>
+          <button class="btn btn--outline btn--sm" style="margin-top:8px">Add note</button>
+        </form>
+        <div class="notes-list">
+          <% notes.forEach(n => { %>
+          <div class="note-item">
+            <div class="note-item__meta">Stage <%= n.stage_at_time %> · <%= new Date(n.created_at).toLocaleDateString('en-GB') %></div>
+            <p class="note-item__text"><%= n.note %></p>
+          </div>
+          <% }) %>
+          <% if(notes.length === 0) { %><p class="empty-state">No notes yet.</p><% } %>
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-sidebar">
+      <div class="admin-card">
+        <div class="admin-card__header"><h2 class="admin-card__title">Current Stage</h2></div>
+        <div class="stage-display">
+          <div class="stage-display__num"><%= applicant.stage %></div>
+          <div class="stage-display__name"><%= STAGES[applicant.stage] %></div>
+        </div>
+        <form action="/admin/applicants/<%= applicant.id %>/stage" method="POST" style="margin-top:16px">
+          <select class="form__input" name="stage">
+            <% for(let i = 1; i <= 7; i++) { %>
+            <option value="<%= i %>" <%= applicant.stage == i ? 'selected' : '' %>>Stage <%= i %> — <%= STAGES[i] %></option>
+            <% } %>
+          </select>
+          <button class="btn btn--primary" style="width:100%;margin-top:8px">Move to stage</button>
+        </form>
+      </div>
+
+      <% if(applicant.status === 'active') { %>
+      <div class="admin-card admin-card--danger">
+        <div class="admin-card__header"><h2 class="admin-card__title">Not proceeding</h2></div>
+        <form action="/admin/applicants/<%= applicant.id %>/not-proceeding" method="POST">
+          <textarea class="form__input form__textarea" name="reason" rows="2" placeholder="Reason (optional)"></textarea>
+          <button class="btn btn--danger" style="width:100%;margin-top:8px" onclick="return confirm('Mark as not proceeding?')">Mark as not proceeding</button>
+        </form>
+      </div>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/admin-foot') %>

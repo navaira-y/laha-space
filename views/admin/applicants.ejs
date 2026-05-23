@@ -1,0 +1,54 @@
+<%- include('../partials/admin-head', { title: 'Applicants', activePage: 'applicants' }) %>
+
+<div class="admin-page">
+  <div class="admin-page__header">
+    <h1 class="admin-page__title">Applicants</h1>
+  </div>
+
+  <div class="filter-bar">
+    <a href="/admin/applicants" class="filter-btn <%= !selectedStage && !selectedStatus ? 'filter-btn--active' : '' %>">All active</a>
+    <% for(let i = 1; i <= 7; i++) { %>
+    <a href="/admin/applicants?stage=<%= i %>" class="filter-btn <%= selectedStage == i ? 'filter-btn--active' : '' %>">Stage <%= i %></a>
+    <% } %>
+    <a href="/admin/applicants?status=not_proceeding" class="filter-btn <%= selectedStatus === 'not_proceeding' ? 'filter-btn--active' : '' %>">Not proceeding</a>
+  </div>
+
+  <div class="admin-card">
+    <% if (applicants.length === 0) { %>
+    <p class="empty-state">No applicants found.</p>
+    <% } else { %>
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Location</th>
+          <th>Stage</th>
+          <th>Applied</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% applicants.forEach(a => { %>
+        <tr>
+          <td><strong><%= a.name %></strong></td>
+          <td><%= a.email %></td>
+          <td><%= a.country_city %></td>
+          <td>
+            <% if(a.status === 'not_proceeding') { %>
+            <span class="stage-badge stage-badge--stopped">Not proceeding</span>
+            <% } else { %>
+            <span class="stage-badge stage-badge--<%= a.stage %>">Stage <%= a.stage %></span>
+            <% } %>
+          </td>
+          <td><%= new Date(a.created_at).toLocaleDateString('en-GB') %></td>
+          <td><a href="/admin/applicants/<%= a.id %>" class="table-link">View</a></td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    <% } %>
+  </div>
+</div>
+
+<%- include('../partials/admin-foot') %>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Login · Laha Space</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body class="admin-login-page">
+  <div class="login-wrap">
+    <div class="login-brand">
+      <span class="nav__logo-laha">Laha</span><span class="nav__logo-space">Space</span>
+      <span class="login-brand__sub">Admin</span>
+    </div>
+    <% if (error) { %>
+    <div class="alert alert--error"><%= error %></div>
+    <% } %>
+    <form class="form login-form" action="/admin/login" method="POST">
+      <div class="form__group">
+        <label class="form__label">Email</label>
+        <input class="form__input" type="email" name="email" autofocus required />
+      </div>
+      <div class="form__group">
+        <label class="form__label">Password</label>
+        <input class="form__input" type="password" name="password" required />
+      </div>
+      <button class="btn btn--primary" style="width:100%">Sign in</button>
+    </form>
+  </div>
+</body>
+</html>

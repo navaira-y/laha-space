@@ -1,0 +1,55 @@
+<%- include('../partials/admin-head', { title: 'Bookings', activePage: 'bookings' }) %>
+
+<div class="admin-page">
+  <div class="admin-page__header">
+    <h1 class="admin-page__title">Discovery Session Bookings</h1>
+  </div>
+
+  <div class="admin-card">
+    <% if(bookings.length === 0) { %>
+    <p class="empty-state">No bookings yet.</p>
+    <% } else { %>
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Student</th>
+          <th>Teacher</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Contact</th>
+          <th>Looking for</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% bookings.forEach(b => { %>
+        <tr>
+          <td><strong><%= b.student_name %></strong></td>
+          <td><%= b.teachers ? b.teachers.name : '—' %></td>
+          <td><%= b.slot_date %></td>
+          <td><%= b.slot_start_time %> – <%= b.slot_end_time %></td>
+          <td>
+            <div><%= b.student_email %></div>
+            <div style="color:#888;font-size:13px"><%= b.student_phone %></div>
+          </td>
+          <td><%= b.looking_for || '—' %></td>
+          <td><span class="status-badge status-badge--<%= b.status %>"><%= b.status %></span></td>
+          <td>
+            <form action="/admin/bookings/<%= b.id %>/status" method="POST">
+              <select class="form__input form__input--sm" name="status" onchange="this.form.submit()">
+                <option value="pending" <%= b.status==='pending' ? 'selected' : '' %>>Pending</option>
+                <option value="confirmed" <%= b.status==='confirmed' ? 'selected' : '' %>>Confirmed</option>
+                <option value="cancelled" <%= b.status==='cancelled' ? 'selected' : '' %>>Cancelled</option>
+              </select>
+            </form>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    <% } %>
+  </div>
+</div>
+
+<%- include('../partials/admin-foot') %>

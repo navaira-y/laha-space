@@ -1,0 +1,61 @@
+<%- include('../partials/admin-head', { title: 'Dashboard', activePage: 'dashboard' }) %>
+
+<div class="admin-page">
+  <div class="admin-page__header">
+    <h1 class="admin-page__title">Dashboard</h1>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-card__num"><%= stats.applicants %></div>
+      <div class="stat-card__label">Active Applicants</div>
+    </div>
+    <div class="stat-card stat-card--teal">
+      <div class="stat-card__num"><%= stats.teachers %></div>
+      <div class="stat-card__label">Published Teachers</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card__num"><%= stats.bookings %></div>
+      <div class="stat-card__label">Pending Bookings</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card__num"><%= stats.pendingReviews %></div>
+      <div class="stat-card__label">Reviews to Moderate</div>
+    </div>
+  </div>
+
+  <div class="admin-card">
+    <div class="admin-card__header">
+      <h2 class="admin-card__title">Recent Applicants</h2>
+      <a href="/admin/applicants" class="btn btn--outline btn--sm">View all</a>
+    </div>
+    <% if (recentApplicants.length === 0) { %>
+    <p class="empty-state">No applicants yet.</p>
+    <% } else { %>
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Stage</th>
+          <th>Applied</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% recentApplicants.forEach(a => { %>
+        <tr>
+          <td><strong><%= a.name %></strong></td>
+          <td><%= a.email %></td>
+          <td><span class="stage-badge stage-badge--<%= a.stage %>">Stage <%= a.stage %> — <%= STAGES[a.stage] %></span></td>
+          <td><%= new Date(a.created_at).toLocaleDateString('en-GB') %></td>
+          <td><a href="/admin/applicants/<%= a.id %>" class="table-link">View</a></td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    <% } %>
+  </div>
+</div>
+
+<%- include('../partials/admin-foot') %>
