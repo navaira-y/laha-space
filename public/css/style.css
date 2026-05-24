@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════════════════════════
    LAHA SPACE — frontend redesign
-   Inspired by: ayzzthedesigner.framer.website (editorial minimal)
+
                 itqanelquran.com (Islamic learning structure)
    Palette:     brand sage-teal (from Laha brand guideline)
    ═══════════════════════════════════════════════════════════════ */
@@ -16,7 +16,7 @@
   --sage:        #C7D1D0;
   --sage-soft:   rgba(199, 209, 208, 0.35);
 
-  /* Surfaces — Ayzz-style soft off-white */
+  /* Surfaces */
   --bg:          #F4F6F4;   /* page background, faintly sage */
   --bg-warm:     #EFEFEA;   /* alt surface */
   --bg-dark:     #1A2A28;   /* deep editorial dark */
@@ -29,7 +29,7 @@
   --ink-soft:    #4A6864;
   --ink-mute:    #7A8C89;
 
-  /* Type stacks — Ayzz mix: editorial serif + clean sans */
+  /* Type stacks */
   --font-serif:  'Instrument Serif', 'Times New Roman', Georgia, serif;
   --font-sans:   'Inter', 'DM Sans', system-ui, -apple-system, sans-serif;
 
@@ -83,7 +83,7 @@ em, i { font-style: italic; }
 /* Selection */
 ::selection { background: var(--teal); color: #fff; }
 
-/* ─── Grain overlay (Ayzz-style texture) ─────────────────────── */
+/* ─── Grain overlay ─────────────────────────────────────────────── */
 .grain {
   position: fixed; inset: 0;
   pointer-events: none;
@@ -97,7 +97,7 @@ em, i { font-style: italic; }
 .container { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
 .container--narrow { max-width: 760px; }
 
-/* ─── Pill buttons (Ayzz signature) ──────────────────────────── */
+/* ─── Pill buttons ──────────────────────────────────────────────── */
 .pill {
   display: inline-flex;
   align-items: center;
@@ -578,7 +578,7 @@ em, i { font-style: italic; }
   50%      { opacity: 1;   transform: scale(1.2); }
 }
 
-/* Teacher card — editorial Ayzz feel */
+/* ─── Teacher card ──────────────────────────────────────────────── */
 .teacher-card {
   background: var(--card);
   border: 1px solid var(--line);
