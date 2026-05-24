@@ -306,19 +306,19 @@ em, i { font-style: italic; }
   line-height: 1;
 }
 .hero__eyebrow-sep {
-  color: var(--line);
+  color: var(--ink-soft);
   font-size: 14px;
 }
 
 .hero__title {
   font-family: var(--font-serif);
   font-weight: 400;
-  font-size: clamp(46px, 7.4vw, 104px);
-  line-height: 0.98;
-  letter-spacing: -0.025em;
+  font-size: clamp(44px, 7vw, 96px);
+  line-height: 1.0;
+  letter-spacing: -0.03em;
   color: var(--ink);
   margin-bottom: 32px;
-  max-width: 14ch;
+  max-width: 13ch;
 }
 .hero__title em {
   font-style: italic;
@@ -461,9 +461,9 @@ em, i { font-style: italic; }
 .story__image {
   width: 100%; height: 100%;
   object-fit: cover;
-  object-position: center top;
+  object-position: center;
   display: block;
-  filter: saturate(0.85);
+  filter: grayscale(0.2) saturate(0.9);
   transition: transform 0.8s cubic-bezier(0.16,1,0.3,1);
 }
 .story__image-wrap:hover .story__image { transform: scale(1.03); }
@@ -1055,7 +1055,7 @@ em, i { font-style: italic; }
   color: #fff;
 }
 .footer__logo { display: inline-flex; align-items: baseline; gap: 1px; }
-.footer__logo-laha { font-family: 'Noto Naskh Arabic', var(--font-serif); font-style: normal; font-size: 26px; font-weight: 900; color: #2E847A; letter-spacing: 0; }
+.footer__logo-laha { font-family: 'Noto Naskh Arabic', var(--font-serif); font-style: normal; font-size: 26px; font-weight: 900; color: #ffffff; letter-spacing: 0; }
 .footer__logo-space { font-family: var(--font-sans); font-size: 20px; color: rgba(255,255,255,0.55); margin-left: 4px; }
 .footer__tag {
   font-family: var(--font-serif);
