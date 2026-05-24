@@ -1,124 +1,114 @@
 <%- include('partials/public-head', { title: 'Find a Teacher' }) %>
 
-<!-- ═══════════════════════════════════════════════════════════
-     HERO — editorial, big serif, soft sage background
-═══════════════════════════════════════════════════════════ -->
 <section class="hero">
+  <div class="hero__bg-img" aria-hidden="true"></div>
+  <div class="hero__overlay" aria-hidden="true"></div>
   <div class="container hero__inner">
 
-    <div class="hero__eyebrow" id="heroEyebrow">
-      <span class="hero__eyebrow-dot"></span>
-      <span>A space for her — لها</span>
+    <div class="hero__left">
+      <div class="hero__eyebrow" id="heroEyebrow">
+        <span class="hero__eyebrow-dot"></span>
+        <span>A space for her — لها</span>
+      </div>
+
+      <h1 class="hero__title" id="heroTitle">
+        Learn the Quran from a teacher
+        <em>you can trust.</em>
+      </h1>
+
+      <p class="hero__desc" id="heroDesc">
+        Every teacher on Laha Space passes through a seven-stage personal vetting process before her profile goes live. You focus on learning. We take care of the rest.
+      </p>
+
+      <div class="hero__actions" id="heroActions">
+        <a href="#teachers" class="pill pill--solid">
+          <span>Browse teachers</span>
+          <span class="pill__arrow" aria-hidden="true">→</span>
+        </a>
+        <a href="/apply" class="pill pill--ghost">
+          <span>Teach with us</span>
+          <span class="pill__arrow" aria-hidden="true">↗</span>
+        </a>
+      </div>
     </div>
 
-    <h1 class="hero__title" id="heroTitle">
-      Learn the Quran from a teacher
-      <em>you can actually trust.</em>
-    </h1>
-
-    <p class="hero__desc" id="heroDesc">
-      Every teacher on Laha Space passes through a seven-stage personal vetting process.
-      You focus on the words of Allah. We handle the trust.
-    </p>
-
-    <div class="hero__actions" id="heroActions">
-      <a href="#teachers" class="pill pill--solid">
-        <span>Browse teachers</span>
-        <span class="pill__arrow" aria-hidden="true">→</span>
-      </a>
-      <a href="/apply" class="pill pill--ghost">
-        <span>Teach with us</span>
-        <span class="pill__arrow" aria-hidden="true">↗</span>
-      </a>
-    </div>
-
-    <!-- Hero meta strip: tiny, editorial -->
-    <div class="hero__meta" id="heroMeta">
-      <div class="hero__meta-item">
-        <span class="hero__meta-num">07</span>
-        <span class="hero__meta-label">Vetting stages,<br/>not one skipped.</span>
+    <div class="hero__right" id="heroMeta">
+      <div class="hero__stat">
+        <span class="hero__stat-num">07</span>
+        <span class="hero__stat-label">Vetting stages, not one skipped.</span>
       </div>
-      <div class="hero__meta-divider"></div>
-      <div class="hero__meta-item">
-        <span class="hero__meta-num">100%</span>
-        <span class="hero__meta-label">Women teachers<br/>for women students.</span>
+      <div class="hero__stat-line"></div>
+      <div class="hero__stat">
+        <span class="hero__stat-num">100%</span>
+        <span class="hero__stat-label">Women teachers for women students.</span>
       </div>
-      <div class="hero__meta-divider"></div>
-      <div class="hero__meta-item">
-        <span class="hero__meta-num">1:1</span>
-        <span class="hero__meta-label">Quiet, focused<br/>sessions only.</span>
+      <div class="hero__stat-line"></div>
+      <div class="hero__stat">
+        <span class="hero__stat-num">1:1</span>
+        <span class="hero__stat-label">Personal sessions only.</span>
       </div>
     </div>
 
   </div>
-
-  <!-- subtle background ornaments -->
-  <div class="hero__halo hero__halo--a" aria-hidden="true"></div>
-  <div class="hero__halo hero__halo--b" aria-hidden="true"></div>
 </section>
 
-
-<!-- ═══════════════════════════════════════════════════════════
-     MARQUEE TRUST STRIP
-═══════════════════════════════════════════════════════════ -->
-<section class="marquee" aria-label="Trust">
+<section class="marquee" aria-label="Trust signals">
   <div class="marquee__track">
-    <span>◇ Personally vetted teachers</span>
-    <span>◇ Ijazah holders</span>
-    <span>◇ Tajweed certified</span>
-    <span>◇ Women-only platform</span>
-    <span>◇ Seven-stage process</span>
-    <span>◇ One-on-one sessions</span>
-    <span>◇ Personally vetted teachers</span>
-    <span>◇ Ijazah holders</span>
-    <span>◇ Tajweed certified</span>
-    <span>◇ Women-only platform</span>
-    <span>◇ Seven-stage process</span>
-    <span>◇ One-on-one sessions</span>
+    <span>Personally vetted teachers</span>
+    <span class="msep">◇</span>
+    <span>Ijazah holders</span>
+    <span class="msep">◇</span>
+    <span>Tajweed certified</span>
+    <span class="msep">◇</span>
+    <span>Women only platform</span>
+    <span class="msep">◇</span>
+    <span>Seven stage process</span>
+    <span class="msep">◇</span>
+    <span>One on one sessions</span>
+    <span class="msep">◇</span>
+    <span>Personally vetted teachers</span>
+    <span class="msep">◇</span>
+    <span>Ijazah holders</span>
+    <span class="msep">◇</span>
+    <span>Tajweed certified</span>
+    <span class="msep">◇</span>
+    <span>Women only platform</span>
+    <span class="msep">◇</span>
+    <span>Seven stage process</span>
+    <span class="msep">◇</span>
+    <span>One on one sessions</span>
+    <span class="msep">◇</span>
   </div>
 </section>
 
-
-<!-- ═══════════════════════════════════════════════════════════
-
-═══════════════════════════════════════════════════════════ -->
 <section class="story" id="story">
   <div class="container story__inner">
     <div class="section-num">01</div>
     <div class="story__head">
       <span class="section-eyebrow">Who we are</span>
-      <h2 class="section-title">A quiet platform built for women who want to learn the Quran — properly.</h2>
+      <h2 class="section-title">A platform built for women who want to learn the Quran properly.</h2>
     </div>
     <div class="story__body">
       <p>
-        Laha Space exists for one reason. Too many of us have started learning the Quran online,
-        landed with a teacher we never quite trusted, and quietly stopped showing up. We wanted that to end.
+        Laha Space was started for one reason. Too many women begin learning the Quran online, land with a teacher they never quite trusted, and quietly stop showing up. We wanted that to change.
       </p>
       <p>
-        So we built a small, careful platform where every teacher is a woman, every teacher holds real
-        qualifications, and every teacher has been personally interviewed, tested and reviewed by our team
-        before she ever appears here.
+        So we built a small, careful platform where every teacher is a woman, holds real qualifications, and has been personally interviewed, tested and reviewed by our team before she ever appears here.
       </p>
-      <p class="story__signature">— The Laha Space team</p>
+      <p class="story__signature">The Laha Space team</p>
     </div>
   </div>
 </section>
 
-
-<!-- ═══════════════════════════════════════════════════════════
-
-═══════════════════════════════════════════════════════════ -->
 <section class="vetting" id="vetting">
   <div class="container">
-
     <div class="vetting__head">
       <div class="section-num">02</div>
       <div>
         <span class="section-eyebrow">How we choose our teachers</span>
         <h2 class="section-title">Seven stages.<br/><em>No shortcuts.</em></h2>
         <p class="section-desc">
-          Every teacher you see here has passed through our full vetting process. Here is exactly what that means —
-          one row at a time.
+          Every teacher you see here has passed through our full vetting process. Here is exactly what that means.
         </p>
       </div>
     </div>
@@ -128,7 +118,7 @@
         <span class="stage__num">01</span>
         <div class="stage__body">
           <h4>Application</h4>
-          <p>The teacher submits a detailed application — qualifications, ijazah, teaching experience, references.</p>
+          <p>The teacher submits a detailed application covering her qualifications, ijazah, teaching experience and references.</p>
         </div>
         <span class="stage__arrow" aria-hidden="true">→</span>
       </li>
@@ -143,8 +133,8 @@
       <li class="stage" data-aos="fade-up">
         <span class="stage__num">03</span>
         <div class="stage__body">
-          <h4>One-on-one interview</h4>
-          <p>A personal conversation to understand her background, her approach, and her values as a teacher.</p>
+          <h4>One on one interview</h4>
+          <p>A personal conversation to understand her background, her approach and her values as a teacher.</p>
         </div>
         <span class="stage__arrow" aria-hidden="true">→</span>
       </li>
@@ -152,7 +142,7 @@
         <span class="stage__num">04</span>
         <div class="stage__body">
           <h4>Interview review</h4>
-          <p>The team carefully evaluates every interview note before proceeding to the teaching test.</p>
+          <p>The team evaluates every interview note carefully before proceeding to the teaching test.</p>
         </div>
         <span class="stage__arrow" aria-hidden="true">→</span>
       </li>
@@ -160,7 +150,7 @@
         <span class="stage__num">05</span>
         <div class="stage__body">
           <h4>Teaching test</h4>
-          <p>The teacher delivers a live teaching demonstration which is observed and reviewed by our team.</p>
+          <p>The teacher delivers a live teaching demonstration observed and reviewed by our team.</p>
         </div>
         <span class="stage__arrow" aria-hidden="true">→</span>
       </li>
@@ -175,31 +165,23 @@
       <li class="stage stage--final" data-aos="fade-up">
         <span class="stage__num">07</span>
         <div class="stage__body">
-          <h4>Fully vetted &nbsp;<span class="stage__pill">live</span></h4>
+          <h4>Fully vetted <span class="stage__pill">live</span></h4>
           <p>Only now does the teacher appear on Laha Space. Every teacher you see here is here for a reason.</p>
         </div>
         <span class="stage__arrow stage__arrow--check" aria-hidden="true">✓</span>
       </li>
     </ol>
-
   </div>
 </section>
 
-
-<!-- ═══════════════════════════════════════════════════════════
-
-═══════════════════════════════════════════════════════════ -->
 <section class="teachers-section" id="teachers">
   <div class="container">
-
     <div class="teachers-section__head">
       <div class="section-num">03</div>
       <div>
         <span class="section-eyebrow">Our teachers</span>
         <h2 class="section-title">Meet the community.</h2>
-        <p class="section-desc">
-          Browse our vetted teachers and book a free discovery session with the one that feels right for you.
-        </p>
+        <p class="section-desc">Browse our vetted teachers and book a free discovery session with the one that feels right for you.</p>
       </div>
     </div>
 
@@ -217,14 +199,9 @@
         <div class="grid-loading__dot"></div>
       </div>
     </div>
-
   </div>
 </section>
 
-
-<!-- ═══════════════════════════════════════════════════════════
-     APPLY CTA — large editorial block
-═══════════════════════════════════════════════════════════ -->
 <section class="apply-cta" data-aos="fade-up">
   <div class="container">
     <div class="apply-cta__inner">
@@ -232,13 +209,11 @@
         <div class="section-num section-num--light">04</div>
         <span class="section-eyebrow section-eyebrow--light">Are you a teacher?</span>
         <h2 class="apply-cta__title">
-          Join a small,<br/>
-          <em>quietly serious</em> community<br/>
-          of vetted teachers.
+          Join a community<br/>
+          <em>of vetted teachers.</em>
         </h2>
         <p class="apply-cta__desc">
-          If you hold an ijazah or have verified qualifications and you are passionate about teaching the Quran
-          to women — we would love to read your application.
+          If you hold an ijazah or have verified qualifications and are passionate about teaching the Quran to women, we would love to read your application.
         </p>
       </div>
       <div class="apply-cta__action">
@@ -246,14 +221,12 @@
           <span>Apply to teach</span>
           <span class="pill__arrow" aria-hidden="true">↗</span>
         </a>
-        <span class="apply-cta__hint">Takes about 10 minutes ◇ no fee, ever.</span>
+        <span class="apply-cta__hint">No fee, no commission.</span>
       </div>
     </div>
   </div>
 </section>
 
-
-<!-- Modals (kept identical to current logic) -->
 <div class="modal-overlay" id="teacherModal" hidden>
   <div class="modal">
     <button class="modal__close" id="modalClose" aria-label="Close">&times;</button>
