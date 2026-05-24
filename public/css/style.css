@@ -160,7 +160,7 @@ em, i { font-style: italic; }
   background: var(--ink); color: #fff;
 }
 .nav__logo-text { display: inline-flex; align-items: baseline; gap: 1px; line-height: 1; }
-.nav__logo-laha { font-family: 'Noto Naskh Arabic', var(--font-serif); font-style: normal; font-size: 22px; font-weight: 700; color: var(--ink); letter-spacing: 0; }
+.nav__logo-laha { font-family: 'Noto Naskh Arabic', var(--font-serif); font-style: normal; font-size: 22px; font-weight: 900; color: #2E847A; letter-spacing: 0; }
 .nav__logo-space { font-family: var(--font-sans); font-size: 18px; font-weight: 500; color: var(--ink-soft); letter-spacing: -0.3px; margin-left: 3px; }
 
 .nav__menu { display: flex; align-items: center; gap: 32px; }
@@ -299,15 +299,15 @@ em, i { font-style: italic; }
   margin-bottom: 36px;
   backdrop-filter: blur(8px);
 }
-.hero__eyebrow-dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--teal);
-  box-shadow: 0 0 0 3px rgba(47,135,125,0.18);
-  animation: heroDot 2.4s ease-in-out infinite;
+.hero__eyebrow-arabic {
+  font-family: 'Noto Naskh Arabic', serif;
+  font-size: 16px; font-weight: 900;
+  color: #2E847A;
+  line-height: 1;
 }
-@keyframes heroDot {
-  0%, 100% { box-shadow: 0 0 0 3px rgba(47,135,125,0.18); }
-  50%      { box-shadow: 0 0 0 6px rgba(47,135,125,0.08); }
+.hero__eyebrow-sep {
+  color: var(--line);
+  font-size: 14px;
 }
 
 .hero__title {
@@ -328,7 +328,7 @@ em, i { font-style: italic; }
 }
 
 .hero__desc {
-  font-size: 19px;
+  font-size: 17px;
   line-height: 1.55;
   color: var(--ink-soft);
   max-width: 540px;
@@ -1055,7 +1055,7 @@ em, i { font-style: italic; }
   color: #fff;
 }
 .footer__logo { display: inline-flex; align-items: baseline; gap: 1px; }
-.footer__logo-laha { font-family: var(--font-serif); font-style: italic; font-size: 30px; color: #fff; }
+.footer__logo-laha { font-family: 'Noto Naskh Arabic', var(--font-serif); font-style: normal; font-size: 26px; font-weight: 900; color: #2E847A; letter-spacing: 0; }
 .footer__logo-space { font-family: var(--font-sans); font-size: 20px; color: rgba(255,255,255,0.55); margin-left: 4px; }
 .footer__tag {
   font-family: var(--font-serif);
@@ -1104,7 +1104,7 @@ em, i { font-style: italic; }
 .admin-layout{display:flex;min-height:100vh;}
 .sidebar{width:240px;background:#1A4D47;display:flex;flex-direction:column;flex-shrink:0;position:fixed;height:100vh;}
 .sidebar__brand{padding:24px 20px;border-bottom:1px solid rgba(255,255,255,0.1);}
-.sidebar__brand .nav__logo-laha{color:#fff;font-family:'DM Sans',sans-serif;font-style:normal;font-weight:700;font-size:23px;}
+.sidebar__brand .nav__logo-laha{color:#2E847A;font-family:'Noto Naskh Arabic',serif;font-style:normal;font-weight:900;font-size:23px;}
 .sidebar__brand .nav__logo-space{color:rgba(255,255,255,0.5);font-family:'DM Sans',sans-serif;font-weight:300;font-size:23px;margin-left:0;}
 .sidebar__nav{padding:16px 12px;flex:1;display:flex;flex-direction:column;gap:4px;}
 .sidebar__link{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;color:rgba(255,255,255,0.65);font-size:14px;font-weight:500;transition:all 0.25s;}
