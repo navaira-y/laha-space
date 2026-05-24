@@ -105,8 +105,8 @@
         <div class="form__group">
           <label class="form__label">Upload documents <span class="form__hint">(certificates, ijazah scan, etc. — up to 10 files)</span></label>
           <input class="form__input form__input--file" type="file" name="documents" id="docsInput"
-            accept=".pdf,.jpg,.jpeg,.png" multiple />
-          <p class="form__file-hint">Accepted formats: PDF, JPG, JPEG, PNG</p>
+            accept=".pdf,.jpg,.jpeg,.png,.docx" multiple />
+          <p class="form__file-hint">Accepted formats: PDF, JPG, JPEG, PNG, DOCX</p>
           <p class="form__file-error" id="docsError"></p>
         </div>
         <div class="form__group">
@@ -126,7 +126,7 @@
 
 <script>
 const ALLOWED_PHOTO = ['.jpg', '.jpeg', '.png', '.webp'];
-const ALLOWED_DOCS  = ['.pdf', '.jpg', '.jpeg', '.png'];
+const ALLOWED_DOCS  = ['.pdf', '.jpg', '.jpeg', '.png', '.docx'];
 
 function getExt(filename) {
   return filename.slice(filename.lastIndexOf('.')).toLowerCase();
@@ -149,7 +149,7 @@ document.getElementById('docsInput').addEventListener('change', function() {
   const files = Array.from(this.files);
   const bad = files.filter(f => !ALLOWED_DOCS.includes(getExt(f.name)));
   if (bad.length) {
-    error.textContent = 'Some files were not allowed and removed: ' + bad.map(f => f.name).join(', ') + '. Only PDF, JPG, JPEG, PNG are accepted.';
+    error.textContent = 'Some files were not allowed and removed: ' + bad.map(f => f.name).join(', ') + '. Only PDF, JPG, JPEG, PNG, DOCX are accepted.';
     this.value = '';
   } else {
     error.textContent = '';

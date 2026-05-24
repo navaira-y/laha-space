@@ -7,7 +7,7 @@ const supabase = require('../database');
 
 // Allowed types for teacher application uploads
 const allowedPhotoTypes = ['.jpg', '.jpeg', '.png', '.webp'];
-const allowedDocTypes  = ['.pdf', '.jpg', '.jpeg', '.png'];
+const allowedDocTypes  = ['.pdf', '.jpg', '.jpeg', '.png', '.docx'];
 
 const photoFilter = (req, file, cb) => {
   const ext = path.extname(file.originalname).toLowerCase();
