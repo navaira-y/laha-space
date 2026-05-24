@@ -423,17 +423,18 @@ em, i { font-style: italic; }
 }
 .story__inner {
   display: grid;
-  grid-template-columns: 60px 1fr;
+  grid-template-columns: 60px 1fr 1fr;
   gap: 24px 60px;
+  align-items: start;
 }
 .story__head { grid-column: 2; }
 .story__body {
   grid-column: 2;
-  max-width: 720px;
-  font-family: var(--font-serif);
-  font-size: clamp(22px, 2.4vw, 30px);
-  line-height: 1.4;
-  color: var(--ink);
+  max-width: 640px;
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.8;
+  color: var(--ink-soft);
   margin-top: 24px;
 }
 .story__body p { margin-bottom: 24px; }
@@ -444,6 +445,33 @@ em, i { font-style: italic; }
   color: var(--ink-mute);
   letter-spacing: 0.04em;
   margin-top: 36px;
+}
+
+
+/* ─── Story image ────────────────────────────────────────────── */
+.story__image-wrap {
+  grid-column: 3;
+  grid-row: 1 / 4;
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  aspect-ratio: 3 / 4;
+  max-height: 480px;
+}
+.story__image {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  filter: saturate(0.85);
+  transition: transform 0.8s cubic-bezier(0.16,1,0.3,1);
+}
+.story__image-wrap:hover .story__image { transform: scale(1.03); }
+.story__image-grain {
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+  pointer-events: none;
+  mix-blend-mode: overlay;
 }
 
 /* ─── Vetting / stages ───────────────────────────────────────── */
@@ -1183,6 +1211,7 @@ em, i { font-style: italic; }
   .teachers-section__head,
   .page-hero__inner { grid-template-columns: 1fr; gap: 16px; }
   .story__head, .story__body { grid-column: 1; }
+  .story__image-wrap { grid-column: 1; grid-row: auto; max-height: 320px; aspect-ratio: 16/9; }
   .marquee__track { font-size: 18px; gap: 36px; }
   .stage { grid-template-columns: 56px 1fr 28px; gap: 18px; padding: 24px 4px; }
   .stage__num { font-size: 32px; }
