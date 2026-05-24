@@ -281,9 +281,9 @@ em, i { font-style: italic; }
   position: relative;
   z-index: 2;
   display: grid;
-  grid-template-columns: 1fr 260px;
-  align-items: center;
-  gap: 60px;
+  grid-template-columns: 1fr;
+  align-items: flex-start;
+  gap: 0;
   padding: 60px 32px;
   width: 100%;
 }
