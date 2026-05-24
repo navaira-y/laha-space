@@ -11,6 +11,9 @@ const { requireAdmin } = require('./middleware/auth');
 
 const app = express();
 
+// Hostinger runs behind a reverse proxy
+app.set('trust proxy', 1);
+
 // Security headers
 app.use(helmet({
   contentSecurityPolicy: false
@@ -35,7 +38,7 @@ const pool = new Pool({
 });
 
 app.use(session({
-  store: new pgSession({ pool, tableName: 'sessions', createTableIfMissing: true }),
+  store: new pgSession({ pool, tableName: 'sessions', createTableIfMissing: false }),
   secret: process.env.SESSION_SECRET || 'fallback-secret-change-this',
   resave: false,
   saveUninitialized: false,
