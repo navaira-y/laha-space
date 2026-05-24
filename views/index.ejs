@@ -1,136 +1,215 @@
 <%- include('partials/public-head', { title: 'Find a Teacher' }) %>
 
+<!-- ═══════════════════════════════════════════════════════════
+     HERO — editorial, big serif, soft sage background
+═══════════════════════════════════════════════════════════ -->
 <section class="hero">
-  <div class="hero__orb hero__orb--1"></div>
-  <div class="hero__orb hero__orb--2"></div>
-  <div class="hero__orb hero__orb--3"></div>
-
   <div class="container hero__inner">
-    <div class="hero__content">
-      <div class="hero__eyebrow" id="heroEyebrow">
-        <span class="hero__eyebrow-line"></span>
-        A space for her
-        <span class="hero__eyebrow-line"></span>
+
+    <div class="hero__eyebrow" id="heroEyebrow">
+      <span class="hero__eyebrow-dot"></span>
+      <span>A space for her — لها</span>
+    </div>
+
+    <h1 class="hero__title" id="heroTitle">
+      Learn the Quran from a teacher
+      <em>you can actually trust.</em>
+    </h1>
+
+    <p class="hero__desc" id="heroDesc">
+      Every teacher on Laha Space passes through a seven-stage personal vetting process.
+      You focus on the words of Allah. We handle the trust.
+    </p>
+
+    <div class="hero__actions" id="heroActions">
+      <a href="#teachers" class="pill pill--solid">
+        <span>Browse teachers</span>
+        <span class="pill__arrow" aria-hidden="true">→</span>
+      </a>
+      <a href="/apply" class="pill pill--ghost">
+        <span>Teach with us</span>
+        <span class="pill__arrow" aria-hidden="true">↗</span>
+      </a>
+    </div>
+
+    <!-- Hero meta strip: tiny, editorial -->
+    <div class="hero__meta" id="heroMeta">
+      <div class="hero__meta-item">
+        <span class="hero__meta-num">07</span>
+        <span class="hero__meta-label">Vetting stages,<br/>not one skipped.</span>
       </div>
-      <h1 class="hero__title" id="heroTitle">
-        Learn Quran from a teacher
-        <span class="hero__title-em">you can trust</span>
-      </h1>
-      <p class="hero__desc" id="heroDesc">
-        Every teacher on Laha Space has been personally vetted by our team. You focus on learning. We handle the trust.
+      <div class="hero__meta-divider"></div>
+      <div class="hero__meta-item">
+        <span class="hero__meta-num">100%</span>
+        <span class="hero__meta-label">Women teachers<br/>for women students.</span>
+      </div>
+      <div class="hero__meta-divider"></div>
+      <div class="hero__meta-item">
+        <span class="hero__meta-num">1:1</span>
+        <span class="hero__meta-label">Quiet, focused<br/>sessions only.</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- subtle background ornaments -->
+  <div class="hero__halo hero__halo--a" aria-hidden="true"></div>
+  <div class="hero__halo hero__halo--b" aria-hidden="true"></div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     MARQUEE TRUST STRIP
+═══════════════════════════════════════════════════════════ -->
+<section class="marquee" aria-label="Trust">
+  <div class="marquee__track">
+    <span>◇ Personally vetted teachers</span>
+    <span>◇ Ijazah holders</span>
+    <span>◇ Tajweed certified</span>
+    <span>◇ Women-only platform</span>
+    <span>◇ Seven-stage process</span>
+    <span>◇ One-on-one sessions</span>
+    <span>◇ Personally vetted teachers</span>
+    <span>◇ Ijazah holders</span>
+    <span>◇ Tajweed certified</span>
+    <span>◇ Women-only platform</span>
+    <span>◇ Seven-stage process</span>
+    <span>◇ One-on-one sessions</span>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     OUR STORY — Itqan-inspired "Who are we" block, Ayzz layout
+═══════════════════════════════════════════════════════════ -->
+<section class="story" id="story">
+  <div class="container story__inner">
+    <div class="section-num">01</div>
+    <div class="story__head">
+      <span class="section-eyebrow">Who we are</span>
+      <h2 class="section-title">A quiet platform built for women who want to learn the Quran — properly.</h2>
+    </div>
+    <div class="story__body">
+      <p>
+        Laha Space exists for one reason. Too many of us have started learning the Quran online,
+        landed with a teacher we never quite trusted, and quietly stopped showing up. We wanted that to end.
       </p>
-      <div class="hero__actions" id="heroActions">
-        <a href="#teachers" class="btn btn--primary btn--lg">Browse Teachers</a>
-        <a href="/apply" class="btn btn--sand btn--lg">Teach with us</a>
-      </div>
-    </div>
-
-    <div class="hero__visual" id="heroVisual">
-      <div class="hero__ring hero__ring--outer"></div>
-      <div class="hero__ring hero__ring--mid"></div>
-      <div class="hero__ring hero__ring--inner"></div>
-      <div class="hero__visual-core">
-        <img src="https://img.magnific.com/free-vector/hand-drawn-tasbih-illustration_23-2149265392.jpg?semt=ais_hybrid&w=740&q=80" alt="Tasbih" class="hero__tasbih-img" />
-      </div>
-      <div class="hero__badge hero__badge--1" id="heroBadge1">
-        <span class="hero__badge-num">7</span>
-        <span class="hero__badge-label">Vetting Stages</span>
-      </div>
-      <div class="hero__badge hero__badge--2" id="heroBadge2">
-        <span class="hero__badge-icon">✓</span>
-        <span class="hero__badge-label">Vetted Teachers</span>
-      </div>
+      <p>
+        So we built a small, careful platform where every teacher is a woman, every teacher holds real
+        qualifications, and every teacher has been personally interviewed, tested and reviewed by our team
+        before she ever appears here.
+      </p>
+      <p class="story__signature">— The Laha Space team</p>
     </div>
   </div>
 </section>
 
-<section class="trust-strip">
-  <div class="container">
-    <div class="trust-strip__inner">
-      <div class="trust-strip__item" data-aos="fade-up">
-        <div class="trust-strip__icon">◆</div>
-        <div>
-          <strong>Personally vetted</strong>
-          <p>Every teacher reviewed by our team</p>
-        </div>
-      </div>
-      <div class="trust-strip__sep"></div>
-      <div class="trust-strip__item" data-aos="fade-up" data-aos-delay="100">
-        <div class="trust-strip__icon">◆</div>
-        <div>
-          <strong>Seven stage process</strong>
-          <p>No shortcuts, no exceptions</p>
-        </div>
-      </div>
-      <div class="trust-strip__sep"></div>
-      <div class="trust-strip__item" data-aos="fade-up" data-aos-delay="200">
-        <div class="trust-strip__icon">◆</div>
-        <div>
-          <strong>Qualified teachers</strong>
-          <p>Ijazah holders and certified educators</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
+<!-- ═══════════════════════════════════════════════════════════
+     VETTING — Ayzz-style numbered list, big type
+═══════════════════════════════════════════════════════════ -->
 <section class="vetting" id="vetting">
   <div class="container">
-    <div class="vetting__header" data-aos="fade-up">
-      <div class="section-eyebrow">How we choose our teachers</div>
-      <h2 class="section-title">Seven stages. No shortcuts.</h2>
-      <p class="section-desc">Every teacher you see here has passed through our full vetting process. Here is exactly what that means.</p>
+
+    <div class="vetting__head">
+      <div class="section-num">02</div>
+      <div>
+        <span class="section-eyebrow">How we choose our teachers</span>
+        <h2 class="section-title">Seven stages.<br/><em>No shortcuts.</em></h2>
+        <p class="section-desc">
+          Every teacher you see here has passed through our full vetting process. Here is exactly what that means —
+          one row at a time.
+        </p>
+      </div>
     </div>
 
-    <div class="vetting__steps">
-      <div class="vetting__step" data-aos="fade-up">
-        <div class="vetting__step-num">01</div>
-        <div class="vetting__step-body"><h4>Application</h4><p>The teacher submits a detailed application including their qualifications, ijazah and teaching experience.</p></div>
-      </div>
-      <div class="vetting__step" data-aos="fade-up" data-aos-delay="60">
-        <div class="vetting__step-num">02</div>
-        <div class="vetting__step-body"><h4>Initial Screening</h4><p>Our team reviews all submitted documents and qualifications before moving forward.</p></div>
-      </div>
-      <div class="vetting__step" data-aos="fade-up" data-aos-delay="120">
-        <div class="vetting__step-num">03</div>
-        <div class="vetting__step-body"><h4>Interview</h4><p>A one-on-one interview to understand the teacher's background, approach and values.</p></div>
-      </div>
-      <div class="vetting__step" data-aos="fade-up" data-aos-delay="180">
-        <div class="vetting__step-num">04</div>
-        <div class="vetting__step-body"><h4>Interview Review</h4><p>The team carefully evaluates all interview notes before proceeding to the practical stage.</p></div>
-      </div>
-      <div class="vetting__step" data-aos="fade-up" data-aos-delay="240">
-        <div class="vetting__step-num">05</div>
-        <div class="vetting__step-body"><h4>Teaching Test</h4><p>The teacher delivers a live teaching demonstration which is reviewed by our team.</p></div>
-      </div>
-      <div class="vetting__step" data-aos="fade-up" data-aos-delay="300">
-        <div class="vetting__step-num">06</div>
-        <div class="vetting__step-body"><h4>Training Program</h4><p>Accepted teachers complete our onboarding and training program before being listed.</p></div>
-      </div>
-      <!-- spacers to center 07 in middle column -->
-      <div class="vetting__spacer"></div>
-      <div class="vetting__step vetting__step--final" data-aos="fade-up" data-aos-delay="360">
-        <div class="vetting__step-num">07</div>
-        <div class="vetting__step-body"><h4>Fully Vetted</h4><p>Only now does the teacher appear on the platform. Every teacher you see here is here for a reason.</p></div>
-      </div>
-      <div class="vetting__spacer"></div>
-    </div>
+    <ol class="stages">
+      <li class="stage" data-aos="fade-up">
+        <span class="stage__num">01</span>
+        <div class="stage__body">
+          <h4>Application</h4>
+          <p>The teacher submits a detailed application — qualifications, ijazah, teaching experience, references.</p>
+        </div>
+        <span class="stage__arrow" aria-hidden="true">→</span>
+      </li>
+      <li class="stage" data-aos="fade-up">
+        <span class="stage__num">02</span>
+        <div class="stage__body">
+          <h4>Initial screening</h4>
+          <p>Our team reviews every document and qualification before anything moves forward.</p>
+        </div>
+        <span class="stage__arrow" aria-hidden="true">→</span>
+      </li>
+      <li class="stage" data-aos="fade-up">
+        <span class="stage__num">03</span>
+        <div class="stage__body">
+          <h4>One-on-one interview</h4>
+          <p>A personal conversation to understand her background, her approach, and her values as a teacher.</p>
+        </div>
+        <span class="stage__arrow" aria-hidden="true">→</span>
+      </li>
+      <li class="stage" data-aos="fade-up">
+        <span class="stage__num">04</span>
+        <div class="stage__body">
+          <h4>Interview review</h4>
+          <p>The team carefully evaluates every interview note before proceeding to the teaching test.</p>
+        </div>
+        <span class="stage__arrow" aria-hidden="true">→</span>
+      </li>
+      <li class="stage" data-aos="fade-up">
+        <span class="stage__num">05</span>
+        <div class="stage__body">
+          <h4>Teaching test</h4>
+          <p>The teacher delivers a live teaching demonstration which is observed and reviewed by our team.</p>
+        </div>
+        <span class="stage__arrow" aria-hidden="true">→</span>
+      </li>
+      <li class="stage" data-aos="fade-up">
+        <span class="stage__num">06</span>
+        <div class="stage__body">
+          <h4>Training program</h4>
+          <p>Accepted teachers complete our internal onboarding and training before being listed publicly.</p>
+        </div>
+        <span class="stage__arrow" aria-hidden="true">→</span>
+      </li>
+      <li class="stage stage--final" data-aos="fade-up">
+        <span class="stage__num">07</span>
+        <div class="stage__body">
+          <h4>Fully vetted &nbsp;<span class="stage__pill">live</span></h4>
+          <p>Only now does the teacher appear on Laha Space. Every teacher you see here is here for a reason.</p>
+        </div>
+        <span class="stage__arrow stage__arrow--check" aria-hidden="true">✓</span>
+      </li>
+    </ol>
+
   </div>
 </section>
 
+
+<!-- ═══════════════════════════════════════════════════════════
+     TEACHERS GRID — Ayzz card style with editorial typography
+═══════════════════════════════════════════════════════════ -->
 <section class="teachers-section" id="teachers">
   <div class="container">
-    <div class="teachers-section__header" data-aos="fade-up">
-      <div class="section-eyebrow">Our teachers</div>
-      <h2 class="section-title">Meet the community</h2>
-      <p class="section-desc">Browse our vetted teachers and book a free discovery session with the one that feels right for you.</p>
+
+    <div class="teachers-section__head">
+      <div class="section-num">03</div>
+      <div>
+        <span class="section-eyebrow">Our teachers</span>
+        <h2 class="section-title">Meet the community.</h2>
+        <p class="section-desc">
+          Browse our vetted teachers and book a free discovery session with the one that feels right for you.
+        </p>
+      </div>
     </div>
-    <div class="teacher-filters" data-aos="fade-up" data-aos-delay="100">
+
+    <div class="teacher-filters" data-aos="fade-up">
       <button class="filter-btn filter-btn--active" data-category="all">All teachers</button>
       <button class="filter-btn" data-category="tajweed">Tajweed</button>
       <button class="filter-btn" data-category="memorization">Memorization</button>
       <button class="filter-btn" data-category="beginner">Beginner</button>
     </div>
+
     <div class="teacher-grid" id="teacherGrid">
       <div class="grid-loading">
         <div class="grid-loading__dot"></div>
@@ -138,32 +217,53 @@
         <div class="grid-loading__dot"></div>
       </div>
     </div>
+
   </div>
 </section>
 
+
+<!-- ═══════════════════════════════════════════════════════════
+     APPLY CTA — large editorial block
+═══════════════════════════════════════════════════════════ -->
 <section class="apply-cta" data-aos="fade-up">
   <div class="container">
     <div class="apply-cta__inner">
       <div class="apply-cta__content">
-        <div class="section-eyebrow" style="color:var(--sand)">Are you a teacher?</div>
-        <h2 class="apply-cta__title">Join our community of vetted teachers</h2>
-        <p>If you hold an ijazah or have verified qualifications and are passionate about teaching Quran to women, we would love to hear from you.</p>
+        <div class="section-num section-num--light">04</div>
+        <span class="section-eyebrow section-eyebrow--light">Are you a teacher?</span>
+        <h2 class="apply-cta__title">
+          Join a small,<br/>
+          <em>quietly serious</em> community<br/>
+          of vetted teachers.
+        </h2>
+        <p class="apply-cta__desc">
+          If you hold an ijazah or have verified qualifications and you are passionate about teaching the Quran
+          to women — we would love to read your application.
+        </p>
       </div>
-      <a href="/apply" class="btn btn--sand btn--lg">Apply to teach</a>
+      <div class="apply-cta__action">
+        <a href="/apply" class="pill pill--light pill--lg">
+          <span>Apply to teach</span>
+          <span class="pill__arrow" aria-hidden="true">↗</span>
+        </a>
+        <span class="apply-cta__hint">Takes about 10 minutes ◇ no fee, ever.</span>
+      </div>
     </div>
   </div>
 </section>
 
+
+<!-- Modals (kept identical to current logic) -->
 <div class="modal-overlay" id="teacherModal" hidden>
   <div class="modal">
-    <button class="modal__close" id="modalClose">&times;</button>
+    <button class="modal__close" id="modalClose" aria-label="Close">&times;</button>
     <div class="modal__body" id="modalBody"></div>
   </div>
 </div>
 
 <div class="modal-overlay" id="bookingModal" hidden>
   <div class="modal modal--booking">
-    <button class="modal__close" id="bookingModalClose">&times;</button>
+    <button class="modal__close" id="bookingModalClose" aria-label="Close">&times;</button>
     <div class="modal__body" id="bookingModalBody"></div>
   </div>
 </div>

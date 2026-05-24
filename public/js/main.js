@@ -1,3 +1,10 @@
+/* ═══════════════════════════════════════════════════════════════
+   Laha Space — frontend JS
+   (Logic unchanged: loads teachers, modals, booking, reviews.
+    Only the hero entrance + teacher card markup were updated to
+    match the new editorial design.)
+═══════════════════════════════════════════════════════════════ */
+
 /* ─── State ─────────────────────────────────────────────────── */
 let allTeachers = [];
 let activeCategory = 'all';
@@ -7,22 +14,28 @@ let selectedSlot = null;
 
 /* ─── Init ──────────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
-  // AOS
+  // Scroll reveal
   if (typeof AOS !== 'undefined') {
-    AOS.init({ duration: 700, easing: 'ease-out-cubic', once: true, offset: 60 });
+    AOS.init({ duration: 700, easing: 'ease-out-cubic', once: true, offset: 80 });
   }
 
-  // GSAP hero entrance
-  if (typeof gsap !== 'undefined') {
+  // Hero entrance (GSAP) — softer, slower, more editorial
+  if (typeof gsap !== 'undefined' && document.getElementById('heroTitle')) {
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-    tl.from('#heroEyebrow',  { y: 30, opacity: 0, duration: 0.7 })
-      .from('#heroTitle',    { y: 40, opacity: 0, duration: 0.8 }, '-=0.4')
-      .from('#heroDesc',     { y: 30, opacity: 0, duration: 0.7 }, '-=0.4')
-      .from('#heroActions',  { y: 20, opacity: 0, duration: 0.6 }, '-=0.4')
-      .from('#heroVisual',   { scale: 0.85, opacity: 0, duration: 1, ease: 'power3.out' }, '-=0.8')
-      .from('#heroBadge1',   { scale: 0, opacity: 0, duration: 0.5, ease: 'back.out(1.7)' }, '-=0.3')
-      .from('#heroBadge2',   { scale: 0, opacity: 0, duration: 0.5, ease: 'back.out(1.7)' }, '-=0.3');
+    tl.from('#heroEyebrow', { y: 20, opacity: 0, duration: 0.6 })
+      .from('#heroTitle',   { y: 36, opacity: 0, duration: 0.95 }, '-=0.35')
+      .from('#heroDesc',    { y: 24, opacity: 0, duration: 0.75 }, '-=0.55')
+      .from('#heroActions', { y: 20, opacity: 0, duration: 0.65 }, '-=0.45')
+      .from('#heroMeta',    { y: 24, opacity: 0, duration: 0.8  }, '-=0.5');
   }
+
+  // Marquee — pause on hover for a more crafted feel
+  document.querySelectorAll('.marquee').forEach(m => {
+    const track = m.querySelector('.marquee__track');
+    if (!track) return;
+    m.addEventListener('mouseenter', () => track.style.animationPlayState = 'paused');
+    m.addEventListener('mouseleave', () => track.style.animationPlayState = 'running');
+  });
 
   if (document.getElementById('teacherGrid')) {
     loadTeachers();
@@ -39,14 +52,14 @@ async function loadTeachers() {
     allTeachers = await res.json();
     renderGrid(allTeachers);
   } catch (e) {
-    grid.innerHTML = '<p style="color:#888;padding:40px 0">Unable to load teachers right now.</p>';
+    grid.innerHTML = '<p style="color:#7A8C89;padding:40px 0;grid-column:1/-1;font-size:15px">Unable to load teachers right now.</p>';
   }
 }
 
 function renderGrid(teachers) {
   const grid = document.getElementById('teacherGrid');
   if (!teachers.length) {
-    grid.innerHTML = '<p style="color:#888;padding:40px 0;grid-column:1/-1">No teachers found.</p>';
+    grid.innerHTML = '<p style="color:#7A8C89;padding:40px 0;grid-column:1/-1;font-size:15px">No teachers found in this category yet.</p>';
     return;
   }
   grid.innerHTML = teachers.map((t, i) => {
@@ -57,14 +70,14 @@ function renderGrid(teachers) {
     const cats = Array.isArray(t.categories) ? t.categories : [];
     const langs = Array.isArray(t.languages) ? t.languages : [];
     return `
-      <div class="teacher-card" data-id="${t.id}" data-categories='${JSON.stringify(cats)}' data-aos="fade-up" data-aos-delay="${i * 60}">
+      <div class="teacher-card" data-id="${t.id}" data-categories='${JSON.stringify(cats)}' data-aos="fade-up" data-aos-delay="${Math.min(i, 5) * 60}">
         ${photo}
         <div class="teacher-card__name">${t.name}</div>
         <div class="teacher-card__tags">
           ${cats.map(c => `<span class="tag">${capitalize(c)}</span>`).join('')}
         </div>
         <div class="teacher-card__langs">${langs.join(' · ')}</div>
-        <button class="btn btn--outline btn--sm teacher-card__cta">View profile</button>
+        <button class="teacher-card__cta" type="button">View profile →</button>
       </div>
     `;
   }).join('');
@@ -106,7 +119,7 @@ function setupModals() {
 async function openTeacherModal(id) {
   const modal = document.getElementById('teacherModal');
   const body = document.getElementById('modalBody');
-  body.innerHTML = '<p style="padding:40px;color:#888;text-align:center">Loading...</p>';
+  body.innerHTML = '<p style="padding:40px;color:#7A8C89;text-align:center">Loading…</p>';
   modal.hidden = false;
   document.body.style.overflow = 'hidden';
 
@@ -131,7 +144,7 @@ async function openTeacherModal(id) {
           <div class="review-item__text">${r.review_text}</div>
         </div>
       `).join('')
-    : '<p style="color:#888;font-size:14px">No reviews yet.</p>';
+    : '<p style="color:#7A8C89;font-size:14px">No reviews yet.</p>';
 
   body.innerHTML = `
     ${photo}
@@ -140,14 +153,17 @@ async function openTeacherModal(id) {
       ${cats.map(c => `<span class="tag">${capitalize(c)}</span>`).join('')}
       ${langs.map(l => `<span class="tag tag--sand">${l}</span>`).join('')}
     </div>
-    ${t.laha_endorsement ? `<div class="modal__endorsement">"${t.laha_endorsement}"<br/><small style="font-style:normal;font-weight:700;color:var(--teal)">— Laha Space</small></div>` : ''}
+    ${t.laha_endorsement ? `<div class="modal__endorsement">"${t.laha_endorsement}"<br/><small style="font-style:normal;font-weight:600;color:var(--teal);letter-spacing:0.04em">— Laha Space</small></div>` : ''}
     ${t.bio ? `<div class="modal__section"><h4>About</h4><p>${t.bio}</p></div>` : ''}
     ${t.qualifications ? `<div class="modal__section"><h4>Qualifications</h4><p>${t.qualifications}</p></div>` : ''}
     ${t.experience ? `<div class="modal__section"><h4>Experience</h4><p>${t.experience}</p></div>` : ''}
     <hr class="modal__divider" />
     <div class="modal__section"><h4>Reviews</h4>${reviewsHtml}</div>
     <hr class="modal__divider" />
-    <button class="btn btn--primary" style="width:100%" onclick="openBookingFlow()">Book a discovery session</button>
+    <button class="pill pill--solid pill--full" type="button" onclick="openBookingFlow()">
+      <span>Book a discovery session</span>
+      <span class="pill__arrow" aria-hidden="true">→</span>
+    </button>
     <hr class="modal__divider" />
     <div class="modal__section"><h4>Leave a review</h4><div id="reviewForm">${buildReviewForm(t.id)}</div></div>
   `;
@@ -171,7 +187,7 @@ async function openBookingFlow() {
     <div class="booking-title">Book a discovery session</div>
     <div class="booking-teacher">with ${selectedTeacher.name}</div>
     <div class="booking-step-label">Pick a date</div>
-    <div class="date-grid" id="dateGrid"><p style="color:#888;font-size:14px">Loading availability...</p></div>
+    <div class="date-grid" id="dateGrid"><p style="color:#7A8C89;font-size:14px">Loading availability…</p></div>
     <div id="slotSection" style="display:none">
       <div class="booking-step-label">Pick a time</div>
       <div class="slot-grid" id="slotGrid"></div>
@@ -181,9 +197,12 @@ async function openBookingFlow() {
       <div class="form__group"><label class="form__label">Full name *</label><input class="form__input" id="bName" type="text" required /></div>
       <div class="form__group"><label class="form__label">Email *</label><input class="form__input" id="bEmail" type="email" required /></div>
       <div class="form__group"><label class="form__label">Phone / WhatsApp *</label><input class="form__input" id="bPhone" type="text" required /></div>
-      <div class="form__group"><label class="form__label">What are you looking for? <span style="color:#888;font-size:13px">(optional)</span></label><input class="form__input" id="bLooking" type="text" placeholder="e.g. Beginner, Tajweed revision..." /></div>
+      <div class="form__group"><label class="form__label">What are you looking for? <span style="color:#7A8C89;font-size:13px">(optional)</span></label><input class="form__input" id="bLooking" type="text" placeholder="e.g. Beginner, Tajweed revision…" /></div>
       <div id="bookingError" class="alert alert--error" style="display:none"></div>
-      <button class="btn btn--primary" style="width:100%" onclick="submitBooking()">Confirm session</button>
+      <button class="pill pill--solid pill--full" type="button" onclick="submitBooking()">
+        <span>Confirm session</span>
+        <span class="pill__arrow" aria-hidden="true">→</span>
+      </button>
     </div>
   `;
 
@@ -195,7 +214,7 @@ async function openBookingFlow() {
   const dateGrid = document.getElementById('dateGrid');
 
   if (!days.length) {
-    dateGrid.innerHTML = '<p style="color:#888;font-size:14px">No availability set yet. Please check back later.</p>';
+    dateGrid.innerHTML = '<p style="color:#7A8C89;font-size:14px">No availability set yet. Please check back later.</p>';
     return;
   }
 
@@ -221,13 +240,13 @@ async function selectDate(btn) {
   const formSection = document.getElementById('bookingFormSection');
   slotSection.style.display = 'block';
   formSection.style.display = 'none';
-  slotGrid.innerHTML = '<p style="color:#888;font-size:14px">Loading slots...</p>';
+  slotGrid.innerHTML = '<p style="color:#7A8C89;font-size:14px">Loading slots…</p>';
 
   const res = await fetch(`/api/teachers/${selectedTeacher.id}/slots?date=${selectedDate}`);
   const { slots } = await res.json();
 
   if (!slots.length) {
-    slotGrid.innerHTML = '<p style="color:#888;font-size:14px">No slots for this day.</p>';
+    slotGrid.innerHTML = '<p style="color:#7A8C89;font-size:14px">No slots for this day.</p>';
     return;
   }
 
@@ -271,9 +290,9 @@ async function submitBooking() {
   if (data.success) {
     document.getElementById('bookingModalBody').innerHTML = `
       <div class="booking-success">
-        <div class="booking-success__icon">🌿</div>
-        <div class="booking-success__title">Session booked!</div>
-        <div class="booking-success__text">Your discovery session with ${selectedTeacher.name} on ${formatDateFull(selectedDate)} at ${formatTime(selectedSlot.start)} has been booked. The teacher will be in touch with you shortly. JazakAllahu khairan.</div>
+        <div class="booking-success__icon">◇</div>
+        <div class="booking-success__title">Session booked.</div>
+        <div class="booking-success__text">Your discovery session with ${selectedTeacher.name} on ${formatDateFull(selectedDate)} at ${formatTime(selectedSlot.start)} has been booked. The teacher will be in touch shortly, in shaa Allah. JazakAllahu khairan.</div>
       </div>
     `;
   } else {
@@ -299,7 +318,7 @@ function buildReviewForm(teacherId) {
     <div class="form__group">
       <label class="form__label">Rating</label>
       <div id="starPicker" data-rating="0">
-        ${[1,2,3,4,5].map(i => `<span class="star-pick" data-val="${i}" style="font-size:28px;cursor:pointer;color:#DFDFDF;transition:color 0.2s">★</span>`).join('')}
+        ${[1,2,3,4,5].map(i => `<span class="star-pick" data-val="${i}" style="font-size:26px;cursor:pointer;color:#DFDFDF;transition:color 0.2s;margin-right:4px">★</span>`).join('')}
       </div>
       <input type="hidden" id="rRating" value="0" />
     </div>
@@ -309,7 +328,10 @@ function buildReviewForm(teacherId) {
     </div>
     <div id="reviewError" class="alert alert--error" style="display:none"></div>
     <div id="reviewSuccess" class="alert alert--success" style="display:none"></div>
-    <button class="btn btn--outline btn--sm" onclick="submitReview(${teacherId})">Submit review</button>
+    <button class="pill pill--ghost" type="button" onclick="submitReview(${teacherId})">
+      <span>Submit review</span>
+      <span class="pill__arrow" aria-hidden="true">→</span>
+    </button>
   `;
 }
 
@@ -334,7 +356,7 @@ async function submitReview(teacherId) {
   const res = await fetch('/api/reviews', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ teacher_id: teacherId, student_name: name, rating, review_text: text }) });
   const data = await res.json();
   if (data.success) {
-    sucEl.textContent = 'Thank you! Your review is pending approval.';
+    sucEl.textContent = 'Thank you. Your review is pending approval.';
     sucEl.style.display = 'block';
     document.getElementById('rName').value = '';
     document.getElementById('rText').value = '';

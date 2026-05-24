@@ -1,17 +1,63 @@
   <footer class="footer">
-    <div class="container footer__inner">
-      <div class="footer__brand">
-        <span class="nav__logo-laha">Laha</span><span class="nav__logo-space">Space</span>
-        <p>A space for her.</p>
+    <div class="container">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <span class="footer__mark">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true">
+              <path d="M12 2C12 7 7 12 2 12c5 0 10 5 10 10 0-5 5-10 10-10-5 0-10-5-10-10Z" fill="currentColor"/>
+            </svg>
+          </span>
+          <span class="footer__logo">
+            <span class="footer__logo-laha">Laha</span><span class="footer__logo-space">Space</span>
+          </span>
+          <p class="footer__tag">A quiet space for her — to learn the Word, slowly.</p>
+        </div>
+
+        <div class="footer__cols">
+          <div class="footer__col">
+            <span class="footer__col-title">Platform</span>
+            <a href="/#teachers">Find a teacher</a>
+            <a href="/#vetting">How we vet</a>
+            <a href="/#story">Our story</a>
+          </div>
+          <div class="footer__col">
+            <span class="footer__col-title">Teachers</span>
+            <a href="/apply">Apply to teach</a>
+            <a href="/#vetting">What we look for</a>
+          </div>
+          <div class="footer__col">
+            <span class="footer__col-title">Contact</span>
+            <a href="mailto:hello@lahaspace.com">hello@lahaspace.com</a>
+          </div>
+        </div>
       </div>
-      <div class="footer__links">
-        <a href="/apply">Teach with us</a>
+
+      <div class="footer__bottom">
+        <span class="footer__copy">© <span id="footerYear"></span> Laha Space. All rights reserved.</span>
+        <span class="footer__made">Built with sabr ◇ for sisters everywhere.</span>
       </div>
     </div>
   </footer>
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
   <script src="/js/main.js"></script>
+  <script>
+    // tiny inline helpers — year + nav drawer
+    document.getElementById('footerYear').textContent = new Date().getFullYear();
+    (function(){
+      var b = document.getElementById('navBurger');
+      var d = document.getElementById('navDrawer');
+      if (!b || !d) return;
+      b.addEventListener('click', function(){
+        var open = !d.hidden;
+        d.hidden = open;
+        b.setAttribute('aria-expanded', String(!open));
+        b.classList.toggle('is-open', !open);
+      });
+    })();
+  </script>
 </body>
 </html>

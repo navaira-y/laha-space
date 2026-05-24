@@ -1,10 +1,19 @@
 <%- include('partials/public-head', { title: 'Apply to Teach' }) %>
 
 <section class="page-hero">
-  <div class="container">
-    <div class="section-tag">Teach with Laha Space</div>
-    <h1 class="page-hero__title">Apply to become a teacher</h1>
-    <p class="page-hero__desc">We vet every teacher personally. If you are accepted, you will be listed on the platform and connected with students looking for exactly what you offer.</p>
+  <div class="container page-hero__inner">
+    <div class="section-num">→</div>
+    <div>
+      <span class="section-eyebrow">Teach with Laha Space</span>
+      <h1 class="page-hero__title">
+        Apply to become<br/>
+        <em>a teacher.</em>
+      </h1>
+      <p class="page-hero__desc">
+        We vet every teacher personally. If you are accepted, you will be listed on the platform and connected
+        with students looking for exactly what you offer — quietly, respectfully, and at your own pace.
+      </p>
+    </div>
   </div>
 </section>
 
@@ -13,7 +22,7 @@
 
     <% if (success) { %>
     <div class="alert alert--success">
-      <strong>Application received.</strong> We have noted your details and will be in touch. JazakAllahu khairan.
+      <strong>Application received.</strong> We have noted your details and will be in touch soon, in shaa Allah. JazakAllahu khairan.
     </div>
     <% } else { %>
 
@@ -22,8 +31,12 @@
     <% } %>
 
     <form class="form" action="/apply" method="POST" enctype="multipart/form-data" id="applyForm">
+
       <div class="form__section">
-        <h3 class="form__section-title">Your details</h3>
+        <div class="form__section-head">
+          <span class="form__section-num">01</span>
+          <h3 class="form__section-title">Your details</h3>
+        </div>
         <div class="form__row">
           <div class="form__group">
             <label class="form__label">Full name <span class="required">*</span></label>
@@ -54,7 +67,10 @@
       </div>
 
       <div class="form__section">
-        <h3 class="form__section-title">Teaching background</h3>
+        <div class="form__section-head">
+          <span class="form__section-num">02</span>
+          <h3 class="form__section-title">Teaching background</h3>
+        </div>
         <div class="form__group">
           <label class="form__label">Qualifications and ijazah <span class="required">*</span></label>
           <textarea class="form__input form__textarea" name="qualifications" rows="4" placeholder="Describe your qualifications, certifications, and any ijazah you hold." required></textarea>
@@ -66,7 +82,10 @@
       </div>
 
       <div class="form__section">
-        <h3 class="form__section-title">What you teach</h3>
+        <div class="form__section-head">
+          <span class="form__section-num">03</span>
+          <h3 class="form__section-title">What you teach</h3>
+        </div>
         <div class="form__group">
           <label class="form__label">Areas of teaching <span class="required">*</span></label>
           <div class="checkbox-group">
@@ -101,7 +120,10 @@
       </div>
 
       <div class="form__section">
-        <h3 class="form__section-title">Supporting documents</h3>
+        <div class="form__section-head">
+          <span class="form__section-num">04</span>
+          <h3 class="form__section-title">Supporting documents</h3>
+        </div>
         <div class="form__group">
           <label class="form__label">Upload documents <span class="form__hint">(certificates, ijazah scan, etc. — up to 10 files)</span></label>
           <input class="form__input form__input--file" type="file" name="documents" id="docsInput"
@@ -115,9 +137,14 @@
         </div>
       </div>
 
-      <p class="form__privacy">Your information is only accessible to the Laha Space team and will not be shared publicly without your permission.</p>
+      <p class="form__privacy">
+        Your information is only accessible to the Laha Space team and will not be shared publicly without your permission.
+      </p>
 
-      <button type="submit" class="btn btn--primary btn--lg">Submit application</button>
+      <button type="submit" class="pill pill--solid pill--lg pill--full">
+        <span>Submit application</span>
+        <span class="pill__arrow" aria-hidden="true">→</span>
+      </button>
     </form>
 
     <% } %>
@@ -175,10 +202,5 @@ document.getElementById('applyForm').addEventListener('submit', function(e) {
   if (blocked) e.preventDefault();
 });
 </script>
-
-<style>
-.form__file-hint { font-size: 13px; color: var(--text-muted, #888); margin-top: 4px; }
-.form__file-error { font-size: 13px; color: #c0392b; margin-top: 4px; min-height: 18px; }
-</style>
 
 <%- include('partials/public-foot') %>
