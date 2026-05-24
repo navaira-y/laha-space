@@ -21,7 +21,7 @@
     <div class="alert alert--error"><%= error %></div>
     <% } %>
 
-    <form class="form" action="/apply" method="POST" enctype="multipart/form-data">
+    <form class="form" action="/apply" method="POST" enctype="multipart/form-data" id="applyForm">
       <div class="form__section">
         <h3 class="form__section-title">Your details</h3>
         <div class="form__row">
@@ -46,7 +46,10 @@
         </div>
         <div class="form__group">
           <label class="form__label">Photo <span class="form__hint">(optional now, required before going live)</span></label>
-          <input class="form__input form__input--file" type="file" name="photo" accept="image/*" />
+          <input class="form__input form__input--file" type="file" name="photo" id="photoInput"
+            accept=".jpg,.jpeg,.png,.webp" />
+          <p class="form__file-hint">Accepted formats: JPG, JPEG, PNG, WEBP</p>
+          <p class="form__file-error" id="photoError"></p>
         </div>
       </div>
 
@@ -101,7 +104,10 @@
         <h3 class="form__section-title">Supporting documents</h3>
         <div class="form__group">
           <label class="form__label">Upload documents <span class="form__hint">(certificates, ijazah scan, etc. — up to 10 files)</span></label>
-          <input class="form__input form__input--file" type="file" name="documents" multiple />
+          <input class="form__input form__input--file" type="file" name="documents" id="docsInput"
+            accept=".pdf,.jpg,.jpeg,.png" multiple />
+          <p class="form__file-hint">Accepted formats: PDF, JPG, JPEG, PNG</p>
+          <p class="form__file-error" id="docsError"></p>
         </div>
         <div class="form__group">
           <label class="form__label">Anything else you'd like us to know?</label>
@@ -117,5 +123,62 @@
     <% } %>
   </div>
 </section>
+
+<script>
+const ALLOWED_PHOTO = ['.jpg', '.jpeg', '.png', '.webp'];
+const ALLOWED_DOCS  = ['.pdf', '.jpg', '.jpeg', '.png'];
+
+function getExt(filename) {
+  return filename.slice(filename.lastIndexOf('.')).toLowerCase();
+}
+
+document.getElementById('photoInput').addEventListener('change', function() {
+  const error = document.getElementById('photoError');
+  const file = this.files[0];
+  if (!file) { error.textContent = ''; return; }
+  if (!ALLOWED_PHOTO.includes(getExt(file.name))) {
+    error.textContent = 'This file type is not allowed. Please upload a JPG, JPEG, PNG, or WEBP image.';
+    this.value = '';
+  } else {
+    error.textContent = '';
+  }
+});
+
+document.getElementById('docsInput').addEventListener('change', function() {
+  const error = document.getElementById('docsError');
+  const files = Array.from(this.files);
+  const bad = files.filter(f => !ALLOWED_DOCS.includes(getExt(f.name)));
+  if (bad.length) {
+    error.textContent = 'Some files were not allowed and removed: ' + bad.map(f => f.name).join(', ') + '. Only PDF, JPG, JPEG, PNG are accepted.';
+    this.value = '';
+  } else {
+    error.textContent = '';
+  }
+});
+
+document.getElementById('applyForm').addEventListener('submit', function(e) {
+  const photoInput = document.getElementById('photoInput');
+  const docsInput  = document.getElementById('docsInput');
+  let blocked = false;
+
+  if (photoInput.files[0] && !ALLOWED_PHOTO.includes(getExt(photoInput.files[0].name))) {
+    document.getElementById('photoError').textContent = 'Please remove the invalid photo file before submitting.';
+    blocked = true;
+  }
+
+  const badDoc = Array.from(docsInput.files).find(f => !ALLOWED_DOCS.includes(getExt(f.name)));
+  if (badDoc) {
+    document.getElementById('docsError').textContent = 'Please remove invalid document files before submitting.';
+    blocked = true;
+  }
+
+  if (blocked) e.preventDefault();
+});
+</script>
+
+<style>
+.form__file-hint { font-size: 13px; color: var(--text-muted, #888); margin-top: 4px; }
+.form__file-error { font-size: 13px; color: #c0392b; margin-top: 4px; min-height: 18px; }
+</style>
 
 <%- include('partials/public-foot') %>
