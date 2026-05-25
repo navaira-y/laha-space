@@ -423,7 +423,7 @@ em, i { font-style: italic; }
 }
 .story__inner {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 42% 58%;
   gap: 60px 80px;
   align-items: start;
 }
