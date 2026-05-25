@@ -432,11 +432,6 @@ em, i { font-style: italic; }
   flex-direction: column;
   gap: 12px;
 }
-.story__left .section-num {
-  font-size: 72px;
-  line-height: 1;
-  margin-bottom: 4px;
-}
 .story__left .section-title {
   font-size: clamp(26px, 2.8vw, 38px);
   line-height: 1.15;
@@ -1257,7 +1252,6 @@ em, i { font-style: italic; }
 
 @media (max-width: 680px) {
   .story__inner { grid-template-columns: 1fr; gap: 32px; }
-  .story__left .section-num { font-size: 48px; }
   .vetting__body { grid-template-columns: 1fr; }
   .vetting__sidebar { display: none; }
   .vcard { padding: 32px 0; }
