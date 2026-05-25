@@ -1247,19 +1247,21 @@ em, i { font-style: italic; }
   .hero__meta-item:last-child { padding-right: 0; }
   .hero__meta-divider { width: 1px; height: auto; align-self: stretch; }
   .hero__meta-num { font-size: 26px; }
-  .story__inner,
-  .vetting__body { grid-template-columns: 1fr; }
-  .vetting__sidebar { position: relative; top: 0; display: none; }
   .vetting__head,
   .teachers-section__head,
   .page-hero__inner { grid-template-columns: 1fr; gap: 16px; }
-  .story__inner { grid-template-columns: 1fr; gap: 32px; }
-  .story__left .section-num { font-size: 48px; }
   .marquee__track { font-size: 18px; gap: 36px; }
-  .vcard { padding: 32px 0; }
-  .vcard__title { font-size: 19px; }
   .footer__top { grid-template-columns: 1fr; gap: 40px; }
   .footer__cols { gap: 24px; }
+}
+
+@media (max-width: 680px) {
+  .story__inner { grid-template-columns: 1fr; gap: 32px; }
+  .story__left .section-num { font-size: 48px; }
+  .vetting__body { grid-template-columns: 1fr; }
+  .vetting__sidebar { display: none; }
+  .vcard { padding: 32px 0; }
+  .vcard__title { font-size: 19px; }
 }
 
 @media (max-width: 600px) {
