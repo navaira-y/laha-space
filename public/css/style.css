@@ -631,6 +631,9 @@ em, i { font-style: italic; }
   border-color: var(--ink);
   color: #fff;
 }
+.filter-btn--active:hover {
+  color: #fff;
+}
 
 /* Teacher grid */
 .teacher-grid {

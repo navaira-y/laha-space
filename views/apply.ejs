@@ -178,6 +178,11 @@ document.getElementById('photoInput').addEventListener('change', function() {
 
 document.getElementById('docsInput').addEventListener('change', function() {
   const error = document.getElementById('docsError');
+  if (this.files.length > 10) {
+    error.textContent = 'You can only upload up to 10 documents. Please reduce your selection.';
+    this.value = '';
+    return;
+  }
   const files = Array.from(this.files);
   const bad = files.filter(f => !ALLOWED_DOCS.includes(getExt(f.name)));
   if (bad.length) {
@@ -195,6 +200,11 @@ document.getElementById('applyForm').addEventListener('submit', function(e) {
 
   if (photoInput.files[0] && !ALLOWED_PHOTO.includes(getExt(photoInput.files[0].name))) {
     document.getElementById('photoError').textContent = 'Please remove the invalid photo file before submitting.';
+    blocked = true;
+  }
+
+  if (docsInput.files.length > 10) {
+    document.getElementById('docsError').textContent = 'You can only upload up to 10 documents. Please reduce your selection.';
     blocked = true;
   }
 
