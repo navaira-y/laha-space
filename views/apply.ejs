@@ -10,8 +10,8 @@
         <em>a teacher.</em>
       </h1>
       <p class="page-hero__desc">
-        We vet every teacher personally. If you are accepted, you will be listed on the platform and connected
-        with students looking for exactly what you offer — quietly, respectfully, and at your own pace.
+        Every teacher is personally reviewed by our team. If your application is accepted, your profile will be listed on
+        Laha Space and shown to students seeking your area of teaching.
       </p>
     </div>
   </div>
@@ -54,13 +54,13 @@
           </div>
           <div class="form__group">
             <label class="form__label">Country and city <span class="required">*</span></label>
-            <input class="form__input" type="text" name="country_city" placeholder="e.g. Pakistan, Lahore" required />
+            <input class="form__input" type="text" name="country_city" placeholder="e.g. UAE, Dubai" required />
           </div>
         </div>
         <div class="form__group">
-          <label class="form__label">Photo <span class="form__hint">(optional now, required before going live)</span></label>
+          <label class="form__label">Photo <span class="required">*</span></label>
           <input class="form__input form__input--file" type="file" name="photo" id="photoInput"
-            accept=".jpg,.jpeg,.png,.webp" />
+            accept=".jpg,.jpeg,.png,.webp" required />
           <p class="form__file-hint">Accepted formats: JPG, JPEG, PNG, WEBP</p>
           <p class="form__file-error" id="photoError"></p>
         </div>
@@ -119,8 +119,97 @@
           </div>
         </div>
         <div class="form__group">
-          <label class="form__label">General availability</label>
-          <input class="form__input" type="text" name="availability_text" placeholder="e.g. Weekday mornings, Weekends (Gulf time)" />
+          <label class="form__label">Availability for student meetings <span class="required">*</span></label>
+          <p class="form__file-hint" style="margin-bottom:12px;">Please share the days, times, and time zone when students can book meetings with you.</p>
+          <input type="hidden" name="availability_text" id="availabilityText" />
+          <div class="form__row">
+            <div class="form__group">
+              <label class="form__label">Day from</label>
+              <select class="form__input" id="availabilityDayStart" required>
+                <option value="">Select day</option>
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+                <option value="Friday">Friday</option>
+                <option value="Saturday">Saturday</option>
+                <option value="Sunday">Sunday</option>
+              </select>
+            </div>
+            <div class="form__group">
+              <label class="form__label">Day to</label>
+              <select class="form__input" id="availabilityDayEnd" required>
+                <option value="">Select day</option>
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+                <option value="Friday">Friday</option>
+                <option value="Saturday">Saturday</option>
+                <option value="Sunday">Sunday</option>
+              </select>
+            </div>
+          </div>
+          <div class="form__row">
+            <div class="form__group">
+              <label class="form__label">Time from</label>
+              <select class="form__input" id="availabilityTimeStart" required>
+                <option value="">Select time</option>
+                <option value="06:00">06:00</option>
+                <option value="07:00">07:00</option>
+                <option value="08:00">08:00</option>
+                <option value="09:00">09:00</option>
+                <option value="10:00">10:00</option>
+                <option value="11:00">11:00</option>
+                <option value="12:00">12:00</option>
+                <option value="13:00">13:00</option>
+                <option value="14:00">14:00</option>
+                <option value="15:00">15:00</option>
+                <option value="16:00">16:00</option>
+                <option value="17:00">17:00</option>
+                <option value="18:00">18:00</option>
+                <option value="19:00">19:00</option>
+                <option value="20:00">20:00</option>
+                <option value="21:00">21:00</option>
+                <option value="22:00">22:00</option>
+              </select>
+            </div>
+            <div class="form__group">
+              <label class="form__label">Time to</label>
+              <select class="form__input" id="availabilityTimeEnd" required>
+                <option value="">Select time</option>
+                <option value="07:00">07:00</option>
+                <option value="08:00">08:00</option>
+                <option value="09:00">09:00</option>
+                <option value="10:00">10:00</option>
+                <option value="11:00">11:00</option>
+                <option value="12:00">12:00</option>
+                <option value="13:00">13:00</option>
+                <option value="14:00">14:00</option>
+                <option value="15:00">15:00</option>
+                <option value="16:00">16:00</option>
+                <option value="17:00">17:00</option>
+                <option value="18:00">18:00</option>
+                <option value="19:00">19:00</option>
+                <option value="20:00">20:00</option>
+                <option value="21:00">21:00</option>
+                <option value="22:00">22:00</option>
+                <option value="23:00">23:00</option>
+              </select>
+            </div>
+          </div>
+          <div class="form__group">
+            <label class="form__label">Time zone</label>
+            <select class="form__input" id="availabilityTimezone" required>
+              <option value="">Select time zone</option>
+              <option value="UAE / Dubai (GST, UTC+4)" selected>UAE / Dubai (GST, UTC+4)</option>
+              <option value="Saudi Arabia / Riyadh (AST, UTC+3)">Saudi Arabia / Riyadh (AST, UTC+3)</option>
+              <option value="Pakistan / Lahore (PKT, UTC+5)">Pakistan / Lahore (PKT, UTC+5)</option>
+              <option value="United Kingdom / London">United Kingdom / London</option>
+              <option value="US Eastern Time">US Eastern Time</option>
+            </select>
+          </div>
+          <p class="form__file-error" id="availabilityError"></p>
         </div>
       </div>
 
@@ -130,7 +219,7 @@
           <h3 class="form__section-title">Supporting documents</h3>
         </div>
         <div class="form__group">
-          <label class="form__label">Upload documents <span class="form__hint">(certificates, ijazah scan, etc. — up to 10 files)</span></label>
+          <label class="form__label">Upload documents <span class="form__hint">(certificates, ijazah scan, etc. — maximum 10 files)</span></label>
           <input class="form__input form__input--file" type="file" name="documents" id="docsInput"
             accept=".pdf,.jpg,.jpeg,.png,.docx" multiple />
           <p class="form__file-hint">Accepted formats: PDF, JPG, JPEG, PNG, DOCX</p>
@@ -159,15 +248,51 @@
 <script>
 const ALLOWED_PHOTO = ['.jpg', '.jpeg', '.png', '.webp'];
 const ALLOWED_DOCS  = ['.pdf', '.jpg', '.jpeg', '.png', '.docx'];
+const DAY_ORDER = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
 function getExt(filename) {
   return filename.slice(filename.lastIndexOf('.')).toLowerCase();
 }
 
+function buildAvailabilityText() {
+  const dayStart = document.getElementById('availabilityDayStart').value;
+  const dayEnd = document.getElementById('availabilityDayEnd').value;
+  const timeStart = document.getElementById('availabilityTimeStart').value;
+  const timeEnd = document.getElementById('availabilityTimeEnd').value;
+  const timezone = document.getElementById('availabilityTimezone').value;
+  const hiddenInput = document.getElementById('availabilityText');
+  const error = document.getElementById('availabilityError');
+
+  if (!dayStart || !dayEnd || !timeStart || !timeEnd || !timezone) {
+    hiddenInput.value = '';
+    error.textContent = '';
+    return false;
+  }
+
+  if (DAY_ORDER.indexOf(dayStart) > DAY_ORDER.indexOf(dayEnd)) {
+    hiddenInput.value = '';
+    error.textContent = 'Please choose a valid day range.';
+    return false;
+  }
+
+  if (timeStart >= timeEnd) {
+    hiddenInput.value = '';
+    error.textContent = 'Please choose a valid time range.';
+    return false;
+  }
+
+  hiddenInput.value = `${dayStart} to ${dayEnd}, ${timeStart} to ${timeEnd} (${timezone})`;
+  error.textContent = '';
+  return true;
+}
+
 document.getElementById('photoInput').addEventListener('change', function() {
   const error = document.getElementById('photoError');
   const file = this.files[0];
-  if (!file) { error.textContent = ''; return; }
+  if (!file) {
+    error.textContent = 'A photo is required.';
+    return;
+  }
   if (!ALLOWED_PHOTO.includes(getExt(file.name))) {
     error.textContent = 'This file type is not allowed. Please upload a JPG, JPEG, PNG, or WEBP image.';
     this.value = '';
@@ -179,7 +304,7 @@ document.getElementById('photoInput').addEventListener('change', function() {
 document.getElementById('docsInput').addEventListener('change', function() {
   const error = document.getElementById('docsError');
   if (this.files.length > 10) {
-    error.textContent = 'You can only upload up to 10 documents. Please reduce your selection.';
+    error.textContent = 'You can upload a maximum of 10 documents. Please reduce your selection.';
     this.value = '';
     return;
   }
@@ -193,18 +318,30 @@ document.getElementById('docsInput').addEventListener('change', function() {
   }
 });
 
+['availabilityDayStart', 'availabilityDayEnd', 'availabilityTimeStart', 'availabilityTimeEnd', 'availabilityTimezone'].forEach(function(id) {
+  document.getElementById(id).addEventListener('change', buildAvailabilityText);
+});
+
 document.getElementById('applyForm').addEventListener('submit', function(e) {
   const photoInput = document.getElementById('photoInput');
   const docsInput  = document.getElementById('docsInput');
   let blocked = false;
 
-  if (photoInput.files[0] && !ALLOWED_PHOTO.includes(getExt(photoInput.files[0].name))) {
+  if (!photoInput.files[0]) {
+    document.getElementById('photoError').textContent = 'A photo is required.';
+    blocked = true;
+  } else if (!ALLOWED_PHOTO.includes(getExt(photoInput.files[0].name))) {
     document.getElementById('photoError').textContent = 'Please remove the invalid photo file before submitting.';
     blocked = true;
   }
 
+  if (!buildAvailabilityText()) {
+    document.getElementById('availabilityError').textContent = document.getElementById('availabilityError').textContent || 'Please complete your meeting availability.';
+    blocked = true;
+  }
+
   if (docsInput.files.length > 10) {
-    document.getElementById('docsError').textContent = 'You can only upload up to 10 documents. Please reduce your selection.';
+    document.getElementById('docsError').textContent = 'You can upload a maximum of 10 documents. Please reduce your selection.';
     blocked = true;
   }
 

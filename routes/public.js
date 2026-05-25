@@ -74,6 +74,10 @@ router.post('/apply', uploadApplication, async (req, res) => {
     }
     const photoPath  = req.files?.photo?.[0] ? '/uploads/photos/' + req.files.photo[0].filename : null;
 
+    if (!photoPath) {
+      return res.render('apply', { success: false, error: 'Please upload a photo before submitting your application.' });
+    }
+
     const { data: applicant, error } = await supabase.from('applicants').insert({
       name, email, phone, country_city,
       photo_path: photoPath,
