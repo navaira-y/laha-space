@@ -67,7 +67,11 @@ router.post('/apply', uploadApplication, async (req, res) => {
   try {
     const { name, email, phone, country_city, qualifications, experience, availability_text, extra_info } = req.body;
     const categories = [].concat(req.body.categories || []);
-    const languages  = [].concat(req.body.languages  || []);
+    let languages = [].concat(req.body.languages || []);
+    if (languages.includes('Other') && req.body.languages_other && req.body.languages_other.trim()) {
+      languages = languages.filter(l => l !== 'Other');
+      languages.push(req.body.languages_other.trim());
+    }
     const photoPath  = req.files?.photo?.[0] ? '/uploads/photos/' + req.files.photo[0].filename : null;
 
     const { data: applicant, error } = await supabase.from('applicants').insert({

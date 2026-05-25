@@ -110,7 +110,12 @@
             <label class="checkbox-label"><input type="checkbox" name="languages" value="English" /><span>English</span></label>
             <label class="checkbox-label"><input type="checkbox" name="languages" value="Urdu" /><span>Urdu</span></label>
             <label class="checkbox-label"><input type="checkbox" name="languages" value="French" /><span>French</span></label>
-            <label class="checkbox-label"><input type="checkbox" name="languages" value="Other" /><span>Other</span></label>
+            <label class="checkbox-label"><input type="checkbox" name="languages" value="Other" id="otherLangCheck" /><span>Other</span></label>
+          </div>
+          <div id="otherLangBox" style="display:none;margin-top:12px;">
+            <input class="form__input" type="text" name="languages_other" id="otherLangInput" placeholder="Please specify your language" />
+          </div>
+          <div style="display:none">
           </div>
         </div>
         <div class="form__group">
@@ -203,4 +208,13 @@ document.getElementById('applyForm').addEventListener('submit', function(e) {
 });
 </script>
 
+<script>
+  document.getElementById('otherLangCheck').addEventListener('change', function() {
+    var box = document.getElementById('otherLangBox');
+    var input = document.getElementById('otherLangInput');
+    box.style.display = this.checked ? 'block' : 'none';
+    input.required = this.checked;
+    if (!this.checked) input.value = '';
+  });
+</script>
 <%- include('partials/public-foot') %>

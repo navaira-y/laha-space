@@ -395,7 +395,23 @@ function formatDateFull(d) {
       const pct = ((index + 1) / cards.length) * 100;
       progressFill.style.height = pct + '%';
     }
+    cards.forEach((card, i) => {
+      if (i === index) {
+        card.style.opacity = '1';
+        card.style.filter = 'none';
+        card.style.transform = 'scale(1)';
+      } else {
+        card.style.opacity = '0.3';
+        card.style.filter = 'blur(1px)';
+        card.style.transform = 'scale(0.97)';
+      }
+    });
   }
+
+  cards.forEach(card => {
+    card.style.transition = 'opacity 0.5s ease, filter 0.5s ease, transform 0.5s cubic-bezier(0.16,1,0.3,1)';
+    card.style.transform = 'scale(0.97)';
+  });
 
   const obs = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -405,7 +421,7 @@ function formatDateFull(d) {
         if (!isNaN(idx)) setActive(idx);
       }
     });
-  }, { threshold: 0.4, rootMargin: '0px 0px -20% 0px' });
+  }, { threshold: 0.5, rootMargin: '0px 0px -25% 0px' });
 
   cards.forEach(card => obs.observe(card));
 
