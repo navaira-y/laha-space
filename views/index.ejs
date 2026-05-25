@@ -95,70 +95,87 @@
       <div>
         <span class="section-eyebrow">How we choose our teachers</span>
         <h2 class="section-title">Seven stages.<br/><em>No shortcuts.</em></h2>
-        <p class="section-desc">
-          Every teacher you see here has passed through our full vetting process. Here is exactly what that means.
-        </p>
+        <p class="section-desc">Every teacher you see here has passed through our full vetting process. Here is exactly what that means.</p>
       </div>
     </div>
 
-    <ol class="stages">
-      <li class="stage" data-aos="fade-up">
-        <span class="stage__num">01</span>
-        <div class="stage__body">
-          <h4>Application</h4>
-          <p>The teacher submits a detailed application covering her qualifications, ijazah, teaching experience and references.</p>
+    <div class="vetting__body">
+
+      <div class="vetting__sidebar">
+        <div class="vetting__progress-track">
+          <div class="vetting__progress-fill" id="vettingProgress"></div>
         </div>
-        <span class="stage__arrow" aria-hidden="true">→</span>
-      </li>
-      <li class="stage" data-aos="fade-up">
-        <span class="stage__num">02</span>
-        <div class="stage__body">
-          <h4>Initial screening</h4>
-          <p>Our team reviews every document and qualification before anything moves forward.</p>
-        </div>
-        <span class="stage__arrow" aria-hidden="true">→</span>
-      </li>
-      <li class="stage" data-aos="fade-up">
-        <span class="stage__num">03</span>
-        <div class="stage__body">
-          <h4>One on one interview</h4>
-          <p>A personal conversation to understand her background, her approach and her values as a teacher.</p>
-        </div>
-        <span class="stage__arrow" aria-hidden="true">→</span>
-      </li>
-      <li class="stage" data-aos="fade-up">
-        <span class="stage__num">04</span>
-        <div class="stage__body">
-          <h4>Interview review</h4>
-          <p>The team evaluates every interview note carefully before proceeding to the teaching test.</p>
-        </div>
-        <span class="stage__arrow" aria-hidden="true">→</span>
-      </li>
-      <li class="stage" data-aos="fade-up">
-        <span class="stage__num">05</span>
-        <div class="stage__body">
-          <h4>Teaching test</h4>
-          <p>The teacher delivers a live teaching demonstration observed and reviewed by our team.</p>
-        </div>
-        <span class="stage__arrow" aria-hidden="true">→</span>
-      </li>
-      <li class="stage" data-aos="fade-up">
-        <span class="stage__num">06</span>
-        <div class="stage__body">
-          <h4>Training program</h4>
-          <p>Accepted teachers complete our internal onboarding and training before being listed publicly.</p>
-        </div>
-        <span class="stage__arrow" aria-hidden="true">→</span>
-      </li>
-      <li class="stage stage--final" data-aos="fade-up">
-        <span class="stage__num">07</span>
-        <div class="stage__body">
-          <h4>Fully vetted <span class="stage__pill">live</span></h4>
-          <p>Only now does the teacher appear on Laha Space. Every teacher you see here is here for a reason.</p>
-        </div>
-        <span class="stage__arrow stage__arrow--check" aria-hidden="true">✓</span>
-      </li>
-    </ol>
+        <ol class="vetting__nav" id="vettingNav">
+          <li class="vnav__item vnav__item--active" data-stage="0">
+            <span class="vnav__num">01</span>
+            <span class="vnav__label">Application</span>
+          </li>
+          <li class="vnav__item" data-stage="1">
+            <span class="vnav__num">02</span>
+            <span class="vnav__label">Screening</span>
+          </li>
+          <li class="vnav__item" data-stage="2">
+            <span class="vnav__num">03</span>
+            <span class="vnav__label">Interview</span>
+          </li>
+          <li class="vnav__item" data-stage="3">
+            <span class="vnav__num">04</span>
+            <span class="vnav__label">Review</span>
+          </li>
+          <li class="vnav__item" data-stage="4">
+            <span class="vnav__num">05</span>
+            <span class="vnav__label">Teaching test</span>
+          </li>
+          <li class="vnav__item" data-stage="5">
+            <span class="vnav__num">06</span>
+            <span class="vnav__label">Training</span>
+          </li>
+          <li class="vnav__item" data-stage="6">
+            <span class="vnav__num">07</span>
+            <span class="vnav__label">Live listing</span>
+          </li>
+        </ol>
+      </div>
+
+      <ol class="vetting__cards" id="vettingCards">
+        <li class="vcard" data-index="0">
+          <span class="vcard__num">01</span>
+          <h4 class="vcard__title">Application</h4>
+          <p class="vcard__desc">The teacher submits a detailed application covering her qualifications, ijazah, teaching experience and references. Nothing moves forward until the full picture is clear.</p>
+        </li>
+        <li class="vcard" data-index="1">
+          <span class="vcard__num">02</span>
+          <h4 class="vcard__title">Initial screening</h4>
+          <p class="vcard__desc">Our team goes through every document submitted. If anything is missing or unclear, we follow up before proceeding.</p>
+        </li>
+        <li class="vcard" data-index="2">
+          <span class="vcard__num">03</span>
+          <h4 class="vcard__title">One on one interview</h4>
+          <p class="vcard__desc">A personal conversation with the teacher to understand her background, her approach to teaching and her values. This is not a formality.</p>
+        </li>
+        <li class="vcard" data-index="3">
+          <span class="vcard__num">04</span>
+          <h4 class="vcard__title">Interview review</h4>
+          <p class="vcard__desc">The team reviews everything from the interview together before deciding whether to proceed to the teaching test.</p>
+        </li>
+        <li class="vcard" data-index="4">
+          <span class="vcard__num">05</span>
+          <h4 class="vcard__title">Teaching test</h4>
+          <p class="vcard__desc">The teacher delivers a live teaching demonstration. Our team observes, takes notes and evaluates how she actually teaches, not just what she knows.</p>
+        </li>
+        <li class="vcard" data-index="5">
+          <span class="vcard__num">06</span>
+          <h4 class="vcard__title">Training program</h4>
+          <p class="vcard__desc">Accepted teachers complete our internal onboarding program before going live. This ensures every teacher on the platform meets the same standard.</p>
+        </li>
+        <li class="vcard vcard--final" data-index="6">
+          <span class="vcard__num">07</span>
+          <h4 class="vcard__title">Live listing <span class="stage__pill">live</span></h4>
+          <p class="vcard__desc">Only now does the teacher appear on Laha Space. Every profile you see here has cleared all seven stages. No exceptions.</p>
+        </li>
+      </ol>
+
+    </div>
   </div>
 </section>
 

@@ -379,3 +379,42 @@ function formatTime(t) {
 function formatDateFull(d) {
   return new Date(d + 'T00:00:00').toLocaleDateString('en-GB', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
 }
+
+/* ─── Vetting sticky scroll ───────────────────────────────────── */
+(function() {
+  const cards = document.querySelectorAll('.vcard');
+  const navItems = document.querySelectorAll('.vnav__item');
+  const progressFill = document.getElementById('vettingProgress');
+  if (!cards.length || !navItems.length) return;
+
+  function setActive(index) {
+    navItems.forEach((item, i) => {
+      item.classList.toggle('vnav__item--active', i === index);
+    });
+    if (progressFill) {
+      const pct = ((index + 1) / cards.length) * 100;
+      progressFill.style.height = pct + '%';
+    }
+  }
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        const idx = parseInt(entry.target.dataset.index);
+        if (!isNaN(idx)) setActive(idx);
+      }
+    });
+  }, { threshold: 0.4, rootMargin: '0px 0px -20% 0px' });
+
+  cards.forEach(card => obs.observe(card));
+
+  navItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const idx = parseInt(item.dataset.stage);
+      if (!isNaN(idx) && cards[idx]) {
+        cards[idx].scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+  });
+})();
