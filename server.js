@@ -16,7 +16,19 @@ app.set('trust proxy', 1);
 
 // Security headers
 app.use(helmet({
-  contentSecurityPolicy: false
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc:  ["'self'"],
+      scriptSrc:   ["'self'", "'unsafe-inline'", "cdnjs.cloudflare.com"],
+      styleSrc:    ["'self'", "'unsafe-inline'", "fonts.googleapis.com", "cdnjs.cloudflare.com"],
+      fontSrc:     ["'self'", "fonts.gstatic.com", "data:"],
+      imgSrc:      ["'self'", "data:", "blob:", "https:"],
+      connectSrc:  ["'self'"],
+      frameSrc:    ["'none'"],
+      objectSrc:   ["'none'"],
+      baseUri:     ["'self'"],
+    }
+  }
 }));
 
 // View engine

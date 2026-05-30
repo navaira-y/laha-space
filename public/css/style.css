@@ -3,7 +3,7 @@
 /* ─── Tokens ─────────────────────────────────────────────────── */
 :root {
   /* Brand palette (from Laha guideline) */
-  --teal:        #2F877D;
+  --teal:        #2E847B;
   --teal-deep:   #1A4D47;
   --teal-soft:   rgba(47, 135, 125, 0.08);
   --sand:        #D4A574;
@@ -123,8 +123,8 @@ em, i { font-style: italic; }
 .pill:hover { transform: translateY(-1px); }
 .pill:hover .pill__arrow { transform: translate(2px, -1px); }
 
-.pill--solid { background: var(--ink); color: #fff; border-color: var(--ink); }
-.pill--solid:hover { background: var(--teal-deep); border-color: var(--teal-deep); }
+.pill--solid { background: var(--teal); color: #fff; border-color: var(--teal); }
+.pill--solid:hover { background: var(--teal-deep); border-color: var(--teal-deep); filter: brightness(0.92); }
 
 .pill--dark { background: var(--ink); color: #fff; border-color: var(--ink); }
 .pill--dark:hover { background: var(--teal); border-color: var(--teal); }
@@ -1285,3 +1285,15 @@ em, i { font-style: italic; }
 @media print {
   .nav, .footer, .marquee, .apply-cta { display: none; }
 }
+
+/* Ghost pill on dark hero background */
+.hero .pill--ghost { color: #fff; border-color: rgba(255,255,255,0.4); }
+.hero .pill--ghost:hover { background: rgba(255,255,255,0.1); border-color: #fff; color: #fff; }
+
+/* Community CTA section */
+.community-cta { background: var(--bg-warm); padding: 100px 0; }
+.community-cta__inner { max-width: 680px; }
+.community-cta__desc { font-size: 17px; color: var(--ink-soft); line-height: 1.75; margin: 20px 0 32px; max-width: 560px; }
+
+/* Filter btn active hover fix */
+.filter-btn--active:hover { color: #fff; }
