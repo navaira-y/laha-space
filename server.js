@@ -50,7 +50,7 @@ const pool = new Pool({
 });
 
 app.use(session({
-  store: new pgSession({ pool, tableName: 'sessions', createTableIfMissing: false }),
+  store: new pgSession({ pool, tableName: 'sessions', createTableIfMissing: true }),
   secret: process.env.SESSION_SECRET || 'fallback-secret-change-this',
   resave: false,
   saveUninitialized: false,
