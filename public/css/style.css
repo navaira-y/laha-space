@@ -313,7 +313,7 @@ em, i { font-style: italic; }
 .hero__title {
   font-family: var(--font-serif);
   font-weight: 400;
-  font-size: clamp(32px, 4.2vw, 88px);
+  font-size: clamp(52px, 5.5vw, 85px);
   line-height: 1.0;
   letter-spacing: -0.03em;
   color: var(--ink);
