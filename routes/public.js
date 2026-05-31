@@ -81,11 +81,19 @@ router.post('/apply', (req, res, next) => {
     photo_path: photoPath,
     qualifications, experience,
     categories, languages,
-    availability_text, extra_info,
+    availability_text: availability_text || null,
+    extra_info: extra_info || null,
     stage: 1, status: 'active'
   }).select().single();
 
-  if (error) throw error;
+  if (error) {
+    console.error('Supabase insert error:', JSON.stringify(error));
+    return res.render('apply', { success: false, error: 'Could not save your application. Please try again.' });
+  }
+  if (!applicant) {
+    console.error('Supabase returned no data after insert');
+    return res.render('apply', { success: false, error: 'Could not save your application. Please try again.' });
+  }
 
   if (req.files?.documents?.length) {
     const docs = req.files.documents.map(f => ({
