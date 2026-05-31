@@ -177,7 +177,9 @@ function closeTeacherModal() {
 
 /* ─── Booking flow ──────────────────────────────────────────── */
 async function openBookingFlow() {
+  const teacher = selectedTeacher; // save before closeTeacherModal nulls it
   closeTeacherModal();
+  selectedTeacher = teacher; // restore so booking flow can use it
   const modal = document.getElementById('bookingModal');
   const body = document.getElementById('bookingModalBody');
   selectedDate = null;
