@@ -53,6 +53,7 @@ const uploadApplication = (req, res, next) => {
   uploadPhoto.fields([{ name: 'photo', maxCount: 1 }])(req, res, (err) => {
     if (err) return res.render('apply', { success: false, error: err.message });
     uploadDocs.fields([{ name: 'documents', maxCount: 10 }])(req, res, (err2) => {
+      if (err2 && err2.code === 'LIMIT_UNEXPECTED_FILE') return next();
       if (err2) return res.render('apply', { success: false, error: err2.message });
       next();
     });
