@@ -29,7 +29,7 @@
           <td>
             <div class="star-display">
               <% for(let i=1;i<=5;i++) { %>
-              <span class="<%= i <= Number(r.rating) ? 'star star--filled' : 'star' %>">★</span>
+              <span style="color:<%= i <= Number(r.rating) ? '#E6940A' : '#CCCCCC' %>;font-size:16px;">★</span>
               <% } %>
             </div>
           </td>
