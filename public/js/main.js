@@ -50,42 +50,10 @@ async function loadTeachers() {
   try {
     const res = await fetch('/api/teachers');
     allTeachers = await res.json();
-    renderTeachers(activeCategory);
+    renderTeacherPage(allTeachers, 0);
   } catch (e) {
     grid.innerHTML = '<p style="color:#7A8C89;padding:40px 0;grid-column:1/-1;font-size:15px">Unable to load teachers right now.</p>';
   }
-}
-
-function renderGrid(teachers) {
-  const grid = document.getElementById('teacherGrid');
-  if (!teachers.length) {
-    grid.innerHTML = '<p style="color:#7A8C89;padding:40px 0;grid-column:1/-1;font-size:15px">No teachers found in this category yet.</p>';
-    return;
-  }
-  grid.innerHTML = teachers.map((t, i) => {
-    const initials = t.name.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
-    const photo = t.photo_path
-      ? `<img class="teacher-card__photo" src="${t.photo_path}" alt="${t.name}" />`
-      : `<div class="teacher-card__photo-placeholder">${initials}</div>`;
-    const cats = Array.isArray(t.categories) ? t.categories : [];
-    const langs = Array.isArray(t.languages) ? t.languages : [];
-    return `
-      <div class="teacher-card" data-id="${t.id}" data-categories='${JSON.stringify(cats)}' data-aos="fade-up" data-aos-delay="${Math.min(i, 5) * 60}">
-        ${photo}
-        <div class="teacher-card__name">${t.name}</div>
-        <div class="teacher-card__tags">
-          ${cats.map(c => `<span class="tag">${capitalize(c)}</span>`).join('')}
-        </div>
-        <div class="teacher-card__langs">${langs.join(' · ')}</div>
-        <button class="teacher-card__cta" type="button">View profile →</button>
-      </div>
-    `;
-  }).join('');
-
-  if (typeof AOS !== 'undefined') AOS.refresh();
-
-  const filtered2 = category === 'all' ? allTeachers : allTeachers.filter(t => t.categories && t.categories.includes(category));
-  renderTeacherPage(filtered2, 0);
 }
 
 function renderTeacherPage(teachers, page) {
@@ -140,7 +108,7 @@ function setupFilters() {
       const filtered = activeCategory === 'all'
         ? allTeachers
         : allTeachers.filter(t => (Array.isArray(t.categories) ? t.categories : []).includes(activeCategory));
-      renderGrid(filtered);
+      renderTeacherPage(filtered, 0);
     });
   });
 }
