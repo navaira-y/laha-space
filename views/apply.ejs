@@ -119,97 +119,29 @@
           </div>
         </div>
         <div class="form__group">
-          <label class="form__label">Availability for student meetings <span class="required">*</span></label>
-          <p class="form__file-hint" style="margin-bottom:12px;">Please share the days, times, and time zone when students can book meetings with you.</p>
-          <input type="hidden" name="availability_text" id="availabilityText" />
-          <div class="form__row">
-            <div class="form__group">
-              <label class="form__label">Day from</label>
-              <select class="form__input" id="availabilityDayStart" required>
-                <option value="">Select day</option>
-                <option value="Monday">Monday</option>
-                <option value="Tuesday">Tuesday</option>
-                <option value="Wednesday">Wednesday</option>
-                <option value="Thursday">Thursday</option>
-                <option value="Friday">Friday</option>
-                <option value="Saturday">Saturday</option>
-                <option value="Sunday">Sunday</option>
+          <label class="form__label">Availability for student sessions <span class="required">*</span></label>
+          <p class="form__file-hint" style="margin-bottom:14px;">Add the days and times you are available. You can add multiple windows.</p>
+          <div id="availRows">
+            <div class="avail-row">
+              <select class="form__input avail-day-select">
+                <option value="">— Day —</option>
+                <option value="0">Sunday</option>
+                <option value="1">Monday</option>
+                <option value="2">Tuesday</option>
+                <option value="3">Wednesday</option>
+                <option value="4">Thursday</option>
+                <option value="5">Friday</option>
+                <option value="6">Saturday</option>
               </select>
-            </div>
-            <div class="form__group">
-              <label class="form__label">Day to</label>
-              <select class="form__input" id="availabilityDayEnd" required>
-                <option value="">Select day</option>
-                <option value="Monday">Monday</option>
-                <option value="Tuesday">Tuesday</option>
-                <option value="Wednesday">Wednesday</option>
-                <option value="Thursday">Thursday</option>
-                <option value="Friday">Friday</option>
-                <option value="Saturday">Saturday</option>
-                <option value="Sunday">Sunday</option>
-              </select>
+              <input class="form__input avail-start-time" type="time" />
+              <span class="avail-sep">to</span>
+              <input class="form__input avail-end-time" type="time" />
+              <button type="button" class="btn btn--danger btn--sm remove-avail-row">✕</button>
             </div>
           </div>
-          <div class="form__row">
-            <div class="form__group">
-              <label class="form__label">Time from</label>
-              <select class="form__input" id="availabilityTimeStart" required>
-                <option value="">Select time</option>
-                <option value="06:00">06:00</option>
-                <option value="07:00">07:00</option>
-                <option value="08:00">08:00</option>
-                <option value="09:00">09:00</option>
-                <option value="10:00">10:00</option>
-                <option value="11:00">11:00</option>
-                <option value="12:00">12:00</option>
-                <option value="13:00">13:00</option>
-                <option value="14:00">14:00</option>
-                <option value="15:00">15:00</option>
-                <option value="16:00">16:00</option>
-                <option value="17:00">17:00</option>
-                <option value="18:00">18:00</option>
-                <option value="19:00">19:00</option>
-                <option value="20:00">20:00</option>
-                <option value="21:00">21:00</option>
-                <option value="22:00">22:00</option>
-              </select>
-            </div>
-            <div class="form__group">
-              <label class="form__label">Time to</label>
-              <select class="form__input" id="availabilityTimeEnd" required>
-                <option value="">Select time</option>
-                <option value="07:00">07:00</option>
-                <option value="08:00">08:00</option>
-                <option value="09:00">09:00</option>
-                <option value="10:00">10:00</option>
-                <option value="11:00">11:00</option>
-                <option value="12:00">12:00</option>
-                <option value="13:00">13:00</option>
-                <option value="14:00">14:00</option>
-                <option value="15:00">15:00</option>
-                <option value="16:00">16:00</option>
-                <option value="17:00">17:00</option>
-                <option value="18:00">18:00</option>
-                <option value="19:00">19:00</option>
-                <option value="20:00">20:00</option>
-                <option value="21:00">21:00</option>
-                <option value="22:00">22:00</option>
-                <option value="23:00">23:00</option>
-              </select>
-            </div>
-          </div>
-          <div class="form__group">
-            <label class="form__label">Time zone</label>
-            <select class="form__input" id="availabilityTimezone" required>
-              <option value="">Select time zone</option>
-              <option value="UAE / Dubai (GST, UTC+4)" selected>UAE / Dubai (GST, UTC+4)</option>
-              <option value="Saudi Arabia / Riyadh (AST, UTC+3)">Saudi Arabia / Riyadh (AST, UTC+3)</option>
-              <option value="Pakistan / Lahore (PKT, UTC+5)">Pakistan / Lahore (PKT, UTC+5)</option>
-              <option value="United Kingdom / London">United Kingdom / London</option>
-              <option value="US Eastern Time">US Eastern Time</option>
-            </select>
-          </div>
+          <button type="button" class="btn btn--outline btn--sm" id="addAvailRow" style="margin-top:10px;">+ Add time window</button>
           <p class="form__file-error" id="availabilityError"></p>
+          <input type="hidden" name="availability_text" id="availabilityText" />
         </div>
       </div>
 
@@ -254,45 +186,55 @@ function getExt(filename) {
   return filename.slice(filename.lastIndexOf('.')).toLowerCase();
 }
 
-function buildAvailabilityText() {
-  const dayStart = document.getElementById('availabilityDayStart').value;
-  const dayEnd = document.getElementById('availabilityDayEnd').value;
-  const timeStart = document.getElementById('availabilityTimeStart').value;
-  const timeEnd = document.getElementById('availabilityTimeEnd').value;
-  const timezone = document.getElementById('availabilityTimezone').value;
-  const hiddenInput = document.getElementById('availabilityText');
-  const error = document.getElementById('availabilityError');
+// ─── Availability rows ──────────────────────────────────────
+const DAY_NAMES = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
-  if (!dayStart || !dayEnd || !timeStart || !timeEnd || !timezone) {
-    hiddenInput.value = '';
-    error.textContent = '';
-    return false;
+function buildAvailRow() {
+  const div = document.createElement('div');
+  div.className = 'avail-row';
+  div.innerHTML = `
+    <select class="form__input avail-day-select">
+      <option value="">— Day —</option>
+      ${DAY_NAMES.map((d,i) => `<option value="${i}">${d}</option>`).join('')}
+    </select>
+    <input class="form__input avail-start-time" type="time" />
+    <span class="avail-sep">to</span>
+    <input class="form__input avail-end-time" type="time" />
+    <button type="button" class="btn btn--danger btn--sm remove-avail-row">✕</button>
+  `;
+  return div;
+}
+
+document.getElementById('addAvailRow').addEventListener('click', () => {
+  document.getElementById('availRows').appendChild(buildAvailRow());
+});
+
+document.getElementById('availRows').addEventListener('click', e => {
+  if (e.target.classList.contains('remove-avail-row')) {
+    const rows = document.querySelectorAll('#availRows .avail-row');
+    if (rows.length > 1) e.target.closest('.avail-row').remove();
   }
+});
 
-  if (DAY_ORDER.indexOf(dayStart) > DAY_ORDER.indexOf(dayEnd)) {
-    hiddenInput.value = '';
-    error.textContent = 'Please choose a valid day range.';
-    return false;
+function getAvailData() {
+  const rows = document.querySelectorAll('#availRows .avail-row');
+  const data = [];
+  for (const row of rows) {
+    const day   = row.querySelector('.avail-day-select').value;
+    const start = row.querySelector('.avail-start-time').value;
+    const end   = row.querySelector('.avail-end-time').value;
+    if (day !== '' && start && end) {
+      if (start >= end) continue; // skip invalid ranges silently
+      data.push({ day: parseInt(day), start, end });
+    }
   }
-
-  if (timeStart >= timeEnd) {
-    hiddenInput.value = '';
-    error.textContent = 'Please choose a valid time range.';
-    return false;
-  }
-
-  hiddenInput.value = `${dayStart} to ${dayEnd}, ${timeStart} to ${timeEnd} (${timezone})`;
-  error.textContent = '';
-  return true;
+  return data;
 }
 
 document.getElementById('photoInput').addEventListener('change', function() {
   const error = document.getElementById('photoError');
   const file = this.files[0];
-  if (!file) {
-    error.textContent = 'A photo is required.';
-    return;
-  }
+  if (!file) { error.textContent = ''; return; }
   if (!ALLOWED_PHOTO.includes(getExt(file.name))) {
     error.textContent = 'This file type is not allowed. Please upload a JPG, JPEG, PNG, or WEBP image.';
     this.value = '';
@@ -303,23 +245,18 @@ document.getElementById('photoInput').addEventListener('change', function() {
 
 document.getElementById('docsInput').addEventListener('change', function() {
   const error = document.getElementById('docsError');
-  if (this.files.length > 10) {
-    error.textContent = 'You can upload a maximum of 10 documents. Please reduce your selection.';
-    this.value = '';
-    return;
-  }
   const files = Array.from(this.files);
+  if (files.length > 10) {
+    error.textContent = 'Maximum 10 files allowed. Please reduce your selection.';
+    this.value = ''; return;
+  }
   const bad = files.filter(f => !ALLOWED_DOCS.includes(getExt(f.name)));
   if (bad.length) {
-    error.textContent = 'Some files were not allowed and removed: ' + bad.map(f => f.name).join(', ') + '. Only PDF, JPG, JPEG, PNG, DOCX are accepted.';
+    error.textContent = 'Some files are not allowed: ' + bad.map(f => f.name).join(', ') + '. Only PDF, JPG, JPEG, PNG, DOCX accepted.';
     this.value = '';
   } else {
     error.textContent = '';
   }
-});
-
-['availabilityDayStart', 'availabilityDayEnd', 'availabilityTimeStart', 'availabilityTimeEnd', 'availabilityTimezone'].forEach(function(id) {
-  document.getElementById(id).addEventListener('change', buildAvailabilityText);
 });
 
 document.getElementById('applyForm').addEventListener('submit', function(e) {
@@ -335,9 +272,13 @@ document.getElementById('applyForm').addEventListener('submit', function(e) {
     blocked = true;
   }
 
-  if (!buildAvailabilityText()) {
-    document.getElementById('availabilityError').textContent = document.getElementById('availabilityError').textContent || 'Please complete your meeting availability.';
+  const availData = getAvailData();
+  if (availData.length === 0) {
+    document.getElementById('availabilityError').textContent = 'Please add at least one availability window with a day and time range.';
     blocked = true;
+  } else {
+    document.getElementById('availabilityText').value = JSON.stringify(availData);
+    document.getElementById('availabilityError').textContent = '';
   }
 
   if (docsInput.files.length > 10) {

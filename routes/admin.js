@@ -141,6 +141,30 @@ router.post('/applicants/:id/create-profile', requireAdmin, async (req, res) => 
     qualifications: a.qualifications, experience: a.experience,
     categories: a.categories, languages: a.languages, is_published: false
   }).select().single();
+
+  // Copy availability from the application form into teacher_availability table
+  // availability_text is stored as JSON: [{day:1, start:"09:00", end:"12:00"}, ...]
+  if (a.availability_text) {
+    try {
+      const availRows = JSON.parse(a.availability_text);
+      if (Array.isArray(availRows) && availRows.length > 0) {
+        const availData = availRows
+          .filter(r => r.day !== undefined && r.start && r.end)
+          .map(r => ({
+            teacher_id: t.id,
+            day_of_week: r.day,
+            start_time: r.start,
+            end_time: r.end
+          }));
+        if (availData.length > 0) {
+          await supabase.from('teacher_availability').insert(availData);
+        }
+      }
+    } catch (e) {
+      // availability_text is old plain-text format — admin can add slots manually
+    }
+  }
+
   res.redirect('/admin/teachers/' + t.id + '/edit');
 });
 
