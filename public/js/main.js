@@ -316,12 +316,13 @@ async function submitBooking() {
   if (!selectedSlot) { errEl.textContent = 'Please pick a time slot.'; errEl.style.display = 'block'; return; }
   errEl.style.display = 'none';
 
+  const phoneCode = document.getElementById('bPhoneCode').value;
+  const fullPhone = phoneCode !== '+other' ? phoneCode + ' ' + phone : phone;
+
   const res = await fetch('/api/bookings', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    const phoneCode = document.getElementById('bPhoneCode').value;
-  const fullPhone = phoneCode !== '+other' ? phoneCode + ' ' + phone : phone;
-  body: JSON.stringify({ teacher_id: selectedTeacher.id, student_name: name, student_email: email, student_phone: fullPhone, slot_date: selectedDate, slot_start: selectedSlot.start, slot_end: selectedSlot.end, looking_for: looking })
+    body: JSON.stringify({ teacher_id: selectedTeacher.id, student_name: name, student_email: email, student_phone: fullPhone, slot_date: selectedDate, slot_start: selectedSlot.start, slot_end: selectedSlot.end, looking_for: looking })
   });
   const data = await res.json();
 
