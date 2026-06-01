@@ -47,7 +47,7 @@
             <form action="/admin/teachers/<%= t.id %>/publish" method="POST" style="display:inline">
               <button class="table-link table-link--btn"><%= t.is_published ? 'Unpublish' : 'Publish' %></button>
             </form>
-            <button class="table-link table-link--danger" onclick="confirmDelete('<%= t.id %>', '<%= t.name.replace(/'/g, &quot;\\&apos;&quot;) %>')">Delete</button>
+            <button class="table-link table-link--danger" onclick="confirmDelete('<%= t.id %>', '<%= t.name.replace(/['"]/g, '') %>')">Delete</button>
           </td>
         </tr>
         <% }) %>
