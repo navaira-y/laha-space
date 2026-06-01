@@ -84,9 +84,50 @@ function renderGrid(teachers) {
 
   if (typeof AOS !== 'undefined') AOS.refresh();
 
+  const filtered2 = category === 'all' ? allTeachers : allTeachers.filter(t => t.categories && t.categories.includes(category));
+  renderTeacherPage(filtered2, 0);
+}
+
+function renderTeacherPage(teachers, page) {
+  const grid = document.getElementById('teacherGrid');
+  const dotsEl = document.getElementById('teacherDots');
+  const perPage = window.innerWidth <= 680 ? 1 : window.innerWidth <= 1024 ? 3 : 4;
+  const totalPages = Math.ceil(teachers.length / perPage);
+  const start = page * perPage;
+  const visible = teachers.slice(start, start + perPage);
+
+  grid.innerHTML = visible.map(t => {
+    const initial = t.name ? t.name.charAt(0).toUpperCase() : '?';
+    const photo = t.photo_path
+      ? `<img class="teacher-card__photo" src="${t.photo_path}" alt="${t.name}" loading="lazy" />`
+      : `<div class="teacher-card__photo-placeholder">${initial}</div>`;
+    const tags = (t.categories || []).map(c => `<span class="tag tag--sm">${c}</span>`).join('');
+    const langs = (t.languages || []).join(', ');
+    return `<div class="teacher-card" data-id="${t.id}">
+      ${photo}
+      <div class="teacher-card__name">${t.name}</div>
+      <div class="teacher-card__tags">${tags}</div>
+      ${langs ? `<div class="teacher-card__langs">${langs}</div>` : ''}
+    </div>`;
+  }).join('');
+
   grid.querySelectorAll('.teacher-card').forEach(card => {
     card.addEventListener('click', () => openTeacherModal(card.dataset.id));
   });
+
+  if (dotsEl && totalPages > 1) {
+    dotsEl.innerHTML = Array.from({length: totalPages}, (_, i) =>
+      `<button class="teacher-dot ${i === page ? 'teacher-dot--active' : ''}" data-page="${i}"></button>`
+    ).join('');
+    dotsEl.querySelectorAll('.teacher-dot').forEach(dot => {
+      dot.addEventListener('click', () => {
+        teacherPage = parseInt(dot.dataset.page);
+        renderTeacherPage(teachers, teacherPage);
+      });
+    });
+  } else if (dotsEl) {
+    dotsEl.innerHTML = '';
+  }
 }
 
 /* ─── Filters ───────────────────────────────────────────────── */

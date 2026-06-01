@@ -34,7 +34,18 @@
             <% langs.forEach(l => { %><span class="tag"><%= l %></span><% }) %>
           </dd>
           <dt>Availability</dt>
-          <dd><%= applicant.availability_text || '—' %></dd>
+          <dd>
+            <% if (applicant.availability_text) { %>
+              <% try { const avail = JSON.parse(applicant.availability_text); %>
+                <% avail.forEach(function(a) { %>
+                  <div style="margin-bottom:4px">
+                    <strong><%= ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][a.day] || a.day %></strong>:
+                    <%= a.start %> – <%= a.end %>
+                  </div>
+                <% }); %>
+              <% } catch(e) { %><%= applicant.availability_text %><% } %>
+            <% } else { %>—<% } %>
+          </dd>
           <dt>Additional info</dt>
           <dd><%= applicant.extra_info || '—' %></dd>
         </dl>

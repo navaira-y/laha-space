@@ -69,10 +69,17 @@ router.get('/logout', (req, res) => { req.session.destroy(); res.redirect('/admi
 
 // Protected document download - only admins can access uploaded documents
 router.get('/documents/:filename', requireAdmin, (req, res) => {
-  const filename = path.basename(req.params.filename); // prevent path traversal
+  const filename = path.basename(req.params.filename);
   const filePath = path.join(__dirname, '../uploads/documents', filename);
   if (!fs.existsSync(filePath)) return res.status(404).send('File not found');
-  res.download(filePath);
+  const ext = path.extname(filename).toLowerCase();
+  const inline = ['.pdf', '.jpg', '.jpeg', '.png', '.webp'].includes(ext);
+  if (inline) {
+    res.setHeader('Content-Disposition', `inline; filename="${filename}"`);
+    res.sendFile(filePath);
+  } else {
+    res.download(filePath);
+  }
 });
 
 // Dashboard
