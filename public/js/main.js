@@ -59,6 +59,12 @@ async function loadTeachers() {
 function renderTeacherPage(teachers, page) {
   const grid = document.getElementById('teacherGrid');
   const dotsEl = document.getElementById('teacherDots');
+
+  if (!teachers.length) {
+    grid.innerHTML = '<p style="color:#7A8C89;padding:60px 0;text-align:center;grid-column:1/-1;font-size:15px">No teachers in this category yet.</p>';
+    if (dotsEl) dotsEl.innerHTML = '';
+    return;
+  }
   const perPage = window.innerWidth <= 680 ? 1 : window.innerWidth <= 1024 ? 3 : 4;
   const totalPages = Math.ceil(teachers.length / perPage);
   const start = page * perPage;
