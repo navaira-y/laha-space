@@ -150,8 +150,8 @@ em, i { font-style: italic; }
   display: flex; align-items: center; justify-content: space-between;
   height: 76px; gap: 24px;
 }
-.nav__logo-img { height: 40px; width: auto; display: block; }
-.footer__logo-img { size: 40px; }
+.nav__logo-img { size: 22px; }
+.footer__logo-img { size: 20px; }
 .nav__logo {
   display: inline-flex; align-items: center; gap: 10px;
   color: var(--ink);
