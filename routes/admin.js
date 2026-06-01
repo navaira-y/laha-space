@@ -133,6 +133,29 @@ router.post('/applicants/:id/note', requireAdmin, async (req, res) => {
   res.redirect('/admin/applicants/' + req.params.id);
 });
 
+router.post('/applicants/:id/delete', requireAdmin, async (req, res) => {
+  const { data: applicant } = await supabase.from('applicants').select('photo_path').eq('id', req.params.id).single();
+  const { data: docs } = await supabase.from('applicant_documents').select('file_path').eq('applicant_id', req.params.id);
+
+  // Delete files from disk
+  if (applicant?.photo_path) {
+    const photoFile = path.join(__dirname, '..', applicant.photo_path);
+    if (fs.existsSync(photoFile)) fs.unlinkSync(photoFile);
+  }
+  if (docs?.length) {
+    docs.forEach(d => {
+      const docFile = path.join(__dirname, '../uploads/documents', path.basename(d.file_path));
+      if (fs.existsSync(docFile)) fs.unlinkSync(docFile);
+    });
+  }
+
+  // Delete from database
+  await supabase.from('applicant_documents').delete().eq('applicant_id', req.params.id);
+  await supabase.from('stage_notes').delete().eq('applicant_id', req.params.id);
+  await supabase.from('applicants').delete().eq('id', req.params.id);
+  res.redirect('/admin/applicants');
+});
+
 router.post('/applicants/:id/not-proceeding', requireAdmin, async (req, res) => {
   await supabase.from('applicants').update({ status: 'not_proceeding', not_proceeding_reason: req.body.reason||null, updated_at: new Date() }).eq('id', req.params.id);
   res.redirect('/admin/applicants');
@@ -259,6 +282,11 @@ router.post('/reviews/:id/approve', requireAdmin, async (req, res) => {
 
 router.post('/reviews/:id/hide', requireAdmin, async (req, res) => {
   await supabase.from('reviews').update({ is_approved: false }).eq('id', req.params.id);
+  res.redirect('/admin/reviews');
+});
+
+router.post('/reviews/:id/delete', requireAdmin, async (req, res) => {
+  await supabase.from('reviews').delete().eq('id', req.params.id);
   res.redirect('/admin/reviews');
 });
 

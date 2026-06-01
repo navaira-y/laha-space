@@ -46,6 +46,7 @@
               <button class="btn btn--outline btn--sm">Hide</button>
             </form>
             <% } %>
+            <button class="table-link table-link--danger" style="margin-left:8px" onclick="confirmDeleteReview('<%= r.id %>')">Delete</button>
           </td>
         </tr>
         <% }) %>
@@ -54,5 +55,25 @@
     <% } %>
   </div>
 </div>
+
+<div id="deleteReviewModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:999;align-items:center;justify-content:center;">
+  <div style="background:#1C201F;border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:40px;max-width:420px;width:90%;margin:auto;">
+    <h3 style="font-family:var(--font-head);font-size:18px;color:#E8EDEC;margin-bottom:12px;">Delete review?</h3>
+    <p style="font-size:14px;color:#7A9490;margin-bottom:28px;">This will permanently remove this review. This cannot be undone.</p>
+    <div style="display:flex;gap:12px;">
+      <form id="deleteReviewForm" method="POST" style="flex:1">
+        <button type="submit" class="btn btn--danger" style="width:100%">Yes, delete</button>
+      </form>
+      <button onclick="document.getElementById('deleteReviewModal').style.display='none'" class="btn btn--white" style="flex:1">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function confirmDeleteReview(id) {
+  document.getElementById('deleteReviewForm').action = '/admin/reviews/' + id + '/delete';
+  document.getElementById('deleteReviewModal').style.display = 'flex';
+}
+</script>
 
 <%- include('../partials/admin-foot') %>
