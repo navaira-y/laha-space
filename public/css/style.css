@@ -126,8 +126,8 @@ em, i { font-style: italic; }
 .pill--solid { background: #2E847B; color: #fff; border-color: #2E847B; }
 .pill--solid:hover { background: #15302C; border-color: #15302C; }
 
-.pill--dark { background: var(--ink); color: #fff; border-color: var(--ink); }
-.pill--dark:hover { background: var(--teal); border-color: var(--teal); }
+.pill--dark { background: #2E847B; color: #fff; border-color: #2E847B; }
+.pill--dark:hover { background: #192927; border-color: #192927; }
 
 .pill--ghost { background: transparent; color: var(--ink); border-color: var(--ink); }
 .pill--ghost:hover { background: var(--ink); color: #fff; }
@@ -391,13 +391,13 @@ em, i { font-style: italic; }
 
 /* ─── Marquee ────────────────────────────────────────────────── */
 .marquee {
-  background: var(--ink);
+  background: #2E847B;
   color: #fff;
   padding: 22px 0;
   overflow: hidden;
   white-space: nowrap;
-  border-top: 1px solid var(--ink);
-  border-bottom: 1px solid var(--ink);
+  border-top: 1px solid #2E847B;
+  border-bottom: 1px solid #2E847B;
 }
 .marquee__track {
   display: inline-flex;
@@ -765,7 +765,7 @@ em, i { font-style: italic; }
 /* ─── Apply CTA ──────────────────────────────────────────────── */
 .apply-cta { border-top: 1px solid rgba(255,255,255,0.06);
   padding: 120px 0;
-  background: var(--bg-dark);
+  background: #2E847B;
   color: #fff;
   position: relative;
   overflow: hidden;
@@ -1083,8 +1083,8 @@ em, i { font-style: italic; }
 
 /* ─── Footer ─────────────────────────────────────────────────── */
 .footer {
-  background: var(--bg-dark);
-  color: rgba(255,255,255,0.7);
+  background: #2E847B;
+  color: rgba(255,255,255,0.85);
   padding: 80px 0 32px;
   position: relative;
 }
@@ -1297,8 +1297,8 @@ em, i { font-style: italic; }
 }
 
 /* Ghost pill on dark hero background */
-.hero .pill--ghost { color: #fff; border-color: rgba(255,255,255,0.4); }
-.hero .pill--ghost:hover { background: rgba(255,255,255,0.1); border-color: #fff; color: #fff; }
+.hero .pill--ghost { color: #192927; border-color: #192927; background: transparent; }
+.hero .pill--ghost:hover { background: #2E847B; border-color: #2E847B; color: #fff; }
 
 /* Community CTA section */
 .community-cta { background: var(--bg-warm); padding: 100px 0 120px; }
