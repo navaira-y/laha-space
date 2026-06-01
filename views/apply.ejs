@@ -50,7 +50,32 @@
         <div class="form__row">
           <div class="form__group">
             <label class="form__label">Phone / WhatsApp <span class="required">*</span></label>
-            <input class="form__input" type="text" name="phone" required />
+            <div style="display:flex;gap:8px;">
+              <select class="form__input" name="phone_code" id="applyPhoneCode" style="max-width:140px;flex-shrink:0">
+                <option value="+971">🇦🇪 +971</option>
+                <option value="+966">🇸🇦 +966</option>
+                <option value="+965">🇰🇼 +965</option>
+                <option value="+974">🇶🇦 +974</option>
+                <option value="+973">🇧🇭 +973</option>
+                <option value="+968">🇴🇲 +968</option>
+                <option value="+92">🇵🇰 +92</option>
+                <option value="+91">🇮🇳 +91</option>
+                <option value="+880">🇧🇩 +880</option>
+                <option value="+44">🇬🇧 +44</option>
+                <option value="+1">🇺🇸 +1</option>
+                <option value="+33">🇫🇷 +33</option>
+                <option value="+49">🇩🇪 +49</option>
+                <option value="+20">🇪🇬 +20</option>
+                <option value="+212">🇲🇦 +212</option>
+                <option value="+234">🇳🇬 +234</option>
+                <option value="+60">🇲🇾 +60</option>
+                <option value="+62">🇮🇩 +62</option>
+                <option value="+65">🇸🇬 +65</option>
+                <option value="+61">🇦🇺 +61</option>
+                <option value="+other">Other</option>
+              </select>
+              <input class="form__input" type="tel" name="phone" id="applyPhone" placeholder="5xxxxxxxx" required style="flex:1" />
+            </div>
           </div>
           <div class="form__group">
             <label class="form__label">Country and city <span class="required">*</span></label>
@@ -315,6 +340,34 @@ document.getElementById('docsInput').addEventListener('change', function() {
 });
 
 document.getElementById('applyForm').addEventListener('submit', function(e) {
+  // Combine country code with phone number
+  const phoneCodeEl = document.getElementById('applyPhoneCode');
+  const phoneEl = document.getElementById('applyPhone');
+  if (phoneCodeEl && phoneEl && phoneCodeEl.value !== '+other') {
+    phoneEl.value = phoneCodeEl.value + ' ' + phoneEl.value.trim();
+    phoneCodeEl.disabled = true;
+  }
+  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  const phoneRe = /^[0-9]{6,15}$/;
+  const email = document.querySelector('input[name="email"]').value.trim();
+  const phone = document.getElementById('applyPhone').value.trim();
+  const name = document.querySelector('input[name="name"]').value.trim();
+
+  if (name.length < 2) {
+    e.preventDefault();
+    alert('Please enter your full name.');
+    return;
+  }
+  if (!emailRe.test(email)) {
+    e.preventDefault();
+    alert('Please enter a valid email address.');
+    return;
+  }
+  if (!phoneRe.test(phone.replace(/\s/g, ''))) {
+    e.preventDefault();
+    alert('Please enter a valid phone number — digits only, no spaces or symbols.');
+    return;
+  }
   const photoInput = document.getElementById('photoInput');
   const docsInput  = document.getElementById('docsInput');
   let blocked = false;

@@ -198,9 +198,37 @@ async function openBookingFlow() {
     </div>
     <div id="bookingFormSection" style="display:none">
       <div class="booking-step-label">Your details</div>
-      <div class="form__group"><label class="form__label">Full name *</label><input class="form__input" id="bName" type="text" required /></div>
-      <div class="form__group"><label class="form__label">Email *</label><input class="form__input" id="bEmail" type="email" required /></div>
-      <div class="form__group"><label class="form__label">Phone / WhatsApp *</label><input class="form__input" id="bPhone" type="text" required /></div>
+      <div class="form__group"><label class="form__label">Full name *</label><input class="form__input" id="bName" type="text" placeholder="Your full name" required /></div>
+      <div class="form__group"><label class="form__label">Email *</label><input class="form__input" id="bEmail" type="email" placeholder="you@example.com" required /></div>
+      <div class="form__group">
+        <label class="form__label">Phone / WhatsApp *</label>
+        <div style="display:flex;gap:8px;">
+          <select class="form__input" id="bPhoneCode" style="max-width:140px;flex-shrink:0">
+            <option value="+971">🇦🇪 +971</option>
+            <option value="+966">🇸🇦 +966</option>
+            <option value="+965">🇰🇼 +965</option>
+            <option value="+974">🇶🇦 +974</option>
+            <option value="+973">🇧🇭 +973</option>
+            <option value="+968">🇴🇲 +968</option>
+            <option value="+92">🇵🇰 +92</option>
+            <option value="+91">🇮🇳 +91</option>
+            <option value="+880">🇧🇩 +880</option>
+            <option value="+44">🇬🇧 +44</option>
+            <option value="+1">🇺🇸 +1</option>
+            <option value="+33">🇫🇷 +33</option>
+            <option value="+49">🇩🇪 +49</option>
+            <option value="+20">🇪🇬 +20</option>
+            <option value="+212">🇲🇦 +212</option>
+            <option value="+234">🇳🇬 +234</option>
+            <option value="+60">🇲🇾 +60</option>
+            <option value="+62">🇮🇩 +62</option>
+            <option value="+65">🇸🇬 +65</option>
+            <option value="+61">🇦🇺 +61</option>
+            <option value="+other">Other</option>
+          </select>
+          <input class="form__input" id="bPhone" type="tel" placeholder="5xxxxxxxx" required style="flex:1" />
+        </div>
+      </div>
       <div class="form__group"><label class="form__label">What are you looking for? <span style="color:#7A8C89;font-size:13px">(optional)</span></label><input class="form__input" id="bLooking" type="text" placeholder="e.g. Beginner, Tajweed revision…" /></div>
       <div id="bookingError" class="alert alert--error" style="display:none"></div>
       <button class="pill pill--solid pill--full" type="button" onclick="submitBooking()">
@@ -280,14 +308,20 @@ async function submitBooking() {
   const looking = document.getElementById('bLooking').value.trim();
   const errEl = document.getElementById('bookingError');
 
-  if (!name || !email || !phone) { errEl.textContent = 'Please fill in all required fields.'; errEl.style.display = 'block'; return; }
+  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  const phoneRe = /^[0-9]{6,15}$/;
+  if (!name || name.length < 2) { errEl.textContent = 'Please enter your full name.'; errEl.style.display = 'block'; return; }
+  if (!email || !emailRe.test(email)) { errEl.textContent = 'Please enter a valid email address.'; errEl.style.display = 'block'; return; }
+  if (!phone || !phoneRe.test(phone.replace(/\s/g,''))) { errEl.textContent = 'Please enter a valid phone number (digits only, 6-15 digits).'; errEl.style.display = 'block'; return; }
   if (!selectedSlot) { errEl.textContent = 'Please pick a time slot.'; errEl.style.display = 'block'; return; }
   errEl.style.display = 'none';
 
   const res = await fetch('/api/bookings', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ teacher_id: selectedTeacher.id, student_name: name, student_email: email, student_phone: phone, slot_date: selectedDate, slot_start: selectedSlot.start, slot_end: selectedSlot.end, looking_for: looking })
+    const phoneCode = document.getElementById('bPhoneCode').value;
+  const fullPhone = phoneCode !== '+other' ? phoneCode + ' ' + phone : phone;
+  body: JSON.stringify({ teacher_id: selectedTeacher.id, student_name: name, student_email: email, student_phone: fullPhone, slot_date: selectedDate, slot_start: selectedSlot.start, slot_end: selectedSlot.end, looking_for: looking })
   });
   const data = await res.json();
 

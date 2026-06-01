@@ -67,6 +67,11 @@ router.post('/apply', (req, res, next) => {
   });
 }, ah(async (req, res) => {
   const { name, email, phone, country_city, qualifications, experience, availability_text, extra_info, timezone } = req.body;
+  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  if (!name || name.trim().length < 2) return res.render('apply', { success: false, error: 'Please enter your full name.' });
+  if (!email || !emailRe.test(email.trim())) return res.render('apply', { success: false, error: 'Please enter a valid email address.' });
+  if (!phone || phone.trim().length < 6) return res.render('apply', { success: false, error: 'Please enter a valid phone number.' });
+  if (!country_city || country_city.trim().length < 2) return res.render('apply', { success: false, error: 'Please enter your country and city.' });
   const categories = [].concat(req.body.categories || []);
   let languages = [].concat(req.body.languages || []);
   if (languages.includes('Other') && req.body.languages_other?.trim()) {
@@ -180,8 +185,15 @@ router.get('/api/teachers/:id/slots', ah(async (req, res) => {
 router.post('/api/bookings', express.json({ limit: '10kb' }), ah(async (req, res) => {
   const { teacher_id, student_name, student_email, student_phone, slot_date, slot_start, slot_end, looking_for } = req.body;
 
+  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
   if (!teacher_id || !student_name || !student_email || !student_phone || !slot_date || !slot_start || !slot_end)
     return res.status(400).json({ error: 'All required fields must be filled.' });
+  if (student_name.trim().length < 2)
+    return res.status(400).json({ error: 'Please enter your full name.' });
+  if (!emailRe.test(student_email.trim()))
+    return res.status(400).json({ error: 'Please enter a valid email address.' });
+  if (student_phone.trim().length < 6)
+    return res.status(400).json({ error: 'Please enter a valid phone number.' });
   if (!UUID_RE.test(teacher_id))
     return res.status(400).json({ error: 'Invalid teacher.' });
   if (!isValidDate(slot_date))
