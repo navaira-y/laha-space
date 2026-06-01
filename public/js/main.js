@@ -189,6 +189,7 @@ async function openBookingFlow() {
   body.innerHTML = `
     <div class="booking-title">Book a discovery session</div>
     <div class="booking-teacher">with ${selectedTeacher.name}</div>
+    ${selectedTeacher.timezone ? `<div class="booking-timezone">Teacher's timezone: <strong>${selectedTeacher.timezone}</strong> — please check this before booking.</div>` : ''}
     <div class="booking-step-label">Pick a date</div>
     <div class="date-grid" id="dateGrid"><p style="color:#7A8C89;font-size:14px">Loading availability…</p></div>
     <div id="slotSection" style="display:none">
