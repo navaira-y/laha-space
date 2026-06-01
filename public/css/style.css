@@ -918,8 +918,8 @@ em, i { font-style: italic; }
 .review-item__stars { color: var(--sand); font-size: 14px; margin-bottom: 6px; }
 .review-item__name { font-size: 13px; font-weight: 600; color: var(--ink); }
 .review-item__text { font-size: 14px; color: var(--ink-soft); margin-top: 4px; line-height: 1.55; }
-.star-display .star--filled { color: var(--sand); }
-.star-display .star { color: var(--line); }
+.star-display .star--filled { color: #E6940A; }
+.star-display .star { color: #CCCCCC; }
 
 /* Booking flow */
 .booking-title { font-family: var(--font-serif); font-size: 30px; font-weight: 400; color: var(--ink); margin-bottom: 6px; letter-spacing: -0.01em; }
