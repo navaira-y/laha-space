@@ -1293,7 +1293,7 @@ em, i { font-style: italic; }
 
 /* Print */
 @media print {
-  .nav, .footer, .marquee, .apply-cta { border-top: 1px solid rgba(255,255,255,0.06); display: none; }
+  .nav, .footer, .marquee, .apply-cta { border-top: 1px solid #2E847B ; display: none; }
 }
 
 /* Ghost pill on dark hero background */
