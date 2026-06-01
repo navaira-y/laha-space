@@ -37,7 +37,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 // Public photos are fine to serve publicly (teacher profile photos)
 // Documents are NOT served publicly - protected route in admin.js handles those
-app.use('/uploads/photos', express.static(path.join(__dirname, 'uploads', 'photos')));
+// Photos served through route in public.js — checks if teacher is published
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.urlencoded({ extended: true }));

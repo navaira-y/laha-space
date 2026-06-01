@@ -67,6 +67,14 @@ router.post('/login', async (req, res) => {
 
 router.get('/logout', (req, res) => { req.session.destroy(); res.redirect('/admin/login'); });
 
+// Protected photo access - admins can see all photos including unpublished teachers
+router.get('/photos/:filename', requireAdmin, (req, res) => {
+  const filename = path.basename(req.params.filename);
+  const filePath = path.join(__dirname, '../uploads/photos', filename);
+  if (!fs.existsSync(filePath)) return res.status(404).send('File not found');
+  res.sendFile(filePath);
+});
+
 // Protected document download - only admins can access uploaded documents
 router.get('/documents/:filename', requireAdmin, (req, res) => {
   const filename = path.basename(req.params.filename);

@@ -57,6 +57,21 @@ const uploadApplication = multer({
 ]);
 
 // ─── Pages ────────────────────────────────────────────────────────────────────
+// Serve teacher photos publicly ONLY if they belong to a published teacher
+router.get('/uploads/photos/:filename', async (req, res) => {
+  const filename = path.basename(req.params.filename);
+  const photoPath = '/uploads/photos/' + filename;
+
+  const { data: teacher } = await supabase.from('teachers')
+    .select('id').eq('photo_path', photoPath).eq('is_published', true).maybeSingle();
+
+  if (!teacher) return res.status(404).send('Not found');
+
+  const filePath = path.join(__dirname, '../uploads/photos', filename);
+  if (!fs.existsSync(filePath)) return res.status(404).send('Not found');
+  res.sendFile(filePath);
+});
+
 router.get('/', (req, res) => res.render('index'));
 router.get('/apply', (req, res) => res.render('apply', { success: false, error: null }));
 

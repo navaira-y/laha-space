@@ -34,7 +34,7 @@
           <div class="form__group">
             <label class="form__label">Photo</label>
             <% if(teacher && teacher.photo_path) { %>
-            <img src="<%= teacher.photo_path %>" style="width:80px;height:80px;border-radius:50%;object-fit:cover;margin-bottom:8px;display:block" />
+            <img src="/admin/photos/<%= teacher.photo_path.split('/').pop() %>" style="width:80px;height:80px;border-radius:50%;object-fit:cover;margin-bottom:8px;display:block" />
             <% } %>
             <input class="form__input form__input--file" type="file" name="photo" accept="image/*" />
           </div>

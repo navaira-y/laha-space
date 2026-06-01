@@ -44,7 +44,7 @@
           <td><%= new Date(a.created_at).toLocaleDateString('en-GB') %></td>
           <td>
             <a href="/admin/applicants/<%= a.id %>" class="table-link">View</a>
-            <button class="table-link table-link--danger" style="margin-left:8px" onclick="confirmDeleteApplicant('<%= a.id %>', '<%= a.name.replace(/['"]/g, \'\') %>')">Delete</button>
+            <button class="table-link table-link--danger" style="margin-left:8px" onclick="confirmDeleteApplicant('<%= a.id %>', '<%= a.name.replace(/['"]/g, '') %>')">Delete</button>
           </td>
         </tr>
         <% }) %>
