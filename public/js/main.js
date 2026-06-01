@@ -332,7 +332,7 @@ function buildReviewForm(teacherId) {
     </div>
     <div id="reviewError" class="alert alert--error" style="display:none"></div>
     <div id="reviewSuccess" class="alert alert--success" style="display:none"></div>
-    <button class="pill pill--ghost" type="button" onclick="submitReview(${teacherId})">
+    <button class="pill pill--ghost" type="button" onclick="submitReview('${teacherId}')">
       <span>Submit review</span>
       <span class="pill__arrow" aria-hidden="true">→</span>
     </button>

@@ -210,6 +210,14 @@ router.post('/teachers/:id/publish', requireAdmin, async (req, res) => {
   res.redirect('/admin/teachers');
 });
 
+router.post('/teachers/:id/delete', requireAdmin, async (req, res) => {
+  await supabase.from('teacher_availability').delete().eq('teacher_id', req.params.id);
+  await supabase.from('bookings').delete().eq('teacher_id', req.params.id);
+  await supabase.from('reviews').delete().eq('teacher_id', req.params.id);
+  await supabase.from('teachers').delete().eq('id', req.params.id);
+  res.redirect('/admin/teachers');
+});
+
 router.post('/teachers/:id/availability', requireAdmin, async (req, res) => {
   const days = [].concat(req.body.days||[]);
   const starts = [].concat(req.body.start_times||[]);
