@@ -58,6 +58,59 @@
             <label class="form__label">Laha endorsement <span class="form__hint">(shown on teacher profile — written by your team)</span></label>
             <textarea class="form__input form__textarea" name="laha_endorsement" rows="3"><%= teacher ? teacher.laha_endorsement || '' : '' %></textarea>
           </div>
+          <div class="form__group">
+            <label class="form__label">Teacher's time zone</label>
+            <select class="form__input" name="timezone">
+              <option value="">Not set</option>
+              <optgroup label="Middle East">
+                <option value="Asia/Dubai" <%= (teacher && teacher.timezone === 'Asia/Dubai') ? 'selected' : '' %>>UAE / Dubai (GST, UTC+4)</option>
+                <option value="Asia/Riyadh" <%= (teacher && teacher.timezone === 'Asia/Riyadh') ? 'selected' : '' %>>Saudi Arabia / Riyadh (AST, UTC+3)</option>
+                <option value="Asia/Kuwait" <%= (teacher && teacher.timezone === 'Asia/Kuwait') ? 'selected' : '' %>>Kuwait (AST, UTC+3)</option>
+                <option value="Asia/Qatar" <%= (teacher && teacher.timezone === 'Asia/Qatar') ? 'selected' : '' %>>Qatar / Doha (AST, UTC+3)</option>
+                <option value="Asia/Bahrain" <%= (teacher && teacher.timezone === 'Asia/Bahrain') ? 'selected' : '' %>>Bahrain (AST, UTC+3)</option>
+                <option value="Asia/Muscat" <%= (teacher && teacher.timezone === 'Asia/Muscat') ? 'selected' : '' %>>Oman / Muscat (GST, UTC+4)</option>
+              </optgroup>
+              <optgroup label="South Asia">
+                <option value="Asia/Karachi" <%= (teacher && teacher.timezone === 'Asia/Karachi') ? 'selected' : '' %>>Pakistan / Karachi (PKT, UTC+5)</option>
+                <option value="Asia/Kolkata" <%= (teacher && teacher.timezone === 'Asia/Kolkata') ? 'selected' : '' %>>India (IST, UTC+5:30)</option>
+                <option value="Asia/Dhaka" <%= (teacher && teacher.timezone === 'Asia/Dhaka') ? 'selected' : '' %>>Bangladesh (BST, UTC+6)</option>
+              </optgroup>
+              <optgroup label="Southeast Asia">
+                <option value="Asia/Jakarta" <%= (teacher && teacher.timezone === 'Asia/Jakarta') ? 'selected' : '' %>>Indonesia / Jakarta (WIB, UTC+7)</option>
+                <option value="Asia/Kuala_Lumpur" <%= (teacher && teacher.timezone === 'Asia/Kuala_Lumpur') ? 'selected' : '' %>>Malaysia (MYT, UTC+8)</option>
+                <option value="Asia/Singapore" <%= (teacher && teacher.timezone === 'Asia/Singapore') ? 'selected' : '' %>>Singapore (SGT, UTC+8)</option>
+              </optgroup>
+              <optgroup label="Africa">
+                <option value="Africa/Cairo" <%= (teacher && teacher.timezone === 'Africa/Cairo') ? 'selected' : '' %>>Egypt / Cairo (EET, UTC+2)</option>
+                <option value="Africa/Casablanca" <%= (teacher && teacher.timezone === 'Africa/Casablanca') ? 'selected' : '' %>>Morocco / Casablanca</option>
+                <option value="Africa/Tunis" <%= (teacher && teacher.timezone === 'Africa/Tunis') ? 'selected' : '' %>>Tunisia (CET, UTC+1)</option>
+                <option value="Africa/Algiers" <%= (teacher && teacher.timezone === 'Africa/Algiers') ? 'selected' : '' %>>Algeria (CET, UTC+1)</option>
+                <option value="Africa/Lagos" <%= (teacher && teacher.timezone === 'Africa/Lagos') ? 'selected' : '' %>>Nigeria / Lagos (WAT, UTC+1)</option>
+                <option value="Africa/Nairobi" <%= (teacher && teacher.timezone === 'Africa/Nairobi') ? 'selected' : '' %>>Kenya / Nairobi (EAT, UTC+3)</option>
+              </optgroup>
+              <optgroup label="Europe">
+                <option value="Europe/London" <%= (teacher && teacher.timezone === 'Europe/London') ? 'selected' : '' %>>UK / London (GMT/BST)</option>
+                <option value="Europe/Paris" <%= (teacher && teacher.timezone === 'Europe/Paris') ? 'selected' : '' %>>France / Paris (CET)</option>
+                <option value="Europe/Berlin" <%= (teacher && teacher.timezone === 'Europe/Berlin') ? 'selected' : '' %>>Germany / Berlin (CET)</option>
+                <option value="Europe/Amsterdam" <%= (teacher && teacher.timezone === 'Europe/Amsterdam') ? 'selected' : '' %>>Netherlands (CET)</option>
+                <option value="Europe/Stockholm" <%= (teacher && teacher.timezone === 'Europe/Stockholm') ? 'selected' : '' %>>Sweden (CET)</option>
+              </optgroup>
+              <optgroup label="North America">
+                <option value="America/New_York" <%= (teacher && teacher.timezone === 'America/New_York') ? 'selected' : '' %>>US Eastern (EST/EDT)</option>
+                <option value="America/Chicago" <%= (teacher && teacher.timezone === 'America/Chicago') ? 'selected' : '' %>>US Central (CST/CDT)</option>
+                <option value="America/Denver" <%= (teacher && teacher.timezone === 'America/Denver') ? 'selected' : '' %>>US Mountain (MST/MDT)</option>
+                <option value="America/Los_Angeles" <%= (teacher && teacher.timezone === 'America/Los_Angeles') ? 'selected' : '' %>>US Pacific (PST/PDT)</option>
+                <option value="America/Toronto" <%= (teacher && teacher.timezone === 'America/Toronto') ? 'selected' : '' %>>Canada / Toronto (EST/EDT)</option>
+                <option value="America/Vancouver" <%= (teacher && teacher.timezone === 'America/Vancouver') ? 'selected' : '' %>>Canada / Vancouver (PST/PDT)</option>
+              </optgroup>
+              <optgroup label="Other">
+                <option value="Australia/Sydney" <%= (teacher && teacher.timezone === 'Australia/Sydney') ? 'selected' : '' %>>Australia / Sydney (AEST)</option>
+                <option value="Pacific/Auckland" <%= (teacher && teacher.timezone === 'Pacific/Auckland') ? 'selected' : '' %>>New Zealand (NZST)</option>
+              </optgroup>
+            </select>
+          </div>
+          <div style="display:none">
+          </div>
 
           <div class="form__group">
             <label class="form__label">Categories</label>

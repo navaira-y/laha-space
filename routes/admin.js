@@ -139,7 +139,7 @@ router.post('/applicants/:id/create-profile', requireAdmin, async (req, res) => 
   const { data: t } = await supabase.from('teachers').insert({
     applicant_id: a.id, name: a.name, email: a.email, photo_path: a.photo_path,
     qualifications: a.qualifications, experience: a.experience,
-    categories: a.categories, languages: a.languages, is_published: false
+    categories: a.categories, languages: a.languages, timezone: a.extra_info_timezone||null, is_published: false
   }).select().single();
 
   // Copy availability from the application form into teacher_availability table
@@ -179,11 +179,11 @@ router.get('/teachers/new', requireAdmin, (req, res) => {
 });
 
 router.post('/teachers', requireAdmin, upload.single('photo'), async (req, res) => {
-  const { name, email, bio, qualifications, experience, laha_endorsement } = req.body;
+  const { name, email, bio, qualifications, experience, laha_endorsement, timezone } = req.body;
   const categories = [].concat(req.body.categories||[]);
   const languages = [].concat(req.body.languages||[]);
   const photoPath = req.file ? '/uploads/photos/' + req.file.filename : null;
-  await supabase.from('teachers').insert({ name, email, photo_path: photoPath, bio, qualifications, experience, categories, languages, laha_endorsement, is_published: false });
+  await supabase.from('teachers').insert({ name, email, photo_path: photoPath, bio, qualifications, experience, categories, languages, laha_endorsement, timezone: timezone||null, is_published: false });
   res.redirect('/admin/teachers');
 });
 
@@ -195,12 +195,12 @@ router.get('/teachers/:id/edit', requireAdmin, async (req, res) => {
 });
 
 router.post('/teachers/:id', requireAdmin, upload.single('photo'), async (req, res) => {
-  const { name, email, bio, qualifications, experience, laha_endorsement } = req.body;
+  const { name, email, bio, qualifications, experience, laha_endorsement, timezone } = req.body;
   const categories = [].concat(req.body.categories||[]);
   const languages = [].concat(req.body.languages||[]);
   const { data: t } = await supabase.from('teachers').select('photo_path').eq('id', req.params.id).single();
   const photoPath = req.file ? '/uploads/photos/' + req.file.filename : t.photo_path;
-  await supabase.from('teachers').update({ name, email, photo_path: photoPath, bio, qualifications, experience, categories, languages, laha_endorsement, updated_at: new Date() }).eq('id', req.params.id);
+  await supabase.from('teachers').update({ name, email, photo_path: photoPath, bio, qualifications, experience, categories, languages, laha_endorsement, timezone: timezone||null, updated_at: new Date() }).eq('id', req.params.id);
   res.redirect('/admin/teachers/' + req.params.id + '/edit');
 });
 

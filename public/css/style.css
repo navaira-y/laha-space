@@ -124,10 +124,10 @@ em, i { font-style: italic; }
 .pill:hover .pill__arrow { transform: translate(2px, -1px); }
 
 .pill--solid { background: #2E847B; color: #fff; border-color: #2E847B; }
-.pill--solid:hover { background: #192927; border-color: #192927; }
+.pill--solid:hover { background: #15302C; border-color: #15302C; }
 
-.pill--dark { background: #2E847B; color: #fff; border-color: #2E847B; }
-.pill--dark:hover { background: #192927; border-color: #192927; }
+.pill--dark { background: var(--ink); color: #fff; border-color: var(--ink); }
+.pill--dark:hover { background: var(--teal); border-color: var(--teal); }
 
 .pill--ghost { background: transparent; color: var(--ink); border-color: var(--ink); }
 .pill--ghost:hover { background: var(--ink); color: #fff; }
@@ -313,12 +313,12 @@ em, i { font-style: italic; }
 .hero__title {
   font-family: var(--font-serif);
   font-weight: 400;
-  font-size: clamp(52px, 5.5vw, 85px);
+  font-size: clamp(34px, 4.5vw, 62px);
   line-height: 1.0;
   letter-spacing: -0.03em;
   color: var(--ink);
   margin-bottom: 32px;
-  max-width: 16ch;
+  max-width: 13ch;
 }
 .hero__title em {
   font-style: italic;
@@ -391,13 +391,13 @@ em, i { font-style: italic; }
 
 /* ─── Marquee ────────────────────────────────────────────────── */
 .marquee {
-  background: #2E847B;
+  background: var(--ink);
   color: #fff;
   padding: 22px 0;
   overflow: hidden;
   white-space: nowrap;
-  border-top: 1px solid #2E847B;
-  border-bottom: 1px solid #2E847B;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
 }
 .marquee__track {
   display: inline-flex;
@@ -923,6 +923,16 @@ em, i { font-style: italic; }
 
 /* Booking flow */
 .booking-title { font-family: var(--font-serif); font-size: 30px; font-weight: 400; color: var(--ink); margin-bottom: 6px; letter-spacing: -0.01em; }
+.booking-timezone {
+  font-size: 13px;
+  color: var(--ink-soft);
+  background: rgba(46,132,123,0.06);
+  border: 1px solid rgba(46,132,123,0.2);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
 .booking-teacher { font-size: 14px; color: var(--ink-mute); margin-bottom: 28px; padding-bottom: 20px; border-bottom: 1px solid var(--line); }
 .booking-step-label { font-size: 11px; font-weight: 600; color: var(--teal); text-transform: uppercase; letter-spacing: 0.18em; margin-bottom: 14px; }
 .date-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
@@ -1209,12 +1219,12 @@ em, i { font-style: italic; }
 
 /* Legacy .btn classes (used by admin pages) */
 .btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 28px;border-radius:10px;font-weight:600;font-size:15px;border:2px solid transparent;transition:all 0.25s;white-space:nowrap;letter-spacing:0.01em;font-family:'DM Sans',sans-serif;}
-.btn--primary{background:#2E847B;color:#fff;border-color:#2E847B;}
-.btn--primary:hover{background:#192927;border-color:#192927;transform:translateY(-1px);box-shadow:0 8px 24px rgba(25,41,39,0.25);}
-.btn--outline{background:transparent;color:#2E847B;border-color:#2E847B;}
-.btn--outline:hover{background:#192927;color:#fff;border-color:#192927;}
-.btn--ghost{background:transparent;color:#2E847B;border-color:rgba(46,132,123,0.2);}
-.btn--ghost:hover{border-color:#2E847B;color:#2E847B;}
+.btn--primary{background:#2F877D;color:#fff;border-color:#2F877D;}
+.btn--primary:hover{background:#1A4D47;border-color:#1A4D47;transform:translateY(-1px);box-shadow:0 8px 24px rgba(47,135,125,0.25);}
+.btn--outline{background:transparent;color:#2F877D;border-color:#2F877D;}
+.btn--outline:hover{background:#2F877D;color:#fff;}
+.btn--ghost{background:transparent;color:#1A4D47;border-color:rgba(26,77,71,0.2);}
+.btn--ghost:hover{border-color:#2F877D;color:#2F877D;}
 .btn--white{background:#fff;color:#1A4D47;border-color:#fff;}
 .btn--white:hover{background:rgba(199,209,208,0.25);transform:translateY(-1px);}
 .btn--danger{background:#dc3545;color:#fff;border-color:#dc3545;}
@@ -1287,11 +1297,11 @@ em, i { font-style: italic; }
 }
 
 /* Ghost pill on dark hero background */
-.hero .pill--ghost { color: #192927; border-color: #192927; background: transparent; }
-.hero .pill--ghost:hover { background: #2E847B; border-color: #2E847B; color: #fff; }
+.hero .pill--ghost { color: #fff; border-color: rgba(255,255,255,0.4); }
+.hero .pill--ghost:hover { background: rgba(255,255,255,0.1); border-color: #fff; color: #fff; }
 
 /* Community CTA section */
-.community-cta { background: var(--bg-warm); padding: 100px 0 50px; }
+.community-cta { background: var(--bg-warm); padding: 100px 0 120px; }
 .community-cta__inner { max-width: 680px; }
 .community-cta__desc { font-size: 17px; color: var(--ink-soft); line-height: 1.75; margin: 20px 0 32px; max-width: 560px; }
 

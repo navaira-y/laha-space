@@ -177,9 +177,7 @@ function closeTeacherModal() {
 
 /* ─── Booking flow ──────────────────────────────────────────── */
 async function openBookingFlow() {
-  const teacher = selectedTeacher; // save before closeTeacherModal nulls it
   closeTeacherModal();
-  selectedTeacher = teacher; // restore so booking flow can use it
   const modal = document.getElementById('bookingModal');
   const body = document.getElementById('bookingModalBody');
   selectedDate = null;
@@ -330,7 +328,7 @@ function buildReviewForm(teacherId) {
     </div>
     <div id="reviewError" class="alert alert--error" style="display:none"></div>
     <div id="reviewSuccess" class="alert alert--success" style="display:none"></div>
-    <button class="pill pill--ghost" type="button" onclick="submitReview(${teacherId})">
+    <button class="pill pill--ghost" type="button" onclick="submitReview('${teacherId}')">
       <span>Submit review</span>
       <span class="pill__arrow" aria-hidden="true">→</span>
     </button>

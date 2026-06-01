@@ -66,7 +66,7 @@ router.post('/apply', (req, res, next) => {
     next();
   });
 }, ah(async (req, res) => {
-  const { name, email, phone, country_city, qualifications, experience, availability_text, extra_info } = req.body;
+  const { name, email, phone, country_city, qualifications, experience, availability_text, extra_info, timezone } = req.body;
   const categories = [].concat(req.body.categories || []);
   let languages = [].concat(req.body.languages || []);
   if (languages.includes('Other') && req.body.languages_other?.trim()) {
@@ -81,19 +81,12 @@ router.post('/apply', (req, res, next) => {
     photo_path: photoPath,
     qualifications, experience,
     categories, languages,
-    availability_text: availability_text || null,
-    extra_info: extra_info || null,
+    availability_text, extra_info,
+    extra_info_timezone: timezone || null,
     stage: 1, status: 'active'
   }).select().single();
 
-  if (error) {
-    console.error('Supabase insert error:', JSON.stringify(error));
-    return res.render('apply', { success: false, error: 'Could not save your application. Please try again.' });
-  }
-  if (!applicant) {
-    console.error('Supabase returned no data after insert');
-    return res.render('apply', { success: false, error: 'Could not save your application. Please try again.' });
-  }
+  if (error) throw error;
 
   if (req.files?.documents?.length) {
     const docs = req.files.documents.map(f => ({

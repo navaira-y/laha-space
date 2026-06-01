@@ -62,6 +62,7 @@
           <input class="form__input form__input--file" type="file" name="photo" id="photoInput"
             accept=".jpg,.jpeg,.png,.webp" required />
           <p class="form__file-hint">Accepted formats: JPG, JPEG, PNG, WEBP</p>
+          <p class="form__file-hint">If you wear niqab, please upload your photo with niqab.</p>
           <p class="form__file-error" id="photoError"></p>
         </div>
       </div>
@@ -142,6 +143,60 @@
           <button type="button" class="btn btn--outline btn--sm" id="addAvailRow" style="margin-top:10px;">+ Add time window</button>
           <p class="form__file-error" id="availabilityError"></p>
           <input type="hidden" name="availability_text" id="availabilityText" />
+        </div>
+        <div class="form__group">
+          <label class="form__label">Your time zone <span class="required">*</span></label>
+          <select class="form__input" name="timezone" id="timezoneSelect" required>
+            <option value="">Select your time zone</option>
+            <optgroup label="Middle East">
+              <option value="Asia/Dubai">UAE / Dubai (GST, UTC+4)</option>
+              <option value="Asia/Riyadh">Saudi Arabia / Riyadh (AST, UTC+3)</option>
+              <option value="Asia/Kuwait">Kuwait (AST, UTC+3)</option>
+              <option value="Asia/Qatar">Qatar / Doha (AST, UTC+3)</option>
+              <option value="Asia/Bahrain">Bahrain (AST, UTC+3)</option>
+              <option value="Asia/Muscat">Oman / Muscat (GST, UTC+4)</option>
+            </optgroup>
+            <optgroup label="South Asia">
+              <option value="Asia/Karachi">Pakistan / Karachi (PKT, UTC+5)</option>
+              <option value="Asia/Kolkata">India (IST, UTC+5:30)</option>
+              <option value="Asia/Dhaka">Bangladesh (BST, UTC+6)</option>
+            </optgroup>
+            <optgroup label="Southeast Asia">
+              <option value="Asia/Jakarta">Indonesia / Jakarta (WIB, UTC+7)</option>
+              <option value="Asia/Kuala_Lumpur">Malaysia (MYT, UTC+8)</option>
+              <option value="Asia/Singapore">Singapore (SGT, UTC+8)</option>
+            </optgroup>
+            <optgroup label="Africa">
+              <option value="Africa/Cairo">Egypt / Cairo (EET, UTC+2)</option>
+              <option value="Africa/Casablanca">Morocco / Casablanca (WET, UTC+0/+1)</option>
+              <option value="Africa/Tunis">Tunisia (CET, UTC+1)</option>
+              <option value="Africa/Algiers">Algeria (CET, UTC+1)</option>
+              <option value="Africa/Lagos">Nigeria / Lagos (WAT, UTC+1)</option>
+              <option value="Africa/Nairobi">Kenya / Nairobi (EAT, UTC+3)</option>
+            </optgroup>
+            <optgroup label="Europe">
+              <option value="Europe/London">UK / London (GMT/BST)</option>
+              <option value="Europe/Paris">France / Paris (CET, UTC+1/+2)</option>
+              <option value="Europe/Berlin">Germany / Berlin (CET, UTC+1/+2)</option>
+              <option value="Europe/Amsterdam">Netherlands (CET, UTC+1/+2)</option>
+              <option value="Europe/Stockholm">Sweden (CET, UTC+1/+2)</option>
+            </optgroup>
+            <optgroup label="North America">
+              <option value="America/New_York">US Eastern (EST/EDT)</option>
+              <option value="America/Chicago">US Central (CST/CDT)</option>
+              <option value="America/Denver">US Mountain (MST/MDT)</option>
+              <option value="America/Los_Angeles">US Pacific (PST/PDT)</option>
+              <option value="America/Toronto">Canada / Toronto (EST/EDT)</option>
+              <option value="America/Vancouver">Canada / Vancouver (PST/PDT)</option>
+            </optgroup>
+            <optgroup label="Other">
+              <option value="Australia/Sydney">Australia / Sydney (AEST, UTC+10/+11)</option>
+              <option value="Pacific/Auckland">New Zealand (NZST, UTC+12/+13)</option>
+            </optgroup>
+          </select>
+          <p class="form__file-hint">Students will see your time zone when booking. Select the one that matches where you teach from.</p>
+        </div>
+        <div style="display:none">
         </div>
       </div>
 
