@@ -151,7 +151,7 @@ em, i { font-style: italic; }
   height: 76px; gap: 24px;
 }
 .nav__logo-img { size: 7px; }
-.footer__logo-img { size: 9px; }
+.footer__logo-img { size: 2px; }
 .nav__logo {
   display: inline-flex; align-items: center; gap: 10px;
   color: var(--ink);
