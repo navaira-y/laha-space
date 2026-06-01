@@ -50,7 +50,7 @@ async function loadTeachers() {
   try {
     const res = await fetch('/api/teachers');
     allTeachers = await res.json();
-    renderGrid(allTeachers);
+    renderTeachers(activeCategory);
   } catch (e) {
     grid.innerHTML = '<p style="color:#7A8C89;padding:40px 0;grid-column:1/-1;font-size:15px">Unable to load teachers right now.</p>';
   }
