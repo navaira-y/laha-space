@@ -150,8 +150,8 @@ em, i { font-style: italic; }
   display: flex; align-items: center; justify-content: space-between;
   height: 76px; gap: 24px;
 }
-.nav__logo-img { height: 40px; width: auto; display: block; }
-.footer__logo-img { height: 44px; width: auto; display: block; margin-bottom: 16px; }
+.nav__logo-img { height: 52px; width: auto; display: block; }
+.footer__logo-img { height: 56px; width: auto; display: block; margin-bottom: 16px; }
 .nav__logo {
   display: inline-flex; align-items: center; gap: 10px;
   color: var(--ink);
@@ -1155,6 +1155,7 @@ em, i { font-style: italic; }
 .admin-layout{display:flex;min-height:100vh;}
 .sidebar{width:240px;background:#1A4D47;display:flex;flex-direction:column;flex-shrink:0;position:fixed;height:100vh;}
 .sidebar__brand{padding:24px 20px;border-bottom:1px solid rgba(255,255,255,0.1);}
+.sidebar__brand .nav__logo-img { height: 48px; width: auto; display: block; margin-bottom: 8px; }
 .sidebar__brand .nav__logo-laha{color:#2E847A;font-family:'Noto Naskh Arabic',serif;font-style:normal;font-weight:900;font-size:23px;}
 .sidebar__brand .nav__logo-space{color:rgba(255,255,255,0.5);font-family:'DM Sans',sans-serif;font-weight:300;font-size:23px;margin-left:0;}
 .sidebar__nav{padding:16px 12px;flex:1;display:flex;flex-direction:column;gap:4px;}
