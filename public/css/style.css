@@ -150,7 +150,7 @@ em, i { font-style: italic; }
   display: flex; align-items: center; justify-content: space-between;
   height: 76px; gap: 24px;
 }
-.nav__logo-img { height: auto; width: 3px; display: block; }
+.nav__logo-img { height: auto; width: 3px; }
 .footer__logo-img { height: 5px; width: 8px; display: block; margin-bottom: 4px; }
 .nav__logo {
   display: inline-flex; align-items: center; gap: 10px;
