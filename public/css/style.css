@@ -1057,9 +1057,7 @@ em, i { font-style: italic; }
   border-bottom: 1px solid var(--line-soft);
 }
 .page-hero__inner {
-  display: grid;
-  grid-template-columns: 60px 1fr;
-  gap: 24px 60px;
+  max-width: 720px;
 }
 .page-hero__title {
   font-family: var(--font-serif);
@@ -1254,7 +1252,6 @@ em, i { font-style: italic; }
   .hero__meta-num { font-size: 26px; }
   .vetting__head,
   .teachers-section__head,
-  .page-hero__inner { grid-template-columns: 1fr; gap: 16px; }
   .marquee__track { font-size: 18px; gap: 36px; }
   .footer__top { grid-template-columns: 1fr; gap: 40px; }
   .footer__cols { gap: 24px; }
