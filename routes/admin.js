@@ -298,4 +298,15 @@ router.post('/reviews/:id/delete', requireAdmin, async (req, res) => {
   res.redirect('/admin/reviews');
 });
 
+// Community members
+router.get('/community', requireAdmin, async (req, res) => {
+  const { data: members } = await supabase.from('community_members').select('*').order('created_at', { ascending: false });
+  res.render('admin/community', { members: members || [] });
+});
+
+router.post('/community/:id/delete', requireAdmin, async (req, res) => {
+  await supabase.from('community_members').delete().eq('id', req.params.id);
+  res.redirect('/admin/community');
+});
+
 module.exports = router;

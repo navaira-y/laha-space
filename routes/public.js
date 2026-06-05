@@ -73,6 +73,31 @@ router.get('/uploads/photos/:filename', async (req, res) => {
 });
 
 router.get('/', (req, res) => res.render('index'));
+
+router.get('/join', (req, res) => res.render('join', { success: false, error: null }));
+
+router.post('/join', express.urlencoded({ extended: true }), ah(async (req, res) => {
+  const { name, email, whatsapp, phone_code, country, age_group, why_join, can_contribute } = req.body;
+  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  if (!name || name.trim().length < 2) return res.render('join', { success: false, error: 'Please enter your full name.' });
+  if (!email || !emailRe.test(email.trim())) return res.render('join', { success: false, error: 'Please enter a valid email address.' });
+  if (!whatsapp || whatsapp.trim().length < 6) return res.render('join', { success: false, error: 'Please enter a valid WhatsApp number.' });
+  if (!country || country.trim().length < 2) return res.render('join', { success: false, error: 'Please enter your country.' });
+  if (!age_group) return res.render('join', { success: false, error: 'Please select your age group.' });
+  if (!why_join || why_join.trim().length < 3) return res.render('join', { success: false, error: 'Please tell us what you are looking for.' });
+
+  await supabase.from('community_members').insert({
+    name: name.trim(),
+    email: email.trim(),
+    whatsapp: whatsapp.trim(),
+    country: country.trim(),
+    age_group,
+    why_join: why_join.trim(),
+    can_contribute: can_contribute?.trim() || null
+  });
+
+  res.render('join', { success: true, error: null });
+}));
 router.get('/apply', (req, res) => res.render('apply', { success: false, error: null }));
 
 router.post('/apply', (req, res, next) => {

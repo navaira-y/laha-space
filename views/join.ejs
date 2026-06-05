@@ -1,0 +1,179 @@
+<%- include('partials/public-head', { title: 'Join the Community' }) %>
+
+<section class="page-hero">
+  <div class="container page-hero__inner">
+    <div>
+      <span class="section-eyebrow">The community</span>
+      <h1 class="page-hero__title">
+        Join<br/>
+        <em>Laha Space.</em>
+      </h1>
+      <p class="page-hero__desc">
+        Tell us a little about yourself and what you are looking for. This is not a commitment, just a way for us to understand how we can support you.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="form-section">
+  <div class="container container--narrow">
+
+    <% if (success) { %>
+    <div class="alert alert--success">
+      <strong>Thank you for joining.</strong> We have received your details and will be in touch soon. Welcome to Laha Space.
+    </div>
+    <% } else { %>
+
+    <% if (error) { %>
+    <div class="alert alert--error"><%= error %></div>
+    <% } %>
+
+    <form class="form" action="/join" method="POST" id="joinForm">
+      <div class="form__section">
+        <h3 class="form__section-title">01 &nbsp; About you</h3>
+        <div class="form__row">
+          <div class="form__group">
+            <label class="form__label">Full name <span class="required">*</span></label>
+            <input class="form__input" type="text" name="name" required />
+          </div>
+          <div class="form__group">
+            <label class="form__label">Age group <span class="required">*</span></label>
+            <select class="form__input" name="age_group" required>
+              <option value="">Select</option>
+              <option value="below 20">Below 20</option>
+              <option value="20-30">20 to 30</option>
+              <option value="30+">30+</option>
+            </select>
+          </div>
+        </div>
+        <div class="form__group">
+          <label class="form__label">Country of residence <span class="required">*</span></label>
+          <input class="form__input" type="text" name="country" placeholder="e.g. UAE, Pakistan, UK" required />
+        </div>
+      </div>
+
+      <div class="form__section">
+        <h3 class="form__section-title">02 &nbsp; Contact</h3>
+        <div class="form__group">
+          <label class="form__label">Email <span class="required">*</span></label>
+          <input class="form__input" type="email" name="email" placeholder="you@example.com" required />
+        </div>
+        <div class="form__group">
+          <label class="form__label">WhatsApp number <span class="required">*</span></label>
+          <div style="display:flex;gap:8px;">
+            <select class="form__input" name="phone_code" id="joinPhoneCode" style="max-width:160px;flex-shrink:0">
+              <option value="+93">🇦🇫 Afghanistan (+93)</option>
+              <option value="+355">🇦🇱 Albania (+355)</option>
+              <option value="+213">🇩🇿 Algeria (+213)</option>
+              <option value="+244">🇦🇴 Angola (+244)</option>
+              <option value="+54">🇦🇷 Argentina (+54)</option>
+              <option value="+61">🇦🇺 Australia (+61)</option>
+              <option value="+43">🇦🇹 Austria (+43)</option>
+              <option value="+994">🇦🇿 Azerbaijan (+994)</option>
+              <option value="+973">🇧🇭 Bahrain (+973)</option>
+              <option value="+880">🇧🇩 Bangladesh (+880)</option>
+              <option value="+32">🇧🇪 Belgium (+32)</option>
+              <option value="+55">🇧🇷 Brazil (+55)</option>
+              <option value="+1">🇨🇦 Canada (+1)</option>
+              <option value="+86">🇨🇳 China (+86)</option>
+              <option value="+57">🇨🇴 Colombia (+57)</option>
+              <option value="+20">🇪🇬 Egypt (+20)</option>
+              <option value="+251">🇪🇹 Ethiopia (+251)</option>
+              <option value="+358">🇫🇮 Finland (+358)</option>
+              <option value="+33">🇫🇷 France (+33)</option>
+              <option value="+49">🇩🇪 Germany (+49)</option>
+              <option value="+233">🇬🇭 Ghana (+233)</option>
+              <option value="+30">🇬🇷 Greece (+30)</option>
+              <option value="+91">🇮🇳 India (+91)</option>
+              <option value="+62">🇮🇩 Indonesia (+62)</option>
+              <option value="+98">🇮🇷 Iran (+98)</option>
+              <option value="+964">🇮🇶 Iraq (+964)</option>
+              <option value="+353">🇮🇪 Ireland (+353)</option>
+              <option value="+39">🇮🇹 Italy (+39)</option>
+              <option value="+81">🇯🇵 Japan (+81)</option>
+              <option value="+962">🇯🇴 Jordan (+962)</option>
+              <option value="+254">🇰🇪 Kenya (+254)</option>
+              <option value="+965">🇰🇼 Kuwait (+965)</option>
+              <option value="+961">🇱🇧 Lebanon (+961)</option>
+              <option value="+218">🇱🇾 Libya (+218)</option>
+              <option value="+60">🇲🇾 Malaysia (+60)</option>
+              <option value="+960">🇲🇻 Maldives (+960)</option>
+              <option value="+212">🇲🇦 Morocco (+212)</option>
+              <option value="+234">🇳🇬 Nigeria (+234)</option>
+              <option value="+47">🇳🇴 Norway (+47)</option>
+              <option value="+968">🇴🇲 Oman (+968)</option>
+              <option value="+92">🇵🇰 Pakistan (+92)</option>
+              <option value="+63">🇵🇭 Philippines (+63)</option>
+              <option value="+48">🇵🇱 Poland (+48)</option>
+              <option value="+351">🇵🇹 Portugal (+351)</option>
+              <option value="+974">🇶🇦 Qatar (+974)</option>
+              <option value="+7">🇷🇺 Russia (+7)</option>
+              <option value="+966">🇸🇦 Saudi Arabia (+966)</option>
+              <option value="+65">🇸🇬 Singapore (+65)</option>
+              <option value="+252">🇸🇴 Somalia (+252)</option>
+              <option value="+27">🇿🇦 South Africa (+27)</option>
+              <option value="+34">🇪🇸 Spain (+34)</option>
+              <option value="+94">🇱🇰 Sri Lanka (+94)</option>
+              <option value="+249">🇸🇩 Sudan (+249)</option>
+              <option value="+46">🇸🇪 Sweden (+46)</option>
+              <option value="+41">🇨🇭 Switzerland (+41)</option>
+              <option value="+963">🇸🇾 Syria (+963)</option>
+              <option value="+255">🇹🇿 Tanzania (+255)</option>
+              <option value="+66">🇹🇭 Thailand (+66)</option>
+              <option value="+216">🇹🇳 Tunisia (+216)</option>
+              <option value="+90">🇹🇷 Turkey (+90)</option>
+              <option value="+256">🇺🇬 Uganda (+256)</option>
+              <option value="+380">🇺🇦 Ukraine (+380)</option>
+              <option value="+971" selected>🇦🇪 UAE (+971)</option>
+              <option value="+44">🇬🇧 United Kingdom (+44)</option>
+              <option value="+1">🇺🇸 United States (+1)</option>
+              <option value="+998">🇺🇿 Uzbekistan (+998)</option>
+              <option value="+967">🇾🇪 Yemen (+967)</option>
+              <option value="+260">🇿🇲 Zambia (+260)</option>
+              <option value="+263">🇿🇼 Zimbabwe (+263)</option>
+            </select>
+            <input class="form__input" type="tel" name="whatsapp" id="joinPhone" placeholder="5xxxxxxxx" required style="flex:1" />
+          </div>
+        </div>
+      </div>
+
+      <div class="form__section">
+        <h3 class="form__section-title">03 &nbsp; A bit more</h3>
+        <div class="form__group">
+          <label class="form__label">What are you looking for? <span class="required">*</span></label>
+          <textarea class="form__input form__textarea" name="why_join" rows="3" placeholder="e.g. I want to learn Tajweed, looking for a supportive community of sisters, etc." required></textarea>
+        </div>
+        <div class="form__group">
+          <label class="form__label">Is there anything you can contribute? <span class="form__hint">(optional)</span></label>
+          <textarea class="form__input form__textarea" name="can_contribute" rows="3" placeholder="e.g. I can help with translation, graphic design, social media, etc."></textarea>
+        </div>
+      </div>
+
+      <p class="form__privacy">Your information is only used to connect you with the community and will not be shared publicly.</p>
+
+      <button type="submit" class="btn btn--primary btn--lg">Join Laha Space</button>
+    </form>
+
+    <% } %>
+  </div>
+</section>
+
+<script>
+document.getElementById('joinForm')?.addEventListener('submit', function(e) {
+  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  const phoneRe = /^[0-9]{5,15}$/;
+  const name = document.querySelector('input[name="name"]').value.trim();
+  const email = document.querySelector('input[name="email"]').value.trim();
+  const phone = document.getElementById('joinPhone').value.trim();
+
+  if (name.length < 2) { e.preventDefault(); alert('Please enter your full name.'); return; }
+  if (!emailRe.test(email)) { e.preventDefault(); alert('Please enter a valid email address.'); return; }
+  if (!phoneRe.test(phone.replace(/\s/g, ''))) { e.preventDefault(); alert('Please enter a valid WhatsApp number, digits only.'); return; }
+
+  var code = document.getElementById('joinPhoneCode');
+  var ph = document.getElementById('joinPhone');
+  if (code && ph) { ph.value = code.value + ' ' + ph.value.trim(); code.disabled = true; }
+});
+</script>
+
+<%- include('partials/public-foot') %>

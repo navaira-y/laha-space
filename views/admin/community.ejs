@@ -1,0 +1,50 @@
+<%- include('../partials/admin-head', { title: 'Community Members', active: 'community' }) %>
+
+<div class="admin-header">
+  <h1>Community Members</h1>
+  <p><%= members.length %> member<%= members.length !== 1 ? 's' : '' %> joined</p>
+</div>
+
+<div class="admin-card">
+  <% if (!members.length) { %>
+    <p style="color:#7A8C89;padding:20px 0">No community members yet.</p>
+  <% } else { %>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>WhatsApp</th>
+          <th>Country</th>
+          <th>Age</th>
+          <th>Looking for</th>
+          <th>Can contribute</th>
+          <th>Date</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% members.forEach(m => { %>
+        <tr>
+          <td><%= m.name %></td>
+          <td><%= m.email %></td>
+          <td><%= m.whatsapp %></td>
+          <td><%= m.country %></td>
+          <td><%= m.age_group %></td>
+          <td><%= m.why_join %></td>
+          <td><%= m.can_contribute || '—' %></td>
+          <td><%= new Date(m.created_at).toLocaleDateString('en-GB') %></td>
+          <td>
+            <button class="table-link table-link--danger" onclick="if(confirm('Delete this member?')) document.getElementById('del-<%= m.id %>').submit()">Delete</button>
+            <form id="del-<%= m.id %>" action="/admin/community/<%= m.id %>/delete" method="POST" style="display:none"></form>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+  <% } %>
+</div>
+
+<%- include('../partials/admin-foot') %>
