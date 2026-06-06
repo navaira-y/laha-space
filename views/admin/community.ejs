@@ -1,5 +1,13 @@
 <%- include('../partials/admin-head', { title: 'Community Members', activePage: 'community' }) %>
 
+<style>
+  @media (max-width: 680px) {
+    .community-member-grid {
+      grid-template-columns: 1fr !important;
+    }
+  }
+</style>
+
 <div class="admin-page">
   <p class="admin-page__sub" style="margin-bottom:16px"><%= members.length %> member<%= members.length !== 1 ? 's' : '' %> joined</p>
 
