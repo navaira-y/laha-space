@@ -2,10 +2,7 @@
 
 <div class="admin-page">
   <div class="admin-page__header">
-    <div>
-      <a href="/admin/teachers" class="back-link">← Teachers</a>
-      <h1 class="admin-page__title"><%= teacher ? 'Edit ' + teacher.name : 'New Teacher' %></h1>
-    </div>
+    <a href="/admin/teachers" class="back-link">← Teachers</a>
     <% if(teacher) { %>
     <form action="/admin/teachers/<%= teacher.id %>/publish" method="POST">
       <button class="btn <%= teacher.is_published ? 'btn--outline' : 'btn--primary' %>">

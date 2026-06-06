@@ -1,10 +1,6 @@
 <%- include('../partials/admin-head', { title: 'Applicants', activePage: 'applicants' }) %>
 
 <div class="admin-page">
-  <div class="admin-page__header">
-    <h1 class="admin-page__title">Applicants</h1>
-  </div>
-
   <div class="filter-bar">
     <a href="/admin/applicants" class="filter-btn <%= !selectedStage && !selectedStatus ? 'filter-btn--active' : '' %>">All active</a>
     <% for(let i = 1; i <= 7; i++) { %>

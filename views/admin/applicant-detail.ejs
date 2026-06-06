@@ -4,8 +4,7 @@
   <div class="admin-page__header">
     <div>
       <a href="/admin/applicants" class="back-link">← Applicants</a>
-      <h1 class="admin-page__title"><%= applicant.name %></h1>
-      <p class="admin-page__sub"><%= applicant.email %> · <%= applicant.phone %> · <%= applicant.country_city %></p>
+      <p class="admin-page__sub" style="margin-top:4px"><%= applicant.email %> · <%= applicant.phone %> · <%= applicant.country_city %></p>
     </div>
     <% if(applicant.stage === 7 && applicant.status === 'active') { %>
     <form action="/admin/applicants/<%= applicant.id %>/create-profile" method="POST">

@@ -9,10 +9,31 @@
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="icon" type="image/png" href="/images/favicon.png" />
   <link rel="stylesheet" href="/css/style.css" />
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var btn = document.getElementById('adminHamburger');
+      var sidebar = document.getElementById('adminSidebar');
+      var overlay = document.getElementById('sidebarOverlay');
+      if (!btn) return;
+      function open() { sidebar.classList.add('sidebar--open'); overlay.classList.add('active'); }
+      function close() { sidebar.classList.remove('sidebar--open'); overlay.classList.remove('active'); }
+      btn.addEventListener('click', function() { sidebar.classList.contains('sidebar--open') ? close() : open(); });
+      overlay.addEventListener('click', close);
+    });
+  </script>
 </head>
 <body class="admin-body">
   <div class="admin-layout">
-    <aside class="sidebar">
+    <!-- Mobile header -->
+    <header class="admin-mobile-header">
+      <img src="/images/logo-light.png" alt="Laha Space" class="admin-mobile-logo" />
+      <button class="admin-hamburger" id="adminHamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </header>
+    <div class="admin-sidebar-overlay" id="sidebarOverlay"></div>
+
+    <aside class="sidebar" id="adminSidebar">
       <div class="sidebar__brand">
         <img src="/images/logo-light.png" alt="Laha Space" style="height:48px" />
       </div>

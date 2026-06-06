@@ -1,10 +1,6 @@
 <%- include('../partials/admin-head', { title: 'Reviews', activePage: 'reviews' }) %>
 
 <div class="admin-page">
-  <div class="admin-page__header">
-    <h1 class="admin-page__title">Reviews</h1>
-  </div>
-
   <div class="admin-card">
     <% if(reviews.length === 0) { %>
     <p class="empty-state">No reviews yet.</p>

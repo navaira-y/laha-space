@@ -1,10 +1,7 @@
 <%- include('../partials/admin-head', { title: 'Community Members', activePage: 'community' }) %>
 
 <div class="admin-page">
-  <div class="admin-page__header">
-    <h1 class="admin-page__title">Community Members</h1>
-    <p class="admin-page__sub"><%= members.length %> member<%= members.length !== 1 ? 's' : '' %> joined</p>
-  </div>
+  <p class="admin-page__sub" style="margin-bottom:16px"><%= members.length %> member<%= members.length !== 1 ? 's' : '' %> joined</p>
 
   <% if (!members.length) { %>
     <div class="admin-card" style="text-align:center;padding:48px;color:#7A8C89;">No community members yet.</div>
