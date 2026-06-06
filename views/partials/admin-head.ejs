@@ -24,9 +24,20 @@
 </head>
 <body class="admin-body">
   <div class="admin-layout">
-    <!-- Mobile header -->
+    <!-- Mobile header (hidden on desktop with inline media query) -->
+    <style>
+      @media (min-width: 1025px) {
+        .admin-mobile-header { display: none !important; }
+        .admin-sidebar-overlay { display: none !important; }
+      }
+      .admin-mobile-logo {
+        height: 32px !important;
+        width: auto !important;
+        max-width: 200px !important;
+      }
+    </style>
     <header class="admin-mobile-header">
-      <img src="/images/logo-light.png" alt="Laha Space" class="admin-mobile-logo" />
+      <img src="/images/logo-light.png" alt="Laha Space" class="admin-mobile-logo" style="height:32px;width:auto;max-width:200px;" />
       <button class="admin-hamburger" id="adminHamburger" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
