@@ -1,59 +1,61 @@
 <%- include('../partials/admin-head', { title: 'Community Members', activePage: 'community' }) %>
 
-<div class="admin-header">
-  <h1>Community Members</h1>
-  <p><%= members.length %> member<%= members.length !== 1 ? 's' : '' %> joined</p>
-</div>
-
-<% if (!members.length) { %>
-  <div class="admin-card" style="padding:40px;text-align:center;color:#7A8C89;">No community members yet.</div>
-<% } else { %>
-  <% members.forEach(m => { %>
-  <div class="admin-card" style="margin-bottom:16px;">
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px 32px;padding:24px;">
-      <div>
-        <div style="font-size:11px;text-transform:uppercase;letter-spacing:2px;color:#7A8C89;margin-bottom:6px;">Name</div>
-        <div style="font-size:15px;color:#1C201F;font-weight:500;"><%= m.name %></div>
-      </div>
-      <div>
-        <div style="font-size:11px;text-transform:uppercase;letter-spacing:2px;color:#7A8C89;margin-bottom:6px;">Email</div>
-        <div style="font-size:15px;color:#1C201F;"><%= m.email %></div>
-      </div>
-      <div>
-        <div style="font-size:11px;text-transform:uppercase;letter-spacing:2px;color:#7A8C89;margin-bottom:6px;">WhatsApp</div>
-        <div style="font-size:15px;color:#1C201F;"><%= m.whatsapp %></div>
-      </div>
-      <div>
-        <div style="font-size:11px;text-transform:uppercase;letter-spacing:2px;color:#7A8C89;margin-bottom:6px;">Country</div>
-        <div style="font-size:15px;color:#1C201F;"><%= m.country %></div>
-      </div>
-      <div>
-        <div style="font-size:11px;text-transform:uppercase;letter-spacing:2px;color:#7A8C89;margin-bottom:6px;">Age group</div>
-        <div style="font-size:15px;color:#1C201F;"><%= m.age_group %></div>
-      </div>
-      <div>
-        <div style="font-size:11px;text-transform:uppercase;letter-spacing:2px;color:#7A8C89;margin-bottom:6px;">Joined</div>
-        <div style="font-size:15px;color:#1C201F;"><%= new Date(m.created_at).toLocaleDateString('en-GB') %></div>
-      </div>
-    </div>
-    <% if (m.why_join) { %>
-    <div style="padding:0 24px 16px;">
-      <div style="font-size:11px;text-transform:uppercase;letter-spacing:2px;color:#7A8C89;margin-bottom:6px;">Looking for</div>
-      <div style="font-size:14px;color:#1C201F;line-height:1.6;"><%= m.why_join %></div>
-    </div>
-    <% } %>
-    <% if (m.can_contribute) { %>
-    <div style="padding:0 24px 16px;">
-      <div style="font-size:11px;text-transform:uppercase;letter-spacing:2px;color:#7A8C89;margin-bottom:6px;">Can contribute</div>
-      <div style="font-size:14px;color:#1C201F;line-height:1.6;"><%= m.can_contribute %></div>
-    </div>
-    <% } %>
-    <div style="padding:12px 24px 20px;border-top:1px solid #eee;display:flex;justify-content:flex-end;">
-      <button class="table-link table-link--danger" onclick="if(confirm('Delete this member?')) document.getElementById('del-<%= m.id %>').submit()">Delete</button>
-      <form id="del-<%= m.id %>" action="/admin/community/<%= m.id %>/delete" method="POST" style="display:none"></form>
-    </div>
+<div class="admin-page">
+  <div class="admin-page__header">
+    <h1 class="admin-page__title">Community Members</h1>
+    <p class="admin-page__sub"><%= members.length %> member<%= members.length !== 1 ? 's' : '' %> joined</p>
   </div>
-  <% }) %>
-<% } %>
+
+  <% if (!members.length) { %>
+    <div class="admin-card" style="text-align:center;padding:48px;color:#7A8C89;">No community members yet.</div>
+  <% } else { %>
+    <% members.forEach(m => { %>
+    <div class="admin-card" style="margin-bottom:16px;">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px 32px;margin-bottom:20px;">
+        <div>
+          <div class="detail-label">Name</div>
+          <div class="detail-value"><%= m.name %></div>
+        </div>
+        <div>
+          <div class="detail-label">Email</div>
+          <div class="detail-value"><%= m.email %></div>
+        </div>
+        <div>
+          <div class="detail-label">WhatsApp</div>
+          <div class="detail-value"><%= m.whatsapp %></div>
+        </div>
+        <div>
+          <div class="detail-label">Country</div>
+          <div class="detail-value"><%= m.country %></div>
+        </div>
+        <div>
+          <div class="detail-label">Age group</div>
+          <div class="detail-value"><%= m.age_group %></div>
+        </div>
+        <div>
+          <div class="detail-label">Joined</div>
+          <div class="detail-value"><%= new Date(m.created_at).toLocaleDateString('en-GB') %></div>
+        </div>
+      </div>
+      <% if (m.why_join) { %>
+      <div style="margin-bottom:12px;">
+        <div class="detail-label">Looking for</div>
+        <div class="detail-value" style="margin-top:4px;line-height:1.6;"><%= m.why_join %></div>
+      </div>
+      <% } %>
+      <% if (m.can_contribute) { %>
+      <div style="margin-bottom:16px;">
+        <div class="detail-label">Can contribute</div>
+        <div class="detail-value" style="margin-top:4px;line-height:1.6;"><%= m.can_contribute %></div>
+      </div>
+      <% } %>
+      <div style="border-top:1px solid #DFDFDF;padding-top:14px;display:flex;justify-content:flex-end;">
+        <button class="table-link table-link--danger" onclick="if(confirm('Delete this member permanently?')) document.getElementById('del-<%= m.id %>').submit()">Delete</button>
+        <form id="del-<%= m.id %>" action="/admin/community/<%= m.id %>/delete" method="POST" style="display:none"></form>
+      </div>
+    </div>
+    <% }) %>
+  <% } %>
+</div>
 
 <%- include('../partials/admin-foot') %>

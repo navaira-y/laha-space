@@ -1166,6 +1166,8 @@ em, i { font-style: italic; }
 .admin-page__sub{font-size:14px;color:#5a7a76;margin-top:4px;}
 .back-link{font-size:13px;color:#2F877D;display:block;margin-bottom:8px;}
 .admin-card{background:#fff;border-radius:14px;padding:24px;margin-bottom:24px;border:1px solid #DFDFDF;}
+.detail-label{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:#7A8C89;font-weight:600;}
+.detail-value{font-size:14px;color:#1A4D47;margin-top:4px;}
 .admin-card__header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
 .admin-card__title{font-size:16px;font-weight:600;color:#1A4D47;}
 .admin-card__sub{font-size:13px;color:#5a7a76;margin-top:4px;}
