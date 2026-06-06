@@ -776,6 +776,11 @@ em, i { font-style: italic; }
   border-radius: 50%;
   background: radial-gradient(circle, rgba(47,135,125,0.22) 0%, transparent 70%);
 }
+.apply-cta__head {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 24px 60px;
+}
 .apply-cta__inner {
   display: grid;
   grid-template-columns: 1fr auto;
@@ -1058,6 +1063,7 @@ em, i { font-style: italic; }
 }
 .page-hero__inner {
   max-width: 720px;
+  padding-left: 40px;
 }
 .page-hero__title {
   font-family: var(--font-serif);
@@ -1236,7 +1242,12 @@ em, i { font-style: italic; }
   .nav__menu { display: none; }
   .nav__burger { display: flex; }
   .nav__cta { display: none; }
-  .apply-cta__inner { grid-template-columns: 1fr; }
+  .apply-cta__head {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 24px 60px;
+}
+.apply-cta__inner { grid-template-columns: 1fr; }
   .apply-cta__action { align-items: flex-start; }
 }
 
@@ -1298,7 +1309,12 @@ em, i { font-style: italic; }
 
 /* Community CTA section */
 .community-cta { background: var(--bg-warm); padding: 100px 0 120px; }
-.community-cta__inner { max-width: 680px; }
+.community-cta__head {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 24px 60px;
+  max-width: 780px;
+}
 .community-cta__desc { font-size: 17px; color: var(--ink-soft); line-height: 1.75; margin: 20px 0 32px; max-width: 560px; }
 
 /* Filter btn active hover fix */
