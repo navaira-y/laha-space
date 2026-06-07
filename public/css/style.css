@@ -63,7 +63,7 @@ body {
   color: var(--ink);
   background: var(--bg);
   line-height: 1.65;
-  font-size: 16px;
+  font-size: 14px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-feature-settings: "ss01", "cv11";
@@ -1152,7 +1152,7 @@ em, i { font-style: italic; }
 ═══════════════════════════════════════════════════════════════ */
 
 /* ── Base ── */
-.admin-body{background:#f0f3f3;font-family:'DM Sans',sans-serif;color:#1a2e2c;}
+.admin-body{background:#f0f3f3;font-family:'DM Sans',sans-serif;color:#1a2e2c;font-size:16px;}
 .admin-layout{display:flex;min-height:100vh;}
 
 /* ── Sidebar ── */
