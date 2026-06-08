@@ -48,7 +48,7 @@
         </div>
         <div class="form__group">
           <label class="form__label">Country of residence <span class="required">*</span></label>
-          <input class="form__input" type="text" name="country" placeholder="e.g. UAE, Pakistan, UK" required />
+          <input class="form__input" type="text" name="country" placeholder="e.g. UAE" required />
         </div>
       </div>
 
@@ -145,14 +145,14 @@
         </div>
         <div class="form__group">
           <label class="form__label">Is there anything you can contribute? <span class="form__hint">(optional)</span></label>
-          <textarea class="form__input form__textarea" name="can_contribute" rows="3" placeholder="e.g. I can help with translation, graphic design, social media, etc."></textarea>
+          <textarea class="form__input form__textarea" name="can_contribute" rows="3"></textarea>
         </div>
       </div>
 
       <div class="form__section">
-        <h3 class="form__section-title">04 &nbsp; Voice note <span class="form__hint">(optional — 15 seconds)</span></h3>
+        <h3 class="form__section-title">04 &nbsp; Voice note <span class="required">*</span></h3>
         <div class="form__group">
-          <label class="form__label">Record a short voice note introducing yourself</label>
+          <label class="form__label">Record a short voice note introducing yourself <span class="required">*</span></label>
           <div class="voice-recorder" id="voiceRecorder">
             <div class="voice-recorder__controls">
               <button type="button" id="recordBtn" class="btn btn--outline">
@@ -169,7 +169,7 @@
               <button type="button" id="reRecordBtn" class="btn btn--outline btn--sm" style="margin-top:8px;font-size:12px;">Re-record</button>
             </div>
             <input type="file" name="voice_note" id="voiceFileInput" style="display:none" accept="audio/*" />
-            <p class="form__file-hint" style="margin-top:8px;">Optional. Max 15 seconds. Your voice note helps us understand how we can support you better.</p>
+            <p class="form__file-hint" style="margin-top:8px;">Required. Max 15 seconds. Your voice note helps us understand how we can support you better.</p>
           </div>
         </div>
       </div>
@@ -286,6 +286,8 @@ document.getElementById('joinForm')?.addEventListener('submit', function(e) {
   const email = document.querySelector('input[name="email"]').value.trim();
   const phone = document.getElementById('joinPhone').value.trim();
 
+  const voiceInput = document.getElementById('voiceFileInput');
+  if (!voiceInput || !voiceInput.files || voiceInput.files.length === 0) { e.preventDefault(); alert('Please record a voice note before submitting.'); return; }
   if (name.length < 2) { e.preventDefault(); alert('Please enter your full name.'); return; }
   if (!emailRe.test(email)) { e.preventDefault(); alert('Please enter a valid email address.'); return; }
   if (!phoneRe.test(phone.replace(/\s/g, ''))) { e.preventDefault(); alert('Please enter a valid WhatsApp number, digits only.'); return; }
