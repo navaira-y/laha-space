@@ -28,7 +28,7 @@
     <div class="alert alert--error"><%= error %></div>
     <% } %>
 
-    <form class="form" action="/join" method="POST" id="joinForm">
+    <form class="form" action="/join" method="POST" id="joinForm" enctype="multipart/form-data">
       <div class="form__section">
         <h3 class="form__section-title">01 &nbsp; About you</h3>
         <div class="form__row">
@@ -149,6 +149,31 @@
         </div>
       </div>
 
+      <div class="form__section">
+        <h3 class="form__section-title">04 &nbsp; Voice note <span class="form__hint">(optional — 15 seconds)</span></h3>
+        <div class="form__group">
+          <label class="form__label">Record a short voice note introducing yourself</label>
+          <div class="voice-recorder" id="voiceRecorder">
+            <div class="voice-recorder__controls">
+              <button type="button" id="recordBtn" class="btn btn--outline">
+                <span id="recordIcon">🎙</span>
+                <span id="recordLabel">Start recording</span>
+              </button>
+              <div class="voice-recorder__timer" id="timerDisplay" style="display:none">
+                <span id="timerBar" style="display:inline-block;width:0%;height:4px;background:#2E847B;border-radius:2px;transition:width 0.1s linear;max-width:200px;vertical-align:middle;"></span>
+                <span id="timerText" style="margin-left:10px;font-size:13px;color:#5a7876;">0s / 15s</span>
+              </div>
+            </div>
+            <div id="playbackArea" style="display:none;margin-top:12px;">
+              <audio id="audioPlayback" controls style="width:100%;max-width:320px;height:36px;border-radius:8px;"></audio>
+              <button type="button" id="reRecordBtn" class="btn btn--outline btn--sm" style="margin-top:8px;font-size:12px;">Re-record</button>
+            </div>
+            <input type="file" name="voice_note" id="voiceFileInput" style="display:none" accept="audio/*" />
+            <p class="form__file-hint" style="margin-top:8px;">Optional. Max 15 seconds. Your voice note helps us understand how we can support you better.</p>
+          </div>
+        </div>
+      </div>
+
       <p class="form__privacy">Your information is only used to connect you with the community and will not be shared publicly.</p>
 
       <button type="submit" class="btn btn--primary btn--lg">Join Laha Space</button>
@@ -159,6 +184,101 @@
 </section>
 
 <script>
+// ── Voice Recorder ──────────────────────────────────────────
+(function() {
+  var mediaRecorder = null;
+  var audioChunks = [];
+  var recordBtn = document.getElementById('recordBtn');
+  var recordLabel = document.getElementById('recordLabel');
+  var recordIcon = document.getElementById('recordIcon');
+  var timerDisplay = document.getElementById('timerDisplay');
+  var timerBar = document.getElementById('timerBar');
+  var timerText = document.getElementById('timerText');
+  var playbackArea = document.getElementById('playbackArea');
+  var audioPlayback = document.getElementById('audioPlayback');
+  var reRecordBtn = document.getElementById('reRecordBtn');
+  var voiceFileInput = document.getElementById('voiceFileInput');
+  var timerInterval = null;
+  var seconds = 0;
+  var MAX_SEC = 15;
+
+  function stopRecording() {
+    if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+      mediaRecorder.stop();
+    }
+    clearInterval(timerInterval);
+    recordBtn.disabled = false;
+    recordIcon.textContent = '🎙';
+    recordLabel.textContent = 'Start recording';
+    timerDisplay.style.display = 'none';
+  }
+
+  if (recordBtn) {
+    recordBtn.addEventListener('click', function() {
+      if (mediaRecorder && mediaRecorder.state === 'recording') {
+        stopRecording();
+        return;
+      }
+      navigator.mediaDevices.getUserMedia({ audio: true }).then(function(stream) {
+        audioChunks = [];
+        seconds = 0;
+        timerBar.style.width = '0%';
+        timerText.textContent = '0s / 15s';
+        timerDisplay.style.display = 'flex';
+        timerDisplay.style.alignItems = 'center';
+        playbackArea.style.display = 'none';
+
+        var options = MediaRecorder.isTypeSupported('audio/webm') ? { mimeType: 'audio/webm' } : {};
+        mediaRecorder = new MediaRecorder(stream, options);
+
+        mediaRecorder.ondataavailable = function(e) {
+          if (e.data.size > 0) audioChunks.push(e.data);
+        };
+
+        mediaRecorder.onstop = function() {
+          stream.getTracks().forEach(function(t) { t.stop(); });
+          var blob = new Blob(audioChunks, { type: 'audio/webm' });
+          var url = URL.createObjectURL(blob);
+          audioPlayback.src = url;
+          playbackArea.style.display = 'block';
+
+          // Put blob into the file input via DataTransfer
+          var file = new File([blob], 'voice-note.webm', { type: 'audio/webm' });
+          var dt = new DataTransfer();
+          dt.items.add(file);
+          voiceFileInput.files = dt.files;
+        };
+
+        mediaRecorder.start();
+        recordIcon.textContent = '⏹';
+        recordLabel.textContent = 'Stop recording';
+
+        timerInterval = setInterval(function() {
+          seconds++;
+          var pct = (seconds / MAX_SEC) * 100;
+          timerBar.style.width = pct + '%';
+          timerText.textContent = seconds + 's / 15s';
+          if (seconds >= MAX_SEC) {
+            stopRecording();
+          }
+        }, 1000);
+      }).catch(function() {
+        alert('Microphone access is required to record a voice note. Please allow access and try again.');
+      });
+    });
+  }
+
+  if (reRecordBtn) {
+    reRecordBtn.addEventListener('click', function() {
+      playbackArea.style.display = 'none';
+      audioPlayback.src = '';
+      voiceFileInput.value = '';
+      audioChunks = [];
+    });
+  }
+})();
+
+// ── Form validation ──────────────────────────────────────────
 document.getElementById('joinForm')?.addEventListener('submit', function(e) {
   const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
   const phoneRe = /^[0-9]{5,15}$/;

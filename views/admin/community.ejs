@@ -54,6 +54,15 @@
         <div class="detail-value" style="margin-top:4px;line-height:1.6;"><%= m.can_contribute %></div>
       </div>
       <% } %>
+      <% if (m.voice_note) { %>
+      <div style="margin-bottom:16px;">
+        <div class="detail-label" style="margin-bottom:8px;">Voice note</div>
+        <audio controls style="width:100%;max-width:320px;height:36px;border-radius:8px;">
+          <source src="<%= m.voice_note %>" type="audio/webm">
+          Your browser does not support audio playback.
+        </audio>
+      </div>
+      <% } %>
       <div style="border-top:1px solid #DFDFDF;padding-top:14px;display:flex;justify-content:flex-end;">
         <button class="table-link table-link--danger" onclick="if(confirm('Delete this member permanently?')) document.getElementById('del-<%= m.id %>').submit()">Delete</button>
         <form id="del-<%= m.id %>" action="/admin/community/<%= m.id %>/delete" method="POST" style="display:none"></form>

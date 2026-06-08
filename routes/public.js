@@ -17,6 +17,32 @@ function isValidDate(str) {
   return d instanceof Date && !isNaN(d.getTime());
 }
 
+// ─── Voice note storage ──────────────────────────────────────────────────────
+const voiceStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const dir = path.join(__dirname, '../uploads/voice');
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    cb(null, dir);
+  },
+  filename: (req, file, cb) => {
+    const unique = Date.now() + '-' + Math.round(Math.random() * 1e9);
+    cb(null, unique + '.webm');
+  }
+});
+
+const uploadVoice = multer({
+  storage: voiceStorage,
+  limits: { fileSize: 2 * 1024 * 1024 }, // 2MB max for 15 sec audio
+  fileFilter: (req, file, cb) => {
+    const allowed = ['audio/webm', 'audio/ogg', 'audio/mp4', 'audio/mpeg', 'audio/wav'];
+    if (allowed.includes(file.mimetype) || file.originalname.match(/\.(webm|ogg|mp4|mp3|wav)$/i)) {
+      cb(null, true);
+    } else {
+      cb(new Error('Invalid audio format.'));
+    }
+  }
+}).single('voice_note');
+
 // ─── Single multer instance for teacher application ───────────────────────────
 // Routes photo → uploads/photos/ and documents → uploads/documents/
 // One .fields() call handles both — no nested calls, no "Unexpected field" error
@@ -76,8 +102,15 @@ router.get('/', (req, res) => res.render('index'));
 
 router.get('/join', (req, res) => res.render('join', { success: false, error: null }));
 
-router.post('/join', express.urlencoded({ extended: true }), ah(async (req, res) => {
-  const { name, email, whatsapp, phone_code, country, age_group, why_join, can_contribute } = req.body;
+router.post('/join', (req, res, next) => {
+  uploadVoice(req, res, (err) => {
+    if (err && err.code !== 'LIMIT_UNEXPECTED_FILE') {
+      return res.render('join', { success: false, error: err.message });
+    }
+    next();
+  });
+}, ah(async (req, res) => {
+  const { name, email, whatsapp, country, age_group, why_join, can_contribute } = req.body;
   const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
   if (!name || name.trim().length < 2) return res.render('join', { success: false, error: 'Please enter your full name.' });
   if (!email || !emailRe.test(email.trim())) return res.render('join', { success: false, error: 'Please enter a valid email address.' });
@@ -86,6 +119,8 @@ router.post('/join', express.urlencoded({ extended: true }), ah(async (req, res)
   if (!age_group) return res.render('join', { success: false, error: 'Please select your age group.' });
   if (!why_join || why_join.trim().length < 3) return res.render('join', { success: false, error: 'Please tell us what you are looking for.' });
 
+  const voicePath = req.file ? '/admin/voice/' + req.file.filename : null;
+
   await supabase.from('community_members').insert({
     name: name.trim(),
     email: email.trim(),
@@ -93,7 +128,8 @@ router.post('/join', express.urlencoded({ extended: true }), ah(async (req, res)
     country: country.trim(),
     age_group,
     why_join: why_join.trim(),
-    can_contribute: can_contribute?.trim() || null
+    can_contribute: can_contribute?.trim() || null,
+    voice_note: voicePath
   });
 
   res.render('join', { success: true, error: null });

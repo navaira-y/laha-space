@@ -67,6 +67,15 @@ router.post('/login', async (req, res) => {
 
 router.get('/logout', (req, res) => { req.session.destroy(); res.redirect('/admin/login'); });
 
+// Protected voice note access
+router.get('/voice/:filename', requireAdmin, (req, res) => {
+  const filename = path.basename(req.params.filename);
+  const filePath = path.join(__dirname, '../uploads/voice', filename);
+  if (!fs.existsSync(filePath)) return res.status(404).send('File not found');
+  res.setHeader('Content-Type', 'audio/webm');
+  res.sendFile(filePath);
+});
+
 // Protected photo access - admins can see all photos including unpublished teachers
 router.get('/photos/:filename', requireAdmin, (req, res) => {
   const filename = path.basename(req.params.filename);
