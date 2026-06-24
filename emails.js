@@ -8,7 +8,7 @@ async function sendApplicationConfirmation(teacher) {
   await resend.emails.send({
     from: FROM,
     to: teacher.email,
-    subject: 'We have received your application — Laha Space',
+    subject: 'We have received your application - Laha Space',
     html: `
       <div style="font-family:'DM Sans',sans-serif;max-width:560px;margin:0 auto;padding:32px 24px;color:#1a2e2c;">
         <img src="https://lahaspace.com/images/logo-dark.png" alt="Laha Space" style="height:40px;margin-bottom:32px;" />
@@ -36,7 +36,7 @@ async function sendBookingConfirmationStudent({ studentName, studentEmail, teach
   await resend.emails.send({
     from: FROM,
     to: studentEmail,
-    subject: 'Your discovery session is booked — Laha Space',
+    subject: 'Your discovery session is booked - Laha Space',
     html: `
       <div style="font-family:'DM Sans',sans-serif;max-width:560px;margin:0 auto;padding:32px 24px;color:#1a2e2c;">
         <img src="https://lahaspace.com/images/logo-dark.png" alt="Laha Space" style="height:40px;margin-bottom:32px;" />
@@ -69,7 +69,7 @@ async function sendBookingNotificationTeacher({ teacherName, teacherEmail, stude
   await resend.emails.send({
     from: FROM,
     to: teacherEmail,
-    subject: 'New discovery session booked — Laha Space',
+    subject: 'New discovery session booked - Laha Space',
     html: `
       <div style="font-family:'DM Sans',sans-serif;max-width:560px;margin:0 auto;padding:32px 24px;color:#1a2e2c;">
         <img src="https://lahaspace.com/images/logo-dark.png" alt="Laha Space" style="height:40px;margin-bottom:32px;" />
@@ -103,7 +103,7 @@ async function sendCommunityApproval({ name, email, whatsappLink }) {
   await resend.emails.send({
     from: FROM,
     to: email,
-    subject: 'You are in — welcome to the Laha Space community',
+    subject: 'You are in - welcome to the Laha Space community',
     html: `
       <div style="font-family:'DM Sans',sans-serif;max-width:560px;margin:0 auto;padding:32px 24px;color:#1a2e2c;">
         <img src="https://lahaspace.com/images/logo-dark.png" alt="Laha Space" style="height:40px;margin-bottom:32px;" />
