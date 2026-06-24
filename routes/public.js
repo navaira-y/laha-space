@@ -295,16 +295,16 @@ router.post('/api/bookings', express.json({ limit: '10kb' }), ah(async (req, res
   });
 
   // Send confirmation to student and notification to teacher (non-blocking)
-  const { data: teacher } = await supabase.from('teachers').select('name, email, timezone').eq('id', teacher_id).single();
-  if (teacher) {
+  const { data: bookedTeacher } = await supabase.from('teachers').select('name, email, timezone').eq('id', teacher_id).single();
+  if (bookedTeacher) {
     sendBookingConfirmationStudent({
       studentName: student_name, studentEmail: student_email,
-      teacherName: teacher.name, slotDate: slot_date,
-      slotStart: slot_start, slotEnd: slot_end, teacherTimezone: teacher.timezone
+      teacherName: bookedTeacher.name, slotDate: slot_date,
+      slotStart: slot_start, slotEnd: slot_end, teacherTimezone: bookedTeacher.timezone
     }).catch(err => console.error('Email error:', err));
 
     sendBookingNotificationTeacher({
-      teacherName: teacher.name, teacherEmail: teacher.email,
+      teacherName: bookedTeacher.name, teacherEmail: bookedTeacher.email,
       studentName: student_name, studentEmail: student_email,
       studentPhone: student_phone, slotDate: slot_date,
       slotStart: slot_start, slotEnd: slot_end, lookingFor: looking_for
