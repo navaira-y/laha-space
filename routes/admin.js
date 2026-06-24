@@ -6,6 +6,7 @@ const fs = require('fs');
 const bcrypt = require('bcryptjs');
 const supabase = require('../database');
 const { requireAdmin } = require('../middleware/auth');
+const { sendCommunityApproval } = require('../emails');
 
 const STAGES = ['','Application Received','Initial Screening','Interview Scheduled','Interview Completed','Teaching Test','Training Program','Fully Vetted'];
 
@@ -311,6 +312,17 @@ router.post('/reviews/:id/delete', requireAdmin, async (req, res) => {
 router.get('/community', requireAdmin, async (req, res) => {
   const { data: members } = await supabase.from('community_members').select('*').order('created_at', { ascending: false });
   res.render('admin/community', { members: members || [] });
+});
+
+router.post('/community/:id/approve', requireAdmin, async (req, res) => {
+  const { data: member } = await supabase.from('community_members').select('*').eq('id', req.params.id).single();
+  if (member) {
+    const whatsappLink = process.env.WHATSAPP_COMMUNITY_LINK || '#';
+    sendCommunityApproval({ name: member.name, email: member.email, whatsappLink })
+      .catch(err => console.error('Email error:', err));
+    await supabase.from('community_members').update({ approved: true }).eq('id', req.params.id);
+  }
+  res.redirect('/admin/community');
 });
 
 router.post('/community/:id/delete', requireAdmin, async (req, res) => {

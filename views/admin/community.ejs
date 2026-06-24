@@ -63,7 +63,14 @@
         </audio>
       </div>
       <% } %>
-      <div style="border-top:1px solid #DFDFDF;padding-top:14px;display:flex;justify-content:flex-end;">
+      <div style="border-top:1px solid #DFDFDF;padding-top:14px;display:flex;justify-content:space-between;align-items:center;">
+        <% if (!m.approved) { %>
+        <form action="/admin/community/<%= m.id %>/approve" method="POST" style="display:inline">
+          <button type="submit" class="btn btn--primary btn--sm" onclick="return confirm('Send WhatsApp link to ' + '<%= m.name %>' + '?')">Send WhatsApp invite</button>
+        </form>
+        <% } else { %>
+        <span style="font-size:13px;color:#2E847B;font-weight:500;">✓ Invited</span>
+        <% } %>
         <button class="table-link table-link--danger" onclick="if(confirm('Delete this member permanently?')) document.getElementById('del-<%= m.id %>').submit()">Delete</button>
         <form id="del-<%= m.id %>" action="/admin/community/<%= m.id %>/delete" method="POST" style="display:none"></form>
       </div>

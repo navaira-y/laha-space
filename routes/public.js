@@ -4,6 +4,7 @@ const multer  = require('multer');
 const path    = require('path');
 const fs      = require('fs');
 const supabase = require('../database');
+const { sendApplicationConfirmation, sendBookingConfirmationStudent, sendBookingNotificationTeacher } = require('../emails');
 
 // ─── asyncHandler ─────────────────────────────────────────────────────────────
 const ah = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
@@ -178,6 +179,9 @@ router.post('/apply', (req, res, next) => {
     await supabase.from('applicant_documents').insert(docs);
   }
 
+  // Send confirmation email to teacher (non-blocking)
+  sendApplicationConfirmation({ name, email }).catch(err => console.error('Email error:', err));
+
   res.render('apply', { success: true, error: null });
 }));
 
@@ -289,6 +293,24 @@ router.post('/api/bookings', express.json({ limit: '10kb' }), ah(async (req, res
     slot_date, slot_start_time: slot_start, slot_end_time: slot_end,
     looking_for: looking_for || null, status: 'pending'
   });
+
+  // Send confirmation to student and notification to teacher (non-blocking)
+  const { data: teacher } = await supabase.from('teachers').select('name, email, timezone').eq('id', teacher_id).single();
+  if (teacher) {
+    sendBookingConfirmationStudent({
+      studentName: student_name, studentEmail: student_email,
+      teacherName: teacher.name, slotDate: slot_date,
+      slotStart: slot_start, slotEnd: slot_end, teacherTimezone: teacher.timezone
+    }).catch(err => console.error('Email error:', err));
+
+    sendBookingNotificationTeacher({
+      teacherName: teacher.name, teacherEmail: teacher.email,
+      studentName: student_name, studentEmail: student_email,
+      studentPhone: student_phone, slotDate: slot_date,
+      slotStart: slot_start, slotEnd: slot_end, lookingFor: looking_for
+    }).catch(err => console.error('Email error:', err));
+  }
+
   res.json({ success: true });
 }));
 
